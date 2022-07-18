@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -16,9 +17,10 @@ export class LoginComponent implements OnInit {
   })
   
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private user: User) { }
 
   ngOnInit(): void {
+    
   }
   
   onSubmit(): void {
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
       },
       (err) => console.log(err),
       () => this.router.navigate(['home'])
+      
     );
   }
 
