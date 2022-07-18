@@ -1,59 +1,101 @@
 <app-navbar></app-navbar>
-<table class="table table-striped" id="cart-table">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Description</th>
-      </tr>
-    </thead>
-    <tbody id="cart-table-body">
-        <tr *ngFor="let product of products;">
-            <td>{{product.product.id}}</td>
-            <td>{{product.product.name}}</td>
-            <td>{{product.quantity}}</td>
-            <td>{{product.product.description}}</td>
-        </tr>
-    </tbody>
-</table>
-<form id="checkout-form" [formGroup]="checkoutForm">
-    <h3>Payment Details</h3>
-    <div class="form-group">
-        <label for="inputCardName">Name on Card</label>
-        <input type="text" class="form-control" formControlName="cardName" id="inputCardName" placeholder="Enter Name on Card">
+
+<div class="container mt-5 px-5">
+
+    <div class="mb-4">
+
+        <h2>Confirm order and pay</h2>
+    <span>please make the payment, after that you can enjoy all the features and benefits.</span>
+        
     </div>
-    <div class="form-group">
-        <label for="inputDetail">Card Number</label>
-        <input type="text" class="form-control" formControlName="detail" id="inputDetail" placeholder="Enter Name on Card">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card p-3">
+
+                <h6 class="text-uppercase">Payment details</h6>
+                <div class="inputbox mt-3"> <input type="text" name="name" class="form-control" required="required"> <span>Name on card</span> </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <i class="fa fa-credit-card"></i> <span>Card Number</span> 
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex flex-row">
+                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Expiry</span> </div>
+
+                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>CVV</span> </div>
+                        </div>                        
+                    </div>                   
+                </div>
+
+                <div class="mt-4 mb-4">
+
+                    <h6 class="text-uppercase">Billing Address</h6>
+                    <div class="row mt-3">
+
+                        <div class="col-md-6">
+
+                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Street Address</span> </div>
+                            
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>City</span> </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+
+                        <div class="col-md-6">
+
+                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>State/Province</span> </div>        
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Zip code</span> </div>              
+
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 mb-4 d-flex justify-content-between">
+
+                <button class="btn btn-danger" [routerLink]="['/cart']">Back to Cart</button>
+
+                <button class="btn btn-success px-3" (click)="onSubmit();">Pay ${{totalPrice}}</button>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card card-blue p-3 text-white mb-3">
+
+            <span>You have to pay</span>
+                <div class="d-flex flex-row align-items-end mb-3">
+                    <h1 class="mb-0 yellow">${{totalPrice}}</h1>
+                </div>
+
+                <div class="hightlight">
+
+                    <span>100% Guaranteed Satisfaction!</span>
+                    
+
+                </div>
+                
+            </div>
+            
+        </div>
+        
     </div>
-    <h3>Billing Address</h3>
-    <div class="form-group">
-        <label for="inputFirstName">First Name</label>
-        <input type="text" class="form-control" formControlName="fname" id="inputFirstName" placeholder="Enter First Name">
-        <label for="inputLastName">Last Name</label>
-        <input type="text" class="form-control" formControlName="lname" id="inputLastName" placeholder="Enter Last Name">
-    </div>
-    <div class="form-group">
-        <label for="inputAddressOne">Address 1</label>
-        <textarea class="form-control" formControlName="addOne" id="inputAddressOne" placeholder="Enter Primary Address"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="inputAddressTwo">Address 2</label>
-        <textarea class="form-control" formControlName="addTwo" id="inputAddressTwo" placeholder="Enter Secondary Address"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="inputCity">City</label>
-        <input type="text" class="form-control" formControlName="city" id="inputCity" placeholder="Enter City">
-        <label for="inputState">State</label>
-        <input type="text" class="form-control" formControlName="state" id="inputState" placeholder="Enter State">
-    </div>
-    <div class="form-group">
-        <label for="inputZipCode">Zip Code</label>
-        <input type="text" class="form-control" formControlName="zipCode" id="inputZipCode" placeholder="Enter Zipcode">
-        <label for="inputCountry">Country</label>
-        <input type="text" class="form-control" formControlName="country" id="inputCountry" placeholder="Enter Country">
-    </div>
-    <button class="btn btn-danger" [routerLink]="['/home']">Continue Shopping</button>
-    <button class="btn btn-primary" (click)="onSubmit()">Checkout (${{totalPrice}})</button>
-</form>
+</div>
