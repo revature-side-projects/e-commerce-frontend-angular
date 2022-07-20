@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "347abd6a-e03e-4404-b489-c8100dee678f"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -94,13 +97,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           }
         }
       }
     }
-  },
-  "defaultProject": "e-commerce"
+  }
 }
