@@ -17,7 +17,7 @@ export class CheckoutComponent implements OnInit {
   }[] = [];
   totalPrice!: number;
   cartProducts: Product[] = [];
-  finalProducts: {id: number, quantity: number}[] = []; 
+  finalProducts: {id: number, quantity: number}[] = [];
 
   checkoutForm = new UntypedFormGroup({
     fname: new UntypedFormControl('', Validators.required),
@@ -51,8 +51,8 @@ export class CheckoutComponent implements OnInit {
       (element) => {
         const id = element.product.id;
         const quantity = element.quantity
-        this.finalProducts.push({id, quantity})
-      } 
+        //this.finalProducts.push({id, quantity})
+      }
     );
 
     if(this.finalProducts.length > 0) {
@@ -67,7 +67,7 @@ export class CheckoutComponent implements OnInit {
           };
           this.productService.setCart(cart);
           this.router.navigate(['/home']);
-        } 
+        }
       );
 
     } else {
