@@ -6,14 +6,17 @@
         <th scope="col">Name</th>
         <th scope="col">Quantity</th>
         <th scope="col">Description</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody id="cart-table-body">
         <tr *ngFor="let product of products;">
+            <!--Maybe like an ng container and an ngIf for a boolean in the ts component-->
             <td>{{product.product.id}}</td>
             <td>{{product.product.name}}</td>
             <td>{{product.quantity}}</td>
             <td>{{product.product.description}}</td>
+            <button class="btn btn-danger" id="delete-button">X</button>
         </tr>
     </tbody>
 </table>
