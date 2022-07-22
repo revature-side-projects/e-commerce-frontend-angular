@@ -12,11 +12,14 @@
     <tbody id="cart-table-body">
         <tr *ngFor="let product of products;">
             <!--Maybe like an ng container and an ngIf for a boolean in the ts component-->
-            <td>{{product.product.id}}</td>
-            <td>{{product.product.name}}</td>
-            <td>{{product.quantity}}</td>
-            <td>{{product.product.description}}</td>
-            <button class="btn btn-danger" id="delete-button">X</button>
+            <ng-container *ngIf="product.quantity > 0">
+              <td>{{product.product.id}}</td>
+              <td>{{product.product.name}}</td>
+              <td>{{product.quantity}}</td>
+              <td>{{product.product.description}}</td>
+              <!--When this button is clicked change the boolean for that row-->
+              <button class="btn btn-danger" id="delete-button" (click)="quantityToZero(product)">X</button>
+            </ng-container>
         </tr>
     </tbody>
 </table>

@@ -31,6 +31,10 @@ export class CartComponent implements OnInit {
     );
   }
 
+  quantityToZero(product: any){
+    product.quantity=0;
+  }
+
   emptyCart(): void {
     let cart = {
       cartCount: 0,
