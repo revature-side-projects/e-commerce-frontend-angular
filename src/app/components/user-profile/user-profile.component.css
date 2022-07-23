@@ -1,0 +1,9 @@
+.content {
+    background-color:rgb(237, 238, 239);
+    outline: auto;
+    outline-color: grey;
+}
+
+.list-group:hover {
+    cursor: pointer;
+}
