@@ -2,7 +2,6 @@ import { Address } from './../models/address';
 import { Injectable } from '@angular/core';
 import { throwError, Observable} from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/user';
 
