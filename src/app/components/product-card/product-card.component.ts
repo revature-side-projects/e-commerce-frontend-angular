@@ -1,7 +1,11 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-product-card',
@@ -10,6 +14,8 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductCardComponent implements OnInit{
 
+  role = this.authService.userRole;
+  wantToUpdate : boolean = false;
   cartCount!: number;
   products: {
     product: Product,
@@ -20,7 +26,7 @@ export class ProductCardComponent implements OnInit{
 
   @Input() productInfo!: Product;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,  private router: Router, private authService: AuthService) { }
   
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
@@ -72,4 +78,62 @@ export class ProductCardComponent implements OnInit{
     this.subscription.unsubscribe();
   }
 
+   
+  wantsToUpdate(product : Product){
+    this.wantToUpdate = !this.wantToUpdate;
+  }
+
+  updateProductForm = new FormGroup({
+    pname: new FormControl(''),
+    pquantity: new FormControl(''),
+    pdescription: new FormControl(''),
+    pprice: new FormControl(''),
+    pimage: new FormControl('')
+  })
+
+  onSubmitUpdate(product : Product){
+    let name : string = '';
+    let quantity : number = 0;
+    let description : string = '';
+    let price : number = 0;
+    let image : string = '';
+
+    if(this.updateProductForm.get('pname')?.value===''){
+      name=product.name
+    }else{
+      name=this.updateProductForm.get('pname')?.value
+    }
+
+    if(this.updateProductForm.get('pquantity')?.value===''){
+      quantity=product.quantity
+    }else{
+      quantity=this.updateProductForm.get('pquantity')?.value
+    }
+
+    if(this.updateProductForm.get('pdescription')?.value===''){
+      description=product.description
+    }else{
+      description=this.updateProductForm.get('pdescription')?.value
+    }
+
+    if(this.updateProductForm.get('pprice')?.value===''){
+      price=product.price
+    }else{
+      price=this.updateProductForm.get('pprice')?.value
+    }
+
+    if(this.updateProductForm.get('pimage')?.value===''){
+      image=product.image
+    }else{
+      image=this.updateProductForm.get('pimage')?.value
+    }
+
+   this.productService.updateProduct(product.id, name, quantity, description,price,image).subscribe(      
+            () => {
+            this.wantToUpdate=false;
+          },
+          (err) => console.log(err),
+          () => this.router.navigate(['home']));
+
+  }
 }
