@@ -1,1 +1,10 @@
 <p>create-product works!</p>
+
+<input id="imageInput" type="file" (change)="selectFile($event)">
+<br>
+<input type="text" name="image" [(ngModel)]="fileName" placeholder="File name">
+<button class="btn btn-primary" (click)="upload()">Upload</button>
+<br> <br>
+<input type="text" name="image" [(ngModel)]="file" placeholder="File to view">
+<button class="btn btn-primary"(click)="viewImage()">View File</button>
+<!--<button class="btn btn-primary" (click)="deleteFile()">Delet File</button>-->
