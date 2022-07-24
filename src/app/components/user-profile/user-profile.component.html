@@ -8,11 +8,11 @@
         <!-- <a href="#" class="list-group-item list-group-item-action active">
               Cras justo odio
             </a> -->
-        <a (click)="changeContent('info')" name="button" id="info"
+        <a (click)="changeContent('info')" id="info"
           class="list-group-item list-group-item-action active">User Information</a>
-        <a (click)="changeContent('purchases')" name="button" id="purchases"
+        <a (click)="changeContent('purchases')" id="purchases"
           class="list-group-item list-group-item-action">Purchase History</a>
-        <a (click)="changeContent('reviews')" name="button" id="reviews"
+        <a (click)="changeContent('reviews')" id="reviews"
           class="list-group-item list-group-item-action">Reviews</a>
       </div>
     </div>
@@ -151,7 +151,7 @@
           <br>
 
         </div>
-        
+
         <div *ngIf="contentSelected == 'reviews'">
 
           <div class="text-left p-2 title mb-4">Review History</div>
