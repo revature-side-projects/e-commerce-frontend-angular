@@ -1,3 +1,5 @@
+import { Address } from './../../models/address';
+import { User } from './../../models/user';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  name: string = "Hector";
+  addresses: Address[] = [];
+
+  modalVisibility: string = "";
+
+  curUser: User = new User(1, "", "", "", "", "", this.addresses);
 
   contentSelected: string = "info";
 
@@ -18,11 +24,34 @@ export class UserProfileComponent implements OnInit {
     this.getTestUser();
   }
 
+  openPopup() {
+
+    this.modalVisibility = "block";
+
+  }
+
+  closePopup() {
+
+    this.modalVisibility = "none"
+
+  }
+
+  updateInfo() {
+
+    this.closePopup();
+    // this.userv.updateUser(this.curUser).subscribe(
+    //   data => {
+    //     this.curUser = data;
+    //   },
+    //   (err) => console.log(err)
+    //   )
+  }
+
   getTestUser() {
 
     this.userv.findUserById(1).subscribe(
       data => {
-      this.name = data.firstName;
+      this.curUser = data;
     },
     (err) => console.log(err)
     )
