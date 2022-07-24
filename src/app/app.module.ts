@@ -1,3 +1,4 @@
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -22,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProductCardComponent,
     CartComponent,
     CheckoutComponent,
-    DisplayProductsComponent
+    DisplayProductsComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
