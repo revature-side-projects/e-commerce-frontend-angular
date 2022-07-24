@@ -1,27 +1,175 @@
 <!-- Intro message for the currently logged in user -->
-<h3>Welcome, {{ name }}!</h3>
+<h3>Welcome, {{ curUser.firstName }}!</h3>
 
-<div class="container text-center">
-    <div class="row">
-      <div class="col-2">
-        <div class="list-group">
-            <!-- <a href="#" class="list-group-item list-group-item-action active">
+<div class="container-fluid text-center">
+  <div class="row">
+    <div class="col-2">
+      <div class="list-group">
+        <!-- <a href="#" class="list-group-item list-group-item-action active">
               Cras justo odio
             </a> -->
-            <a (click)="changeContent('info')" class="list-group-item list-group-item-action">User Information</a>
-            <a (click)="changeContent('purchases')" class="list-group-item list-group-item-action">Purchase History</a>
-            <a (click)="changeContent('reviews')" class="list-group-item list-group-item-action">Reviews</a>
-          </div>
+        <a (click)="changeContent('info')" name="button" id="info"
+          class="list-group-item list-group-item-action active">User Information</a>
+        <a (click)="changeContent('purchases')" name="button" id="purchases"
+          class="list-group-item list-group-item-action">Purchase History</a>
+        <a (click)="changeContent('reviews')" name="button" id="reviews"
+          class="list-group-item list-group-item-action">Reviews</a>
       </div>
-      <div class="col-10">
-        <div class="content">
+    </div>
 
-            <div *ngIf="contentSelected == 'info'" >User profile</div>
-            <div *ngIf="contentSelected == 'purchases'" >Purchase History</div>
-            <div *ngIf="contentSelected == 'reviews'" >Reviews</div>
-            
+    <div class="col-10">
+      <div class="content-bg">
+
+        <div *ngIf="contentSelected == 'info'">
+
+          <div class="text-left p-2 title mb-4">User Profile</div>
+
+          <div class="container text-center p-4 content shadow-lg bg-white rounded">
+
+            <div class="row justify-content-md-center">
+
+              <div class="col col-lg-2 info-field">First Name</div>
+              <div class="col col-lg-2">{{ curUser.firstName }}</div>
+            </div>
+
+            <div class="row justify-content-md-center">
+
+              <div class="col col-lg-2 info-field">Last Name</div>
+              <div class="col col-lg-2">{{ curUser.lastName }}</div>
+            </div>
+
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-2 info-field">Email</div>
+              <div class="col col-lg-2">{{ curUser.email}}</div>
+            </div>
+
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-2 info-field">Mailing Address</div>
+              <div class="col col-lg-2">1200 Main Street Los Angeles, CA 12345</div>
+            </div>
+
+
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-2">
+                <button (click)="openPopup()" class="btn btn-primary">Update Information</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': modalVisibility}">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Update Your Information below</h4>
+                  <button (click)="closePopup()" type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="form-group mt-2">
+                    <label for="first-name">First Name</label>
+                    <input [(ngModel)]="curUser.firstName" name="first-name" type="text" class="form-control"
+                      id="first-name" placeholder="First Name">
+                  </div>
+
+                  <div class="form-group mt-2">
+                    <label for="last-name">Last Name</label>
+                    <input [(ngModel)]="curUser.lastName" name="last-name" type="text" class="form-control"
+                      id="last-name" placeholder="Last Name">
+                  </div>
+
+                  <div class="form-group mt-2">
+                    <label for="email">Email</label>
+                    <input [(ngModel)]="curUser.email" name="email" type="email" class="form-control" id="email"
+                      placeholder="email">
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+
+                  <button [disabled]="curUser.firstName.length < 3" type="button"
+                    class="btn btn-primary btn-block fa-lg gradient-custom-2" (click)="updateInfo()">Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+
+
+        <div *ngIf="contentSelected == 'purchases'">
+
+          <div class="text-left p-2 title mb-4">Purchase History</div>
+
+          <div class="container text-center p-4 content shadow-lg bg-white rounded">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="row purchase-info">
+
+                  <div class="col-2">Order Date</div>
+                  <div class="col-3">Total</div>
+                  <div class="col-7">Order #</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-2">December 5th, 2020</div>
+                  <div class="col-3">$14.23</div>
+                  <div class="col-7">60045123</div>
+                </div>
+              </div>
+
+              <div>Image</div>
+
+              <div>Title</div>
+
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="row purchase-info">
+
+                  <div class="col-2">Order Date</div>
+                  <div class="col-3">Total</div>
+                  <div class="col-7">Order #</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-2">December 5th, 2020</div>
+                  <div class="col-3">$14.23</div>
+                  <div class="col-7">60045123</div>
+                </div>
+              </div>
+
+              <div>Image</div>
+
+              <div>Title</div>
+
+            </div>
+
+          </div>
+
+          <br>
 
         </div>
+        
+        <div *ngIf="contentSelected == 'reviews'">
+
+          <div class="text-left p-2 title mb-4">Review History</div>
+
+          <div class="container text-center p-4 content shadow-lg bg-white rounded">
+
+            <div class="card text-left">
+              <h3>Review Title</h3>
+              <div>★★★★☆</div>
+              <div>Review Date</div>
+              <div>Review Summary</div>
+            </div>
+          </div>
+
+          <br>
+
+        </div>
+
       </div>
     </div>
   </div>

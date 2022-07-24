@@ -2,7 +2,6 @@ import { Address } from './../models/address';
 import { Injectable } from '@angular/core';
 import { throwError, Observable} from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/user';
 
@@ -66,15 +65,15 @@ export class UserService {
   //    .pipe(catchError(this.handleError));
   // }
 
-  getMyAddresses(id: number): Observable<Address[]>{
-    return this.http.get<Address[]>(`${this.userUrl}/${id}/myAddresses`, this.httpOptions)
-     .pipe(catchError(this.handleError));
-  }
+  // getMyAddresses(id: number): Observable<Address[]>{
+  //   return this.http.get<Address[]>(`${this.userUrl}/${id}/myAddresses`, this.httpOptions)
+  //    .pipe(catchError(this.handleError));
+  // }
 
-  deleteFromMyAddressesById(id: number): Observable<any>{
-    return this.http.delete<Address>(`${this.userUrl}/${id}`, this.httpOptions)
-     .pipe(catchError(this.handleError));
-  }
+  // deleteFromMyAddressesById(id: number): Observable<any>{
+  //   return this.http.delete<Address>(`${this.userUrl}/${id}`, this.httpOptions)
+  //    .pipe(catchError(this.handleError));
+  // }
 
   private handleError(httpError: HttpErrorResponse){
     
