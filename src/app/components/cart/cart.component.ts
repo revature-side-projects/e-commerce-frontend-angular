@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class CartComponent implements OnInit {
 
+  cartCount!: number;
   products: {
     product: Product,
     quantity: number
@@ -22,6 +23,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getCart().subscribe(
       (cart) => {
+        this.cartCount = cart.cartCount;
         this.products = cart.products;
         this.products.forEach(
           (element) => this.cartProducts.push(element.product)
@@ -29,6 +31,18 @@ export class CartComponent implements OnInit {
         this.totalPrice = cart.totalPrice;
       }
     );
+  }
+
+  removeFromCart(product: any){
+    product.quantity=0;
+    this.totalPrice = this.totalPrice - product.product.price;
+    //then, update the actual cart a la product-card
+    let cart = {
+      cartCount: this.cartCount - 1,
+      products: this.products.filter(data => data.quantity > 0),
+      totalPrice: this.totalPrice
+    }
+    this.productService.setCart(cart);
   }
 
   emptyCart(): void {
