@@ -20,7 +20,7 @@
         <button class="btn btn-outline-success" (click)="addToCart(productInfo)">Add to Cart</button>
     </div>
     <div *ngIf="role=='ADMIN'">
-      <button class="btn btn-outline-danger" (click)="wantsToUpdate(productInfo)">Update Item Info</button> <!--ngif user role = admin-->
+      <button class="btn btn-outline-danger" (click)="wantsToUpdate()">Update Item Info</button> <!--ngif user role = admin-->
     </div>
     <div class="update-product" *ngIf="wantToUpdate">
       <form id="update-product-form" [formGroup]="updateProductForm">

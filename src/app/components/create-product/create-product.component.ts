@@ -2,7 +2,6 @@ import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Product } from 'src/app/models/product';
 
 
 @Component({

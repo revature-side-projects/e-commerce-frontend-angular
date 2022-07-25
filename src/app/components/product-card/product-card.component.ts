@@ -79,7 +79,7 @@ export class ProductCardComponent implements OnInit{
   }
 
    
-  wantsToUpdate(product : Product){
+  wantsToUpdate(){
     this.wantToUpdate = !this.wantToUpdate;
   }
 
