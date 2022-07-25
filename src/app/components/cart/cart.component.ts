@@ -34,11 +34,13 @@ export class CartComponent implements OnInit {
   }
 
   removeFromCart(product: any){
-    product.quantity=0;
-    this.totalPrice = this.totalPrice - product.product.price;
+    this.cartCount -= product.quantity;
+    this.totalPrice -= (product.product.price * product.quantity);
+
+    product.quantity = 0;
     //then, update the actual cart a la product-card
     let cart = {
-      cartCount: this.cartCount - 1,
+      cartCount: this.cartCount,
       products: this.products.filter(data => data.quantity > 0),
       totalPrice: this.totalPrice
     }
