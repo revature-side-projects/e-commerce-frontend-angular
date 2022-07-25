@@ -1,3 +1,5 @@
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CartComponent } from './components/cart/cart.component';
@@ -12,7 +14,9 @@ const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "home", component: DisplayProductsComponent },
   { path: "cart", component: CartComponent },
-  { path: "checkout", component: CheckoutComponent }
+  { path: "checkout", component: CheckoutComponent },
+  { path: "product-details", component: ProductDetailsComponent},
+  { path: "profile", component: UserProfileComponent }
 ];
 
 @NgModule({
