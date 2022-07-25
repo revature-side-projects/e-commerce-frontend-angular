@@ -1,18 +1,29 @@
-#register-form
-{
+#register-form {
     padding-top: 3%;
     padding-left: 1%;
     justify-content: center;
     width: 40%;
 }
 
-.btn
-{
+.btn {
     margin-right: 2%;
 }
 
-img 
-{
+img {
     padding-left: 2%;
     padding-top: 2%;
+}
+
+.error {
+    color: red;
+    font-size: 20px;
+}
+
+.success {
+    color: green;
+    font-size: 20px;
+}
+
+input.ng.invalid {
+    border: red 1px solid;
 }

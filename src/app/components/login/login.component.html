@@ -1,5 +1,26 @@
 <img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
-<form id="login-form" [formGroup]="loginForm">
+
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <label *ngIf="loginForm.get('email')?.invalid" [ngClass]="'error'"> Ensure you enter the correct email </label>
+
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+        <label *ngIf="loginForm.get('password')?.invalid" [ngClass]="'error'"> Enter the password </label>
+    </div>
+    <button class="btn btn-primary" (click)="onSubmit()">Login</button>
+    <button class="btn btn-primary" [routerLink]="['/register']">Register</button>
+</form>
+
+
+
+
+<!-- <form id="login-form" [formGroup]="loginForm">
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
       <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -11,4 +32,4 @@
     </div>
     <button class="btn btn-primary" (click)="onSubmit()">Login</button>
     <button class="btn btn-primary" [routerLink]="['/register']">Register</button>
-</form>
+</form> -->
