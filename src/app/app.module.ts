@@ -13,6 +13,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { DisplayProductsComponent } from './components/display-products/display-products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReviewComponent } from './components/review/review.component';
+import { ReviewSubmitComponent } from './components/review-submit/review-submit.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CartComponent,
     CheckoutComponent,
     DisplayProductsComponent,
+    ReviewComponent,
+    ReviewSubmitComponent,
+    ProductDetailsComponent,
     UserProfileComponent
   ],
   imports: [
