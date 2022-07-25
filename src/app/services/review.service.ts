@@ -10,10 +10,6 @@ export class ReviewService {
 
   reviewsUrl: string = `${environment.baseUrl}/api/review`;
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
-
   constructor(private http: HttpClient) { }
 
   // Get a list of all reviews for all products
@@ -42,10 +38,10 @@ export class ReviewService {
     }
 
     const userReview = { productId: productId, stars: stars, title: title, review: review }
-    return this.http.post(`${this.reviewsUrl}`, userReview, this.httpOptions);
+    return this.http.post(`${this.reviewsUrl}`, userReview, { headers: environment.headers, withCredentials: environment.withCredentials });
   }
 
   deleteReviewById(id: number) {
-    return this.http.delete(`${this.reviewsUrl}/${id}`, this.httpOptions);
+    return this.http.delete(`${this.reviewsUrl}/${id}`, { headers: environment.headers, withCredentials: environment.withCredentials });
   }
 }
