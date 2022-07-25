@@ -35,6 +35,11 @@
   </div>
   <div class="col-md-3">
     <div class="well"><p class="font-weight-bold">Product Reviews</p></div>
+    <div>
+      <app-review *ngFor="let review of reviews"
+        [reviewObj]="review"
+      ></app-review>
+    </div>
   </div>
   <div class="col-md-3">
     <div class="well"></div>

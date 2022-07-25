@@ -1,3 +1,4 @@
+import { ReviewService } from './../../services/review.service';
 import {ProductService} from './../../services/product.service';
 import {Subscription} from 'rxjs';
 import {Component, Input, OnInit} from '@angular/core';
@@ -17,6 +18,7 @@ export class ProductDetailsComponent implements OnInit {
     product: Product,
     quantity: number
   }[] = [];
+  reviews: any = [];
   subscription!: Subscription;
   totalPrice: number = 0;
 
@@ -24,7 +26,10 @@ export class ProductDetailsComponent implements OnInit {
 
 
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private reviewService: ReviewService
+  ) { }
 
 
 
@@ -33,13 +38,17 @@ ngOnInit(): void {
       response => this.productDetail = response,
       err => {console.log(err)});
 
-  this.subscription = this.productService.getCart().subscribe(
-    (cart) => {
-      this.cartCount = cart.cartCount;
-      this.products = cart.products;
-      this.totalPrice = cart.totalPrice;
-    }
-  );
+    this.subscription = this.productService.getCart().subscribe(
+      (cart) => {
+        this.cartCount = cart.cartCount;
+        this.products = cart.products;
+        this.totalPrice = cart.totalPrice;
+      }
+    );
+
+    this.reviewService.getProductReviews(this.productId).subscribe(
+      (response) => { this.reviews = response }
+    )
   }
 
   addToCart(product: Product): void {
