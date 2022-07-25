@@ -1,4 +1,10 @@
-<button *ngIf="authService.loggedIn">Write a Review!</button>
+<button *ngIf="authService.loggedIn"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#reviewModal"
+>
+    Write a Review!
+</button>
 
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -11,7 +17,7 @@
             <form (ngSubmit)="submitReview()">
                 <div class="modal-body">
                     <label for="stars">Rating</label>
-                    <input [(ngModel)]="review.stars" class="form-control" type="number" name="rating" min="1" max="5">
+                    <input [(ngModel)]="stars" class="form-control" type="number" name="rating" min="1" max="5">
                     <label for="content">Review</label>
                     <textarea [(ngModel)]="review" name="content" class="form-control" required>{{review}}</textarea>
                 </div>

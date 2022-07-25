@@ -1,3 +1,4 @@
+import { ReviewSubmitComponent } from './components/review-submit/review-submit.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: "cart", component: CartComponent },
   { path: "checkout", component: CheckoutComponent },
   { path: "product-details", component: ProductDetailsComponent},
+  { path: "review-submit", component: ReviewSubmitComponent},
   { path: "profile", component: UserProfileComponent }
 ];
 
