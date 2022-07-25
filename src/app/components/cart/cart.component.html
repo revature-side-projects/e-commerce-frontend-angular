@@ -17,7 +17,7 @@
               <td>{{product.product.id}}</td>
               <td>{{product.product.name}}</td>
               <td>{{product.quantity}}</td>
-              <td>${{product.product.price * product.quantity}} <i>(${{product.product.price}} per item)</i></td>
+              <td>${{product.product.price * product.quantity}} <em>(${{product.product.price}} per item)</em></td>
               <td>{{product.product.description}}</td>
               <!--When this button is clicked change the boolean for that row-->
               <button class="btn btn-danger" id="delete-button" (click)="removeFromCart(product)">X</button>
