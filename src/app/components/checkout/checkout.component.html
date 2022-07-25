@@ -11,60 +11,90 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card p-3">
+                <form [formGroup]="checkoutForm">
 
-                <h6 class="text-uppercase">Payment details</h6>
-                <div class="inputbox mt-3"> <input type="text" name="name" class="form-control" required="required"> <span>Name on card</span> </div>
-
-                <div class="row">
-
-                    <div class="col-md-6">
-
-                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <i class="fa fa-credit-card"></i> <span>Card Number</span> 
-                        </div>
-
+                    <h6 class="text-uppercase">Payment details</h6>
+                    <div class="inputbox mt-3"> 
+                        <input 
+                            formControlName="cardName" 
+                            type="text" 
+                            name="name" 
+                            class="form-control" 
+                            [ngClass]="{'invalid': checkoutForm.get('cardName')!.invalid && checkoutForm.get('cardName')!.touched}"
+                            required="required"> 
+                        <span *ngIf="checkoutForm.get('cardName')!.invalid && checkoutForm.get('cardName')!.touched" class="text-danger">Name on card</span> 
+                        <span *ngIf="!checkoutForm.get('cardName')!.invalid || !checkoutForm.get('cardName')!.touched">Name on card</span> 
                     </div>
-                    <div class="col-md-6">
-                        <div class="d-flex flex-row">
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Expiry</span> </div>
-
-                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>CVV</span> </div>
-                        </div>                        
-                    </div>                   
-                </div>
-
-                <div class="mt-4 mb-4">
-
-                    <h6 class="text-uppercase">Billing Address</h6>
-                    <div class="row mt-3">
-
+                    <div class="row">
+    
                         <div class="col-md-6">
-
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Street Address</span> </div>
-                            
+                            <div  class="inputbox mt-3 mr-2" > 
+                                <input 
+                                    formControlName="cardNumber" 
+                                    type="text" 
+                                    name="name" 
+                                    class="form-control" 
+                                    [ngClass]="{'invalid': checkoutForm.get('cardNumber')!.invalid && checkoutForm.get('cardNumber')!.touched}"
+                                    required="required"> 
+                                <i class="fa fa-credit-card"></i> 
+                                <span 
+                                    *ngIf="
+                                        checkoutForm.get('cardNumber')!.invalid && 
+                                        checkoutForm.get('cardNumber')!.touched" 
+                                    class="text-danger">
+                                    Card Number
+                                </span>
+                                <span *ngIf="
+                                    !checkoutForm.get('cardNumber')!.invalid || 
+                                    !checkoutForm.get('cardNumber')!.touched">
+                                Card Number
+                                </span> 
+                            </div>
+    
                         </div>
-
-
                         <div class="col-md-6">
-
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>City</span> </div>
-                            
+                            <div class="d-flex flex-row">
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Expiry</span> </div>
+    
+                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>CVV</span> </div>
+                            </div>                        
+                        </div>                   
+                    </div>
+    
+                    <div class="mt-4 mb-4">
+    
+                        <h6 class="text-uppercase">Billing Address</h6>
+                        <div class="row mt-3">
+    
+                            <div class="col-md-6">
+    
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Street Address</span> </div>
+                                
+                            </div>
+    
+    
+                            <div class="col-md-6">
+    
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>City</span> </div>
+                                
+                            </div>
+                        </div>
+    
+                        <div class="row mt-2">
+    
+                            <div class="col-md-6">
+    
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>State/Province</span> </div>        
+    
+                            </div>
+                            <div class="col-md-6">
+    
+                                <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Zip code</span> </div>              
+    
+                            </div>                      
                         </div>
                     </div>
-
-                    <div class="row mt-2">
-
-                        <div class="col-md-6">
-
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>State/Province</span> </div>        
-
-                        </div>
-                        <div class="col-md-6">
-
-                            <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Zip code</span> </div>              
-
-                        </div>                      
-                    </div>
-                </div>
+                </form>
             </div>
 
             <div class="mt-4 mb-4 d-flex justify-content-between">

@@ -20,12 +20,8 @@ export class CheckoutComponent implements OnInit {
   finalProducts: {id: number, quantity: number}[] = []; 
 
   checkoutForm = new FormGroup({
-    fname: new FormControl('', Validators.required),
-    lname: new FormControl('', Validators.required),
-    cardName: new FormControl('', Validators.required),
-    detail: new FormControl('', Validators.required),
-    addOne: new FormControl('', Validators.required),
-    addTwo: new FormControl(''),
+    cardName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
+    cardNumber: new FormControl('', [Validators.required, Validators.pattern('^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$')]),
     city: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
     zipCode: new FormControl('', Validators.required),
