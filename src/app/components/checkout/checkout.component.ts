@@ -22,10 +22,12 @@ export class CheckoutComponent implements OnInit {
   checkoutForm = new FormGroup({
     cardName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
     cardNumber: new FormControl('', [Validators.required, Validators.pattern('^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$')]),
-    city: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    zipCode: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required)
+    expiry: new FormControl('', [Validators.required, Validators.pattern('^((0[1-9])|(1[0-2]))[\/\.\-]*((0[8-9])|(1[1-9]))$')]),
+    cvv: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{3}$')]),
+    streetAddress: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{1,5}( [a-zA-Z]+)+$')]),
+    city: new FormControl('', [Validators.required, Validators.pattern('^([A-Z][a-z]+){1}( [A-Z][a-z]+)*$')]),
+    state: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]{2}$')]),
+    zipCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{5}-?([0-9]{4})?')])
   });
 
   constructor(private productService: ProductService, private router: Router) { }

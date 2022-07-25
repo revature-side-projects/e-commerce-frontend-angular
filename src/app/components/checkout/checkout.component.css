@@ -67,6 +67,10 @@ body{
     color: #3F51B5
 }
 
+.fa-credit-card.invalid {
+    color: #dc3545!important
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -109,6 +113,12 @@ input::-webkit-inner-spin-button {
 }
 
 .btn-success {
+    color: #fff;
+    background-color: #F26925;
+    border-color:#F26925;
+}
+
+.btn-success:disabled:hover {
     color: #fff;
     background-color: #F26925;
     border-color:#F26925;
