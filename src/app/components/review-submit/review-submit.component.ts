@@ -1,7 +1,7 @@
 import { ReviewService } from './../../services/review.service';
 import { ReviewComponent } from './../review/review.component';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-review-submit',
@@ -10,16 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewSubmitComponent implements OnInit {
 
+  @Input() productId: number = 0;
+
+  stars: number = 0;
+  title: string = "";
+  review: string = "";
+
   constructor(
     public authService: AuthService,
     public reviewService: ReviewService,
-    public review: ReviewComponent) { }
+  ) { }
 
   ngOnInit(): void {
   }
 
   submitReview() {
-    this.reviewService.postReview(this.review.product.Id, this.review.stars, this.review.title, this.review.review)
+    this.reviewService.postReview(this.productId, this.stars, this.title, this.review)
 
     document.getElementById("modal-close")?.click();
   }
