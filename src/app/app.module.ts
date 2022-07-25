@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReviewComponent } from './components/review/review.component';
 import { ReviewSubmitComponent } from './components/review-submit/review-submit.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { ReviewSubmissionComponent } from './review-submission/review-submission.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +28,7 @@ import { ReviewSubmissionComponent } from './review-submission/review-submission
     DisplayProductsComponent,
     ReviewComponent,
     ReviewSubmitComponent,
-    ProductDetailsComponent,
-    ReviewSubmissionComponent
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
