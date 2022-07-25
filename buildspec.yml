@@ -24,4 +24,4 @@ artifacts:
   files:
     - "**/*"
   discard-paths: no
-  base-directory: dist/e-commerce-frontend-angular
+  base-directory: dist/e-commerce
