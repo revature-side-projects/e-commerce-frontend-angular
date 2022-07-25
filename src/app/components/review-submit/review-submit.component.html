@@ -1,4 +1,5 @@
-<button *ngIf="authService.loggedIn"
+<button 
+    *ngIf="authService.loggedIn"
     class="btn btn-primary"
     data-toggle="modal"
     data-target="#reviewModal"
@@ -11,13 +12,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="reviewModalLabel">Write a Review</h5>
-                <button id="modal-close" type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <button 
+                    id="modal-close" 
+                    type="button" 
+                    class="btn-close" 
+                    data-dismiss="modal"
+                    aria-label="Close">
+                </button>
             </div>
             <form (ngSubmit)="submitReview()">
                 <div class="modal-body">
                     <label for="stars">Rating</label>
                     <input [(ngModel)]="stars" class="form-control" type="number" name="rating" min="1" max="5">
+                    <label for="title">Title</label>
+                    <input [(ngModel)]="title" class="form-control" type="text" name="title" required>
                     <label for="content">Review</label>
                     <textarea [(ngModel)]="review" name="content" class="form-control" required>{{review}}</textarea>
                 </div>
