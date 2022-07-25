@@ -1,0 +1,9 @@
+<h3>User Reviews</h3>
+
+<ul>
+    <li *ngIf="stars && review">
+        <h5>Rated {{stars}} stars by {{userId.firstName}}</h5>
+        <h6>Reviewed {{posted}}</h6>
+        <p>{{review}}</p>
+    </li>
+</ul>
