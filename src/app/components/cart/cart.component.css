@@ -1,9 +1,82 @@
-.table 
+.cart-page{
+    margin: 50px auto;
+    padding: 0px 4%;
+}
+
+table 
 {
-    margin: 3%;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 .btn
 {
     margin-left: 2%;
+}
+
+.cart-info{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+th{
+    text-align: left;
+    padding: 5px;
+    color: #fff;
+    background: #ff6f12;
+    font-weight: normal;
+}
+
+td{
+    padding: 10px 5px;
+}
+
+td img{
+    width: 85px;
+    height: 85px;
+    margin-right: 10px;
+}
+.final-calc{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.final-calc table{
+    border-top: 3px solid #ff6f12;
+    width: 100%;
+    max-width: 25%;
+}
+
+td:last-child{
+    text-align: right;
+}
+
+th:last-child{
+    text-align: right;
+}
+
+p span{
+    font-size: 16px;
+}
+
+a{
+    text-decoration: none;
+    font-weight: 500;
+}
+.link{
+    color: #ff6f12;
+}
+
+.choices{
+    text-align: right;
+}
+
+.choices .btn.style{
+    color: #fff;
+    background: #ff6f12;
+}
+
+.choices .btn.style:hover{
+    color: #fff;
+    background: #ea5c00;
 }
