@@ -50,4 +50,14 @@ export class ProductService {
     const payload = JSON.stringify(products);
     return this.http.patch<any>(environment.baseUrl+this.productUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
+
+  public createProduct(name : string, quantity : number, description : string, price : number, image : string): Observable<any> {
+    const payload = {name: name, quantity: quantity, description: description, image: image, price: price}
+    return this.http.put<any>(environment.baseUrl+this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})                                                   
+  }
+
+  public updateProduct(id : number, name : string, quantity : number, description : string, price : number, image : string): Observable<any> {
+    const payload = {id: id, name: name, quantity: quantity, description: description, image: image, price: price}
+    return this.http.put<any>(environment.baseUrl+this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})                                                   
+  }
 }
