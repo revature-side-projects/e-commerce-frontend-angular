@@ -13,6 +13,7 @@ import { DisplayProductsComponent } from './components/display-products/display-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     CartComponent,
     CheckoutComponent,
     DisplayProductsComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    SearchFilterComponent
   ],
   imports: [
     BrowserModule,
