@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -6,13 +7,20 @@ import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 
+=======
+import {Component, Input, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {Product} from 'src/app/models/product';
+import {ProductService} from 'src/app/services/product.service';
+import {Router} from "@angular/router";
+>>>>>>> 441441d3c0449f35ad0e326c13c80b255c68f815
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
-export class ProductCardComponent implements OnInit{
+export class ProductCardComponent implements OnInit {
 
   role = this.authService.userRole;
   wantToUpdate : boolean = false;
@@ -24,10 +32,15 @@ export class ProductCardComponent implements OnInit{
   subscription!: Subscription;
   totalPrice: number = 0;
 
+
   @Input() productInfo!: Product;
 
+<<<<<<< HEAD
   constructor(private productService: ProductService,  private router: Router, private authService: AuthService) { }
   
+=======
+  constructor(private productService: ProductService, private router: Router) { }
+>>>>>>> 441441d3c0449f35ad0e326c13c80b255c68f815
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
       (cart) => {
@@ -44,7 +57,7 @@ export class ProductCardComponent implements OnInit{
 
     this.products.forEach(
       (element) => {
-        if(element.product == product){
+        if (element.product == product) {
           ++element.quantity;
           let cart = {
             cartCount: this.cartCount + 1,
@@ -52,13 +65,14 @@ export class ProductCardComponent implements OnInit{
             totalPrice: this.totalPrice + product.price
           };
           this.productService.setCart(cart);
-          inCart=true;
+          inCart = true;
           return;
-        };
+        }
+        ;
       }
     );
 
-    if(inCart == false){
+    if (inCart == false) {
       let newProduct = {
         product: product,
         quantity: 1
@@ -71,7 +85,13 @@ export class ProductCardComponent implements OnInit{
       }
       this.productService.setCart(cart);
     }
-      
+
+  }
+
+  selectProduct(): void {
+    sessionStorage.setItem('selectedProductId', this.productInfo.id.toString());
+    this.router.navigate(['/product-details']);
+
   }
 
   ngOnDestroy() {
