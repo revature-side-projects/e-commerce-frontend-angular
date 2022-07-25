@@ -29,7 +29,10 @@ export class ReviewSubmitComponent implements OnInit {
     console.log("submitting")
     this.reviewService.postReview(this.productId, this.stars, this.title, this.review)
       .subscribe(
-        response => console.log(response),
+        response => {
+          this.isReviewed = true;
+          console.log(response)
+        },
         error => console.error(error)
       );
     document.getElementById("modal-close")?.click();
