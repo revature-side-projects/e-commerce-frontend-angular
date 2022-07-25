@@ -1,3 +1,4 @@
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -28,7 +29,8 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     DisplayProductsComponent,
     ReviewComponent,
     ReviewSubmitComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
