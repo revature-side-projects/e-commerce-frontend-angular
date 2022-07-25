@@ -18,6 +18,11 @@ export class UserService {
   }
 
   constructor(private http: HttpClient) { }
+  
+  findAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.userUrl, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
 
   findUserById(id: number): Observable<User>{
     return this.http.get<User>(`${this.userUrl}/${id}`, this.httpOptions)
