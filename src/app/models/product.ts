@@ -12,6 +12,7 @@ export class Product {
         this.quantity = quantity;
         this.description = description;
         this.price = price;
-        this.image = image;
+        this.image = 'https://revazon-image-bucket.s3.amazonaws.com/' + image;
+        console.log(this.image);
     }
 }

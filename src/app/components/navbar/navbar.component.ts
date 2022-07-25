@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
-
+  role = this.authService.userRole;
   cartCount!: number;
   subscription!: Subscription;
 
