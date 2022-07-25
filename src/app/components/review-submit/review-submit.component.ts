@@ -11,6 +11,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ReviewSubmitComponent implements OnInit {
 
   @Input() productId: number = 0;
+  @Input() isReviewed: boolean = false;
 
   stars: number = 0;
   title: string = "";
