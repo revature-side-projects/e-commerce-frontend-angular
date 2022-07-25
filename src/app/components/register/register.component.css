@@ -18,8 +18,11 @@ img {
     text-align: center;
 }
 
-.card {
-    width: 50rem;
+.card-body{
+    align-items: center;
+}
+.card{
+    width: 60rem;
     align-items: center;
     margin: 0 auto;
     /* Added */
