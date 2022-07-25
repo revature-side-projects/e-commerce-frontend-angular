@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReviewComponent } from './components/review/review.component';
 import { ReviewSubmitComponent } from './components/review-submit/review-submit.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReviewSubmitComponent } from './components/review-submit/review-submit.
     CheckoutComponent,
     DisplayProductsComponent,
     ReviewComponent,
-    ReviewSubmitComponent
+    ReviewSubmitComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
