@@ -57,7 +57,7 @@ export class CartComponent implements OnInit {
           let cart = {
             cartCount: this.cartCount - 1,
             products: this.products,
-            totalPrice: this.totalPrice - product.unitPrice
+            totalPrice: Math.round((this.totalPrice - product.unitPrice + Number.EPSILON) * 100) / 100
           };
           this.productService.setCart(cart);
           return;
@@ -79,7 +79,7 @@ export class CartComponent implements OnInit {
           let cart = {
             cartCount: this.cartCount + 1,
             products: this.products,
-            totalPrice: this.totalPrice + product.unitPrice
+            totalPrice: Math.round((this.totalPrice + product.unitPrice + Number.EPSILON) * 100) / 100
           };
           this.productService.setCart(cart);
           return;
