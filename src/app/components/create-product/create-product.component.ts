@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { UploadService } from 'src/app/services/upload.service';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -18,6 +18,7 @@ export class CreateProductComponent{
   changeImage = false;
   fileName: string = '';
   file: string = '';
+  
   constructor(private prodService: ProductService, private router: Router, private uploadService: UploadService, private http: HttpClient) { }
 
   createProductForm = new FormGroup({
@@ -48,7 +49,7 @@ export class CreateProductComponent{
       return;
     }
     this.uploadService.pushFile(this.currentFile, this.fileName).subscribe(event =>{
-      console.log('uploading image: ' + this.fileName);
+      console.log(event);
     });
   }
   selectFile(event:any){

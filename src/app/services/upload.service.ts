@@ -1,6 +1,7 @@
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +9,17 @@ import { Observable } from 'rxjs';
 export class UploadService {
 
   constructor(private http : HttpClient) { }
-
-  pushFile(file: File, fileName: string):Observable<HttpEvent<{}>> {
+  
+  pushFile(file: File, fileName: string): Observable<string> { //: Observable<HttpEvent<{}>>
     const data: FormData = new FormData();
+    const headers: HttpHeaders = new HttpHeaders({'Access-Control-Allow-Origin': 'http://localhost:4200'});
+    console.log(headers);
     data.append('file', file);
-    data.append('name', fileName);
-    const newRequest = new HttpRequest('POST', 'http://localhost:8080/uploadImage', data, {
+    console.log(data.get("file"));
+    
+    return this.http.put('http://localhost:8080/api/product/uploadFile', data, {headers: headers,
+      withCredentials: environment.withCredentials,
       reportProgress: true,
-      responseType: 'text'
-    });
-    return this.http.request(newRequest);
+      responseType: 'text'});
   }
 }

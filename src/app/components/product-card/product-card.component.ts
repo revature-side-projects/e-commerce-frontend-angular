@@ -1,19 +1,10 @@
-<<<<<<< HEAD
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { Product } from 'src/app/models/product';
-import { ProductService } from 'src/app/services/product.service';
-import { Router } from '@angular/router';
-
-=======
 import {Component, Input, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Product} from 'src/app/models/product';
 import {ProductService} from 'src/app/services/product.service';
 import {Router} from "@angular/router";
->>>>>>> 441441d3c0449f35ad0e326c13c80b255c68f815
 
 @Component({
   selector: 'app-product-card',
@@ -34,13 +25,7 @@ export class ProductCardComponent implements OnInit {
 
 
   @Input() productInfo!: Product;
-
-<<<<<<< HEAD
-  constructor(private productService: ProductService,  private router: Router, private authService: AuthService) { }
-  
-=======
-  constructor(private productService: ProductService, private router: Router) { }
->>>>>>> 441441d3c0449f35ad0e326c13c80b255c68f815
+  constructor(private productService: ProductService, private router: Router, private authService: AuthService) { }
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
       (cart) => {
