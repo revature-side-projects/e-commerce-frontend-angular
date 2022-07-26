@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class SearchbarComponent implements OnInit {
 
+
   searchForm = this.formBuilder.group({
     query: ''
   });
@@ -32,7 +33,6 @@ export class SearchbarComponent implements OnInit {
     // also, show the filters 
 
     // when are we not searching? if the page is the home page... 
-    
     console.log(`hitting search() in searchbar component! it was : ${this.searchTerm}`)
     
     this.productService.getSearchProducts(this.searchTerm).subscribe(
