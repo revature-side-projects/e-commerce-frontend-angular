@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, FormBuilder } from '@angular/forms';
@@ -18,7 +19,8 @@ export class SearchbarComponent implements OnInit {
   searchTerm: string= '';
 
   constructor(private productService: ProductService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              public appComponent: AppComponent) { }
 
   ngOnInit(): void {
     
@@ -33,10 +35,14 @@ export class SearchbarComponent implements OnInit {
     // also, show the filters 
 
     // when are we not searching? if the page is the home page... 
+    this.appComponent.isSearching = true; 
+    this.appComponent.search = this.searchTerm;
+   
     console.log(`hitting search() in searchbar component! it was : ${this.searchTerm}`)
-    
+
     this.productService.getSearchProducts(this.searchTerm).subscribe(
-      (resp) => console.log(resp),
+      (resp) => {console.log(resp);
+        this.appComponent.searchProducts = resp},
       (err) => console.log(err),
       () => console.log("Products search Retrieved")
     );

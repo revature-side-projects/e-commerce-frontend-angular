@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,7 +15,10 @@ export class NavbarComponent implements OnInit{
   cartCount!: number;
   subscription!: Subscription;
 
-  constructor(private authService: AuthService, private router: Router, private productService: ProductService) { }
+  constructor(private authService: AuthService, 
+    private router: Router, 
+    private productService: ProductService,
+    public appComponent: AppComponent) { }
   
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
@@ -30,5 +34,12 @@ export class NavbarComponent implements OnInit{
     this.authService.logout();
     this.router.navigate(['login']);
   }
+  notSearching():void{
+    this.appComponent.isSearching = false; 
+    this.appComponent.searchProducts = []; 
+    this.appComponent.search = '';
+  }
+
+  
 
 }
