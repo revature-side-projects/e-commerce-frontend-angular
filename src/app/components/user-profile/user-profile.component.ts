@@ -10,11 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  addresses: Address[] = [];
+  
+  address: Address[] = [];
+
+  
 
   modalVisibility: string = "";
 
-  curUser: User = new User(1, "", "", "", "", "", this.addresses);
+  curUser: User = new User(1, "", "", "", "", "", this.address);
+
+  currAddress: Address = new Address(0, '', '', '', '', '', this.curUser);
 
   contentSelected: string = "info";
 
@@ -39,12 +44,14 @@ export class UserProfileComponent implements OnInit {
   updateInfo() {
 
     this.closePopup();
+    this.curUser.addresses.push(this.currAddress);
     // this.userv.updateUser(this.curUser).subscribe(
     //   data => {
     //     this.curUser = data;
     //   },
     //   (err) => console.log(err)
     //   )
+  
   }
 
   getTestUser() {
