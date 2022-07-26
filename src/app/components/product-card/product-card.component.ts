@@ -149,7 +149,6 @@ export class ProductCardComponent implements OnInit{
   onDeleteProduct(product : Product){
     this.productService.deleteProduct(product.id).subscribe(      
       () => {
-      this.wantToUpdate=false;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate(['home']);
