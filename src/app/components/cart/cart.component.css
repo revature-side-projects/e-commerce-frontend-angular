@@ -14,3 +14,8 @@
     margin-top:3%;
     margin-left: 5%
 }
+
+#delete-button:hover
+{
+    background-color: #bb2d3b;
+}
