@@ -41,8 +41,10 @@ export class ProductCardComponent implements OnInit {
     
     this.products.forEach(
       (element) => {
-        if (element.product == product) { 
+      
+        if (element.product.id == product.id) { 
           element.quantity += Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
+
           let cart = {
             cartCount: this.cartCount + 1,
             products: this.products,
