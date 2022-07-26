@@ -1,3 +1,5 @@
+import { Purchase } from './purchase';
+import { Product } from './product';
 import { Address } from './address';
 
 export class User{
@@ -9,7 +11,7 @@ export class User{
     password: string;
     role: string;
     addresses: Address [];
-    // purchases: Purchase[];
+    purchases: Purchase[];
     // reviews: Review[];
 
     constructor(
@@ -20,7 +22,7 @@ export class User{
         password: string,
         role: string,
         addresses: Address [],
-        // purchases: Purchase[],
+        purchases: Purchase[]
         // reviews: Review[] 
     ) {
         this.id = id
@@ -30,7 +32,7 @@ export class User{
         this.role = role
         this.email = email
         this.addresses = addresses
-        // this.purchases = purchases
+        this.purchases = purchases
         // this.reviews = reviews
     }
 
