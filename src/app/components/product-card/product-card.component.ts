@@ -1,8 +1,8 @@
+import { Product } from './../../models/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 
@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class ProductCardComponent implements OnInit{
 
   role = this.authService.userRole;
+  wantToDelete : boolean = false;
   wantToUpdate : boolean = false;
   cartCount!: number;
   products: {
@@ -140,4 +141,21 @@ export class ProductCardComponent implements OnInit{
 
 
   }
+
+  wantsToDelete(){
+    this.wantToDelete = !this.wantToDelete;
+  }
+
+  onDeleteProduct(product : Product){
+    this.productService.deleteProduct(product.id).subscribe(      
+      () => {
+      this.wantToUpdate=false;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['home']);
+    },
+    (err) => console.log(err),
+    () => this.router.navigate(['home']));
+  }
+
 }

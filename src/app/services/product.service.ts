@@ -60,4 +60,8 @@ export class ProductService {
     const payload = {id: id, name: name, quantity: quantity, description: description, image: image, price: price}
     return this.http.put<any>(environment.baseUrl+this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})                                                   
   }
+
+  public deleteProduct(id : number){
+    return this.http.delete<any>(environment.baseUrl+this.productUrl+'/' + id, {headers: environment.headers, withCredentials: environment.withCredentials})
+  }
 }

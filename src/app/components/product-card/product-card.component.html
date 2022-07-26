@@ -20,7 +20,18 @@
         <button class="btn btn-outline-success" (click)="addToCart(productInfo)">Add to Cart</button>
     </div>
     <div *ngIf="role=='ADMIN'">
-      <button class="btn btn-outline-danger" (click)="wantsToUpdate()">Update Item Info</button> <!--ngif user role = admin-->
+      <div class="card-body">
+      <button class="btn btn-outline-primary" (click)="wantsToUpdate()">Update Item Info</button>
+    </div>
+    <div class="card-body">
+      <button class="btn btn-outline-danger" (click)="wantsToDelete()">Delete Product</button> <!--ngif user role = admin-->
+    </div>
+  </div>
+    <div class="deleteoption" *ngIf="wantToDelete">
+      <h4>Are you sure you want to delete?</h4>
+      <button class="btn btn-danger" (click)="onDeleteProduct(productInfo)">YES DELETE</button>
+      <br>
+      <button class="btn btn-outline primary" (click)="wantsToDelete()">CANCEL</button>
     </div>
     <div class="update-product" *ngIf="wantToUpdate">
       <form id="update-product-form" [formGroup]="updateProductForm">
@@ -45,6 +56,7 @@
             <input type="text" class="form-control" formControlName="pimage" id="inputImage" placeholder="Image URL">
         </div>
         <button class="btn btn-primary" (click)="onSubmitUpdate(productInfo)">Submit Product Update</button>
+        
     </form>
     </div>
   </div>
