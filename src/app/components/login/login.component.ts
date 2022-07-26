@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
   
   onSubmit(): void {
     this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
-      () => {
+      (response) => {
+        sessionStorage.setItem("userId", response.id);
         this.authService.loggedIn=true;
       },
       (err) => console.log(err),
