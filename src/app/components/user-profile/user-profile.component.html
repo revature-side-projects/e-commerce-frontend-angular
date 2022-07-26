@@ -102,54 +102,35 @@
 
           <div class="container text-center p-4 content shadow-lg bg-white rounded">
 
-            <div class="card mb-5">
-              <div class="card-header">
-                <div class="row purchase-info">
+            <div *ngFor="let purch of curUser.purchases" class="col">
 
-                  <div class="col-2">Order Date</div>
-                  <div class="col-3">Total</div>
-                  <div class="col-7">Order #</div>
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="row purchase-info">
+                    <div class="col-2">Order Date</div>
+                    <div class="col-3">Total</div>
+                    <div class="col-7">Order #</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-2">{{ purch.orderPlaced }}}</div>
+                    <div class="col-3">${{ purch.product.price.toFixed(2) }}</div>
+                    <div class="col-7">{{ purch.id }}</div>
+                  </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-2">December 5th, 2020</div>
-                  <div class="col-3">$14.23</div>
-                  <div class="col-7">60045123</div>
+
+                  <div class="col-2"><img [src]="purch.product.image" alt="product image"></div>
+                  <div class="col-2">
+                    <a [routerLink]="['/product-details']" class="link-primary" (click)="selectItem(purch.product.id)">{{ purch.product.name }}</a>
+                    <p>{{ purch.product.description }}</p>
+                  </div>
                 </div>
               </div>
-
-              <div>Image</div>
-
-              <div>Title</div>
-
             </div>
-
-            <div class="card">
-              <div class="card-header">
-                <div class="row purchase-info">
-
-                  <div class="col-2">Order Date</div>
-                  <div class="col-3">Total</div>
-                  <div class="col-7">Order #</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-2">December 5th, 2020</div>
-                  <div class="col-3">$14.23</div>
-                  <div class="col-7">60045123</div>
-                </div>
-              </div>
-
-              <div>Image</div>
-
-              <div>Title</div>
-
-            </div>
-
           </div>
-
           <br>
-
         </div>
 
         <div *ngIf="contentSelected == 'reviews'">
