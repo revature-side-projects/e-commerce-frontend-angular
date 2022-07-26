@@ -131,9 +131,13 @@ export class ProductCardComponent implements OnInit{
    this.productService.updateProduct(product.id, name, quantity, description,price,image).subscribe(      
             () => {
             this.wantToUpdate=false;
+            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+            this.router.onSameUrlNavigation = 'reload';
+            this.router.navigate(['home']);
           },
           (err) => console.log(err),
           () => this.router.navigate(['home']));
+
 
   }
 }
