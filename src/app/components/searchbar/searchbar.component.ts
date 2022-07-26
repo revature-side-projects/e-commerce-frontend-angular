@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder } from '@angular/forms';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -9,18 +10,40 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchbarComponent implements OnInit {
 
-  searchTerm: String= '';
+  searchForm = this.formBuilder.group({
+    query: ''
+  });
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  searchTerm: string= '';
+
+  constructor(private productService: ProductService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      if (params.searchTerm)
-        this.searchTerm = params.searchTerm;
-    })
+    
+  }
+
+  //triggered when we submit search 
+  //q: how to send data from this component to another component? 
+  onSubmit():void{
+    //isSearching boolean: if the user is searching for products, set the 
+    // search results to the products  from this search 
+    // and set the string message on the top of the search! 
+    // also, show the filters 
+
+    // when are we not searching? if the page is the home page... 
+    
+    console.log(`hitting search() in searchbar component! it was : ${this.searchTerm}`)
+    
+    this.productService.getSearchProducts(this.searchTerm).subscribe(
+      (resp) => console.log(resp),
+      (err) => console.log(err),
+      () => console.log("Products search Retrieved")
+    );
   }
 
   search(){
+    
 
   }
 

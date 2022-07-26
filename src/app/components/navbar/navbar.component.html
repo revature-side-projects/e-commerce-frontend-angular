@@ -6,15 +6,17 @@
     </h4>
         
     </button>
-    
+    <app-searchbar></app-searchbar> 
+    <!--insert searchbar here-->
+    <!--profile page also here? -->
     <form class="form-inline">
-        <!--insert searchbar here-->
-        <!--profile page also here? -->
-        <app-searchbar></app-searchbar>
-        <button class="btn bg-transparent" [routerLink]="['/cart']">
+        <div class="form-group">
+            <button class="btn bg-transparent" [routerLink]="['/cart']">
             Cart
             <span class="badge badge-info">{{cartCount}}</span>
         </button>
         <button class="btn btn-outline-danger my-2 my-sm-0" (click)="logout();">Logout</button>
+        </div>
+        
     </form>
 </nav>
