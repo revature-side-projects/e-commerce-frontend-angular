@@ -14,6 +14,7 @@ export class CartComponent implements OnInit {
   products: {
     product: Product,
     quantity: number
+    
   }[] = [];
   totalPrice!: number;
   cartProducts: Product[] = [];
