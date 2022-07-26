@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+/*
+ * ----------------------------
+ * Footer section
+ * ----------------------------
+ */
+
+footer ul li a{
+  color:#fff
+}
+footer{
+  background:#232324;
+  z-index:1;
+  position:relative;
+  text-align:center
+}
+footer li a{
+  color:#313131;
+  font-weight:500
+}
+footer ul li{
+  display:inline-block;
+  font-size:14px;
+  padding:10px 20px
+}

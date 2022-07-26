@@ -1,22 +1,80 @@
 <app-navbar></app-navbar>
-<table class="table table-striped" id="cart-table">
+
+<div class="small-container cart-page">
+  <table id="cart-table">
     <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
+
+        <th scope="col">Product</th>
+
+        <!--added space for price-->
+        <th scope="col">Price</th>
+
         <th scope="col">Quantity</th>
-        <th scope="col">Description</th>
+
+        <!--For the updated price based on quantity-->
+        <th scope="col">Subtotal</th>
+
+
+
       </tr>
     </thead>
     <tbody id="cart-table-body">
-        <tr *ngFor="let product of products;">
-            <td>{{product.product.id}}</td>
-            <td>{{product.product.name}}</td>
-            <td>{{product.quantity}}</td>
-            <td>{{product.product.description}}</td>
-        </tr>
+      <tr *ngFor="let product of products;">
+
+        <td>
+          <div class="cart-info">
+            <img [src]="product.product.imageUrl">
+            <div>
+              <h6>{{product.product.name}}</h6>
+              <p><i>{{product.product.description}}</i></p>
+              <button class="btn btn-sm btn-outline-danger" (click)="removeFromCart(product.product)">X Remove</button>
+            </div>
+          </div>
+        </td>
+
+        <!--Price in Spring Boot is visible in cart-->
+        <td>${{product.product.unitPrice}}</td>
+
+        <td><button class="btn btn-sm btn-outline-secondary" (click)="increment(product.product)"><i
+              class="fa fa-plus"></i></button>
+          {{product.quantity}}
+          <button class="btn btn-sm btn-outline-secondary" (click)="decrement(product.product)"><i
+              class="fa fa-minus"></i></button>
+        </td>
+
+        <!--updated price based on quantity-->
+        <td>${{product.quantity*product.product.unitPrice}}</td>
+
+      </tr>
     </tbody>
-</table>
-<button class="btn btn-danger" [routerLink]="['/home']">Back</button>
-<button class="btn btn-warning" (click)="emptyCart()">Empty Cart</button>
-<button class="btn btn-primary" [routerLink]="['/checkout']">Proceed to Checkout (${{totalPrice}})</button>
+  </table>
+
+  <div class="final-calc">
+    <table>
+      <tr>
+        <td>Subtotal</td>
+        <td>${{totalPrice}}</td>
+      </tr>
+      <tr>
+        <td>Shipping</td>
+        <td>FREE</td>
+      </tr>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td><strong>${{totalPrice}}</strong></td>
+      </tr>
+    </table>
+  </div>
+
+
+  <p class="float-left text-muted">
+    <span>Need one more thing? </span><a class="link" [routerLink]="['/home']">Go back to Products</a>
+  </p>
+
+  <div class="choices">
+    <button class="btn btn-outline-danger" (click)="emptyCart()">Empty Cart</button>
+    <button class="btn style" [routerLink]="['/checkout']">Proceed to Checkout</button>
+  </div>
+
+</div>

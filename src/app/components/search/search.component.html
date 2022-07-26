@@ -1,0 +1,11 @@
+
+<form class="form-inline md-form mr-auto">
+  <!--         LISTEN FOR ENTER KEY ----- CALL METHOD IN ANGULAR-->
+  <input #myInput type="text"
+         class="form-control mr-sm-2"
+         placeholder="Search" aria-label="Search"
+         (keyup.keyup)="doSearch(myInput.value)">
+  <button (click)="doSearch(myInput.value)" class="btn btn-outline-info btn-rounded btn-sm my-0">
+    Search
+  </button>
+</form>
