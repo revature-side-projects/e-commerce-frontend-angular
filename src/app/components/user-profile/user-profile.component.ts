@@ -1,3 +1,4 @@
+import { ReviewService } from './../../services/review.service';
 import { Address } from './../../models/address';
 import { User } from './../../models/user';
 import { UserService } from './../../services/user.service';
@@ -12,13 +13,18 @@ export class UserProfileComponent implements OnInit {
 
   addresses: Address[] = [];
 
+  reviews: any[] = [];
+
   modalVisibility: string = "";
 
   curUser: User = new User(1, "", "", "", "", "", this.addresses);
 
   contentSelected: string = "info";
 
-  constructor(private userv: UserService) { }
+  constructor(
+    private userv: UserService,
+    private reviewService: ReviewService
+    ) { }
 
   ngOnInit(): void {
     this.getTestUser();
@@ -66,6 +72,20 @@ export class UserProfileComponent implements OnInit {
     document.getElementById(content)?.classList.add("active");
 
     this.contentSelected = content;
+  }
+
+  seeReviews(userId:number) {
+    this.reviewService.getUsersReviews(userId).subscribe({
+      next: (response) => {
+        for (let review of Object.values(response)) {
+          this.reviews.push(review);
+        }
+
+        this.reviews = this.reviews.filter((review) => {
+          return review.content != ""
+        });
+      }
+    })
   }
 
 }
