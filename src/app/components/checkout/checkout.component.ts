@@ -67,7 +67,10 @@ export class CheckoutComponent implements OnInit {
           this.router.navigate(['/home']);
         } 
       );
-
+      this.productService.addPurchase(this.finalProducts).subscribe(
+        (resp) => console.log(resp),
+        (err) => console.log(err),
+      );
     } else {
       this.router.navigate(['/home']);
     }
