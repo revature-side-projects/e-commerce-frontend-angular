@@ -18,6 +18,7 @@ export class CreateProductComponent{
   changeImage = false;
   fileName: string = '';
   file: string = '';
+  imageSelected = false;
   
   constructor(private prodService: ProductService, private router: Router, private uploadService: UploadService, private http: HttpClient) { }
 
@@ -48,12 +49,17 @@ export class CreateProductComponent{
       console.log('fileName cannot be empty');
       return;
     }
-    this.uploadService.pushFile(this.currentFile, this.fileName).subscribe(event =>{
-      console.log(event);
+    this.currentFile = this.selectedFiles[0];
+    this.uploadService.pushFile(this.currentFile).subscribe(event =>{
+      console.log(event)
     });
   }
   selectFile(event:any){
-    this.currentFile = event.target.files;
+    this.selectedFiles = event.target.files;
+  }
+  updateImage(url: string){
+    this.file = 'https://revazon-image-bucket.s3.amazonaws.com/' + url;
+    
   }
   onSubmit(){
     this.prodService.createProduct(this.createProductForm.get('pname')?.value,this.createProductForm.get('pquantity')?.value,
