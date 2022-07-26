@@ -28,6 +28,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTestUser();
+    this.seeReviews(1);
   }
 
   openPopup() {
@@ -84,6 +85,16 @@ export class UserProfileComponent implements OnInit {
         this.reviews = this.reviews.filter((review) => {
           return review.content != ""
         });
+      }
+    })
+  }
+
+  getReviews(userId: number){
+    this.reviewService.getUsersReviews(userId).subscribe({
+      next: (response) => {
+        for (let review of Object.values(response)){
+          this.reviews.push(review);
+        }
       }
     })
   }
