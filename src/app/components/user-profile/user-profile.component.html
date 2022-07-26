@@ -135,15 +135,26 @@
 
         <div *ngIf="contentSelected == 'reviews'">
 
-          <div class="text-left p-2 title mb-4">Review History</div>
+          <div class="text-left p-2 title mb-4">Review History for {{curUser.firstName}}</div>
 
           <div class="container text-center p-4 content shadow-lg bg-white rounded">
 
             <div class="card text-left">
-              <h3>Review Title</h3>
-              <div>★★★★☆</div>
-              <div>Review Date</div>
-              <div>Review Summary</div>
+              <ul>
+                <li *ngFor="let r of reviews">
+                  <div *ngIf="r.stars && r.review">
+                    <h3>{{r.title}}</h3>
+                   <div>Rated {{r.stars}}/5</div>
+                   <div>Review Date: {{r.posted}}</div>
+                   <div>Review Content: 
+                    <p>{{r.review}}</p>
+                   </div>
+                  </div>
+                </li>               
+               </ul>
+               <p *ngIf="!reviews.length" class="text-center">
+                No reviews by {{curUser.firstName}} yet.
+               </p>              
             </div>
           </div>
 
