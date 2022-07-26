@@ -46,7 +46,7 @@ export class ProductCardComponent implements OnInit {
           element.quantity += Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
 
           let cart = {
-            cartCount: this.cartCount + 1,
+            cartCount: this.cartCount + Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value),
             products: this.products,
             totalPrice: this.totalPrice + (product.price * Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value))
           };
@@ -65,7 +65,7 @@ export class ProductCardComponent implements OnInit {
       };
       this.products.push(newProduct);
       let cart = {
-        cartCount: this.cartCount + 1,
+        cartCount: this.cartCount + Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value),
         products: this.products,
         totalPrice: this.totalPrice + (product.price * newProduct.quantity)
       }
