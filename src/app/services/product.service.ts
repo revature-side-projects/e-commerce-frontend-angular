@@ -64,4 +64,8 @@ export class ProductService {
     const payload = JSON.stringify(products);
     return this.http.post<any>(environment.baseUrl+this.purchasesUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
+
+  public deleteProduct(id : number){
+    return this.http.delete<any>(environment.baseUrl+this.productUrl+'/' + id, {headers: environment.headers, withCredentials: environment.withCredentials})
+  }
 }
