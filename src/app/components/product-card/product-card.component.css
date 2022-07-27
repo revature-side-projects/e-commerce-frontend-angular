@@ -5,6 +5,10 @@
     height: fit-content;
     transition: .2s ease-out;
   }
+
+  .deleteoption {
+    text-align: center;
+  }
   
   img
   {
