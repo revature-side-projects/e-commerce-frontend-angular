@@ -39,10 +39,14 @@ export class UserProfileComponent implements OnInit {
     this.getPurchases();
     this.seeReviews(this.appComponent.curUser.id);
     this.getAddresses();
-    setTimeout(() => {
-      this.currAddress = this.addresses[0];
-      console.log(this.currAddress);
-    }, 100)
+
+    if (this.addresses.length > 1) {
+      setTimeout(() => {
+        this.currAddress = this.addresses[0];
+        console.log(this.currAddress);
+      }, 100)
+    } 
+
     this.appComponent.curUser.reviews = this.reviews;
   }
 
@@ -60,7 +64,7 @@ export class UserProfileComponent implements OnInit {
   updateInfo() {
     this.closePopup();
 
-    if (this.appComponent.curUser.addresses.length < 1) {
+    if (this.addresses.length < 1) {
       this.addressService.addAddress(this.currAddress)
     } 
 
