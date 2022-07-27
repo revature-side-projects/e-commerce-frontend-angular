@@ -1,7 +1,9 @@
 import { Payment } from './payment';
 
+
 describe('Payment', () => {
   it('should create an instance', () => {
-    expect(new Payment()).toBeTruthy();
+	const p = new Payment("payment", "details")
+    expect(p).toBeTruthy();
   });
 });

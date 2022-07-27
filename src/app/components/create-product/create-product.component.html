@@ -1,4 +1,13 @@
 <app-navbar></app-navbar>
+<input id="imageInput" type="file" (change)="selectFile($event)">
+<br>
+<input type="text" name="image" [(ngModel)]="fileName" placeholder="File name">
+<button class="btn btn-primary" (click)="upload()">Upload</button>
+<br> <br>
+<input type="text" name="image" [(ngModel)]="file" placeholder="File to view">
+<button class="btn btn-primary"(click)="viewImage()">View File</button>
+<!--<button class="btn btn-primary" (click)="deleteFile()">Delet File</button>-->
+<br><img *ngIf="file != ''" src="https://revazon-image-bucket.s3.amazonaws.com/{{file}}" alt="product image">
 <form id="create-product-form" [formGroup]="createProductForm">
     <div class="form-group">
         <label for="inputProductName">Name of Product</label>
@@ -18,7 +27,7 @@
     </div>
     <div class="form-group">
         <label for="inputPrice">Image</label>
-        <input type="text" class="form-control" formControlName="pimage" id="inputImage" placeholder="Image URL" min="0">
+        <input type="text" class="form-control" formControlName="pimage" id="inputImage" placeholder="Image.png">
     </div>
     <div class="warning-messages">
     <h4>{{this.warningTextMessage}}</h4>

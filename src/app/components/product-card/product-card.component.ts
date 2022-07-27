@@ -1,34 +1,36 @@
 import { Product } from './../../models/product';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import {Component, Input, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {Router} from "@angular/router";
 import { ProductService } from 'src/app/services/product.service';
-import { Router } from '@angular/router';
-
+import { faCropSimple } from '@fortawesome/free-solid-svg-icons';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
-export class ProductCardComponent implements OnInit{
+export class ProductCardComponent implements OnInit {
 
-  role = this.authService.userRole;
+  role = this.appcomponent.curUser.role;
   wantToDelete : boolean = false;
   wantToUpdate : boolean = false;
   cartCount!: number;
   products: {
     product: Product,
-    quantity: number
+    quantity: number 
+    
   }[] = [];
+  
   subscription!: Subscription;
   totalPrice: number = 0;
 
-  @Input() productInfo!: Product;
 
-  constructor(private productService: ProductService,  private router: Router, private authService: AuthService) { }
-  
+  @Input() productInfo!: Product;
+  constructor(public appcomponent: AppComponent,private productService: ProductService, private router: Router, private authService: AuthService) { }
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
       (cart) => {
@@ -36,43 +38,50 @@ export class ProductCardComponent implements OnInit{
         this.products = cart.products;
         this.totalPrice = cart.totalPrice;
       }
-    );
+      );
   }
 
   addToCart(product: Product): void {
 
     let inCart = false;
-
+    
     this.products.forEach(
       (element) => {
-        if(element.product == product){
-          ++element.quantity;
+        if (element.product.id == product.id) { 
+          element.quantity += Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
           let cart = {
-            cartCount: this.cartCount + 1,
+            cartCount: this.cartCount + Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value),
             products: this.products,
-            totalPrice: this.totalPrice + product.price
+            totalPrice: this.totalPrice + (product.price * Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value))
           };
           this.productService.setCart(cart);
-          inCart=true;
+          inCart = true;
           return;
-        };
+        }
+        ;
       }
     );
 
-    if(inCart == false){
+    if (inCart == false) {
       let newProduct = {
         product: product,
-        quantity: 1
+        quantity: Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
       };
       this.products.push(newProduct);
       let cart = {
-        cartCount: this.cartCount + 1,
+        cartCount: this.cartCount + Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value),
         products: this.products,
-        totalPrice: this.totalPrice + product.price
+        totalPrice: this.totalPrice + (product.price * newProduct.quantity)
       }
       this.productService.setCart(cart);
     }
-      
+
+  }
+
+  selectProduct(): void {
+    sessionStorage.setItem('selectedProductId', this.productInfo.id.toString());
+    this.router.navigate(['/product-details']);
+
   }
 
   ngOnDestroy() {

@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,11 +11,11 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
-  role = this.authService.userRole;
+  role = this.appcomponent.curUser.role;
   cartCount!: number;
   subscription!: Subscription;
 
-  constructor(private authService: AuthService, private router: Router, private productService: ProductService) { }
+  constructor(public appcomponent: AppComponent,private authService: AuthService, private router: Router, private productService: ProductService, ) { }
   
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(

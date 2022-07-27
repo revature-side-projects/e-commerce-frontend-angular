@@ -19,6 +19,7 @@ interface Cart {
 export class ProductService {
 
   private productUrl: string = "/api/product";
+  private purchasesUrl: string = "/api/purchases";
 
   private _cart = new BehaviorSubject<Cart>({
     cartCount: 0,
@@ -43,22 +44,25 @@ export class ProductService {
   }
 
   public getSingleProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(environment.baseUrl+id);
+    return this.http.get<Product>(environment.baseUrl+this.productUrl+"/"+id, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 
   public purchase(products: {id:number, quantity:number}[]): Observable<any> {
     const payload = JSON.stringify(products);
     return this.http.patch<any>(environment.baseUrl+this.productUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
-
   public createProduct(name : string, quantity : number, description : string, price : number, image : string): Observable<any> {
-    const payload = {name: name, quantity: quantity, description: description, image: image, price: price}
+    const payload = {name: name, quantity: quantity, description: description, image: 'https://revazon-image-bucket.s3.amazonaws.com/' + image, price: price}
     return this.http.put<any>(environment.baseUrl+this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})                                                   
   }
 
   public updateProduct(id : number, name : string, quantity : number, description : string, price : number, image : string): Observable<any> {
     const payload = {id: id, name: name, quantity: quantity, description: description, image: image, price: price}
-    return this.http.put<any>(environment.baseUrl+this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})                                                   
+    return this.http.put<any>(environment.baseUrl+this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})
+    }
+    public addPurchase(products: {id:number, quantity:number}[]): Observable<any> {
+    const payload = JSON.stringify(products);
+    return this.http.post<any>(environment.baseUrl+this.purchasesUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
 
   public deleteProduct(id : number){
