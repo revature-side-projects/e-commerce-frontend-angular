@@ -29,12 +29,12 @@
         <label for="inputPrice">Image</label>
         <input type="text" class="form-control" formControlName="pimage" id="inputImage" placeholder="Image.png">
     </div>
-    <!-- <div class="warning-messages">
+    <div class="warning-messages">
     <h4>{{this.warningTextMessage}}</h4>
     <br>
     <h4>{{this.warningNumberMessage}}</h4>
     <br>
-  </div> -->
+  </div>
     <button class="btn btn-primary" (click)="onSubmit()">Submit Product</button>
     <button class="btn btn-danger" [routerLink]="['/home']">Back</button>
 </form>
