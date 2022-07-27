@@ -30,8 +30,8 @@ export class UserProfileComponent implements OnInit {
   contentSelected: string = "info";
 
   updateUserInfoForm = new FormGroup({
-    firstName : new FormControl(this.tempUser.firstName, [Validators.required, Validators.pattern('^[a-zA-Z]{3,30}$')]),
-    lastName : new FormControl(this.tempUser.lastName, [Validators.required, Validators.pattern('^[a-zA-Z]{3,30}$')]),
+    firstName : new FormControl(this.tempUser.firstName, [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
+    lastName : new FormControl(this.tempUser.lastName, [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
     email : new FormControl(this.tempUser.email, [Validators.required, Validators.email]),
     address : new FormControl(this.currAddress.street, [Validators.required, Validators.pattern('^[0-9]{1,5}( [a-zA-Z]+\.?)+$')]),
     secondary : new FormControl(this.currAddress.secondary),
