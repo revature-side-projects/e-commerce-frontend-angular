@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Address } from './../models/address';
 import { Injectable } from '@angular/core';
 import { throwError, Observable} from 'rxjs';
@@ -40,7 +41,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.userUrl}`, user, this.httpOptions)
+    return this.http.put<User>(`${this.userUrl}`, user, { headers: environment.headers, withCredentials: environment.withCredentials })
       .pipe(catchError(this.handleError));
   }
 

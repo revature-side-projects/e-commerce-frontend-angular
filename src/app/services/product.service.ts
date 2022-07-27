@@ -19,6 +19,7 @@ interface Cart {
 export class ProductService {
 
   private productUrl: string = "/api/product";
+  private purchasesUrl: string = "/api/purchases";
 
   private _cart = new BehaviorSubject<Cart>({
     cartCount: 0,
@@ -49,5 +50,10 @@ export class ProductService {
   public purchase(products: {id:number, quantity:number}[]): Observable<any> {
     const payload = JSON.stringify(products);
     return this.http.patch<any>(environment.baseUrl+this.productUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
+  }
+
+  public addPurchase(products: {id:number, quantity:number}[]): Observable<any> {
+    const payload = JSON.stringify(products);
+    return this.http.post<any>(environment.baseUrl+this.purchasesUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
 }

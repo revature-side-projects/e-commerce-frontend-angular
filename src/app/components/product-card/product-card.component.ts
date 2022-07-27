@@ -14,8 +14,10 @@ export class ProductCardComponent implements OnInit {
   cartCount!: number;
   products: {
     product: Product,
-    quantity: number
+    quantity: number 
+    
   }[] = [];
+  
   subscription!: Subscription;
   totalPrice: number = 0;
 
@@ -36,15 +38,15 @@ export class ProductCardComponent implements OnInit {
   addToCart(product: Product): void {
 
     let inCart = false;
-
+    
     this.products.forEach(
       (element) => {
-        if (element.product == product) {
-          ++element.quantity;
+        if (element.product.id == product.id) { 
+          element.quantity += Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
           let cart = {
-            cartCount: this.cartCount + 1,
+            cartCount: this.cartCount + Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value),
             products: this.products,
-            totalPrice: this.totalPrice + product.price
+            totalPrice: this.totalPrice + (product.price * Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value))
           };
           this.productService.setCart(cart);
           inCart = true;
@@ -57,13 +59,13 @@ export class ProductCardComponent implements OnInit {
     if (inCart == false) {
       let newProduct = {
         product: product,
-        quantity: 1
+        quantity: Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
       };
       this.products.push(newProduct);
       let cart = {
-        cartCount: this.cartCount + 1,
+        cartCount: this.cartCount + Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value),
         products: this.products,
-        totalPrice: this.totalPrice + product.price
+        totalPrice: this.totalPrice + (product.price * newProduct.quantity)
       }
       this.productService.setCart(cart);
     }

@@ -5,15 +5,23 @@
         <th scope="col">ID</th>
         <th scope="col">Name</th>
         <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
         <th scope="col">Description</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody id="cart-table-body">
         <tr *ngFor="let product of products;">
-            <td>{{product.product.id}}</td>
-            <td>{{product.product.name}}</td>
-            <td>{{product.quantity}}</td>
-            <td>{{product.product.description}}</td>
+            <!--Maybe like an ng container and an ngIf for a boolean in the ts component-->
+            <ng-container *ngIf="product.quantity > 0">
+              <td>{{product.product.id}}</td>
+              <td>{{product.product.name}}</td>
+              <td>{{product.quantity}}</td>
+              <td>${{product.product.price * product.quantity}} <em>(${{product.product.price}} per item)</em></td>
+              <td>{{product.product.description}}</td>
+              <!--When this button is clicked change the boolean for that row-->
+              <button class="btn btn-danger" id="delete-button" (click)="removeFromCart(product)">X</button>
+            </ng-container>
         </tr>
     </tbody>
 </table>

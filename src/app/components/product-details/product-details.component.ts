@@ -21,6 +21,8 @@ export class ProductDetailsComponent implements OnInit {
   reviews: any = [];
   subscription!: Subscription;
   totalPrice: number = 0;
+  userReview: any;
+  userId: number = Number(sessionStorage.getItem("userId"));
 
   @Input() productInfo!: Product;
 
@@ -47,8 +49,15 @@ ngOnInit(): void {
     );
 
     this.reviewService.getProductReviews(this.productId).subscribe(
-      (response) => { this.reviews = response }
+      (response) => { 
+        this.reviews = response;
+        let userReviewArray = this.reviews.filter((review: any) => {
+          return review.user.id === this.userId});
+        this.userReview = userReviewArray.length > 0 ? userReviewArray[0] : null;
+        console.log(this.userId, this.userReview);
+      }
     )
+
   }
 
   addToCart(product: Product): void {
