@@ -5,6 +5,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
 import { ProductService } from 'src/app/services/product.service';
+import { faCropSimple } from '@fortawesome/free-solid-svg-icons';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-product-card',
@@ -13,7 +15,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductCardComponent implements OnInit {
 
-  role = this.authService.userRole;
+  role = this.appcomponent.curUser.role;
   wantToDelete : boolean = false;
   wantToUpdate : boolean = false;
   cartCount!: number;
@@ -28,7 +30,7 @@ export class ProductCardComponent implements OnInit {
 
 
   @Input() productInfo!: Product;
-  constructor(private productService: ProductService, private router: Router, private authService: AuthService) { }
+  constructor(public appcomponent: AppComponent,private productService: ProductService, private router: Router, private authService: AuthService) { }
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
       (cart) => {
@@ -36,7 +38,7 @@ export class ProductCardComponent implements OnInit {
         this.products = cart.products;
         this.totalPrice = cart.totalPrice;
       }
-    );
+      );
   }
 
   addToCart(product: Product): void {

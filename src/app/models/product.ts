@@ -13,10 +13,6 @@ export class Product {
         this.description = description;
         this.price = price;
         this.image = image;
-<<<<<<< HEAD
-        console.log(this.image);
-=======
        
->>>>>>> 66e8c952bc6361202017368d6ca0d113d5f8ebcd
     }
 }
