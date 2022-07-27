@@ -19,8 +19,6 @@ export class CreateProductComponent{
   fileName: string = '';
   file: string = '';
   imageSelected = false;
-  warningTextMessage : string = '';
-  warningNumberMessage : string = '';
   
   constructor(private prodService: ProductService, private router: Router, private uploadService: UploadService, private http: HttpClient) { }
 
@@ -63,27 +61,11 @@ export class CreateProductComponent{
     this.file = 'https://revazon-image-bucket.s3.amazonaws.com/' + url;
     
   }
-  
   onSubmit(){
-
-    if(this.createProductForm.get('pname')?.value===''){
-      this.warningTextMessage = 'Please fill in all text fields'
-    }else if(this.createProductForm.get('pquantity')?.value<0){
-      this.warningNumberMessage="Please only use positive numbers for price and quantity."
-    }else if(this.createProductForm.get('pdescription')?.value===''){
-      this.warningTextMessage = 'Please fill in all text fields'
-    }else if(this.createProductForm.get('pprice')?.value<0){
-      this.warningNumberMessage="Please only use positive numbers for price and quantity."
-    }else if(this.createProductForm.get('pimage')?.value===''){
-      this.warningTextMessage = 'Please fill in all text fields'
-    }else{
-      this.warningNumberMessage='';
-      this.warningTextMessage='';
     this.prodService.createProduct(this.createProductForm.get('pname')?.value,this.createProductForm.get('pquantity')?.value,
           this.createProductForm.get('pdescription')?.value,this.createProductForm.get('pprice')?.value,
           this.createProductForm.get('pimage')?.value).subscribe(
             () => this.router.navigate(['home'])
           );
   }
-}
 }
