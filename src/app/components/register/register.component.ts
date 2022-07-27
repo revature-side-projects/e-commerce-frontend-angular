@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
     fname: new FormControl(''),
     lname: new FormControl(''),
     email: new FormControl(''),
-    password: new FormControl(''),
+    password: new FormControl('')
   })
 
   constructor(private authService: AuthService, private router: Router) { }
