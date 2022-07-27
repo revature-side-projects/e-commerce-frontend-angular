@@ -133,7 +133,7 @@ export class ProductCardComponent implements OnInit {
     }
 
     if(this.updateProductForm.get('pimage')?.value===''){
-      image=product.image
+      image=product.image;
     }else{
       image=this.updateProductForm.get('pimage')?.value
     }
