@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.tempUser = this.appComponent.curUser;
     this.getPurchases();
-    this.seeReviews(1);
+    this.seeReviews(this.appComponent.curUser.id);
     this.getAddresses();
     setTimeout(() => {
       this.currAddress = this.addresses[0];
@@ -99,6 +99,7 @@ export class UserProfileComponent implements OnInit {
       next: (response) => {
         for (let review of Object.values(response)) {
           this.reviews.push(review);
+          console.log(review);
         }
 
         this.reviews = this.reviews.filter((review) => {
