@@ -39,6 +39,10 @@ export class UserProfileComponent implements OnInit {
     this.getPurchases();
     this.seeReviews(1);
     this.getAddresses();
+    setTimeout(() => {
+      this.currAddress = this.addresses[0];
+      console.log(this.currAddress);
+    }, 100)
     this.appComponent.curUser.reviews = this.reviews;
   }
 
@@ -59,14 +63,18 @@ export class UserProfileComponent implements OnInit {
     this.appComponent.curUser = this.tempUser;
 
     this.currAddress.users = this.appComponent.curUser;
-    // this.updateAddress();
+    this.updateAddress();
+    
+    setTimeout(() => {
+      this.appComponent.curUser.addresses = this.addresses;
+      this.userv.updateUser(this.appComponent.curUser).subscribe(
+        data => {
+          this.appComponent.curUser = data;
+        },
+        (err) => console.log(err)
+      )
+    }, 200)
 
-    this.userv.updateUser(this.appComponent.curUser).subscribe(
-      data => {
-        this.appComponent.curUser = data;
-      },
-      (err) => console.log(err)
-    )
     setTimeout(() => {     
       this.getPurchases();
     }, 300)
@@ -123,10 +131,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateAddress() {
+    this.addresses = [];
     this.addressService.updateAddress(this.currAddress).subscribe(
+      data =>  {
+        this.addresses.push(data);
+      },
       (err) => console.log(err)
     )
-
   }
 
   selectItem(itemId: number) {
