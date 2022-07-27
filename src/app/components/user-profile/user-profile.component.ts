@@ -60,6 +60,10 @@ export class UserProfileComponent implements OnInit {
   updateInfo() {
     this.closePopup();
 
+    if (this.appComponent.curUser.addresses.length < 1) {
+      this.addressService.addAddress(this.currAddress)
+    } 
+
     this.appComponent.curUser = this.tempUser;
 
     this.currAddress.users = this.appComponent.curUser;
