@@ -1,8 +1,8 @@
+import { AddressService } from './../../services/address.service';
 import { ReviewService } from './../../services/review.service';
 import { Router } from '@angular/router';
 import { PurchaseService } from './../../services/purchase.service';
 import { Purchase } from './../../models/purchase';
-import { Product } from './../../models/product';
 import { AppComponent } from './../../app.component';
 import { Address } from './../../models/address';
 import { User } from './../../models/user';
@@ -16,39 +16,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-
-  
-  address: Address[] = [];
-
-  
-
-  modalVisibility: string = "";
-
-  curUser: User = new User(1, "", "", "", "", "", this.address);
-
-  currAddress: Address = new Address(0, '', '', '', '', '', this.curUser);
-
-  addresses: Address[] = [];
+  addresses: any[] = [];
   purchases: Purchase[] = [];
-
   reviews: any[] = [];
 
   modalVisibility: string = "";
 
-  curUser: User = new User(1, "", "", "", "", "", this.addresses, this.purchases);
+  tempUser: User = new User(1, "", "", "", "", "", this.reviews, this.purchases, this.addresses);
 
+  currAddress: Address = new Address(0, '', '', '', '', '', this.tempUser);
 
   contentSelected: string = "info";
 
   constructor(public appComponent: AppComponent, private userv: UserService, 
-  private pserv: PurchaseService, private userv: UserService,
-    private reviewService: ReviewService, private router: Router) { }
+    private pserv: PurchaseService,
+    private reviewService: ReviewService, 
+    private addressService: AddressService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.curUser = this.appComponent.curUser;
+    this.tempUser = this.appComponent.curUser;
     this.getPurchases();
-    this.getTestUser();
     this.seeReviews(1);
+    this.getAddresses();
+    this.appComponent.curUser.reviews = this.reviews;
   }
 
   openPopup() {
@@ -63,16 +54,25 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateInfo() {
-
     this.closePopup();
-    this.curUser.addresses.push(this.currAddress);
-    // this.userv.updateUser(this.curUser).subscribe(
-    //   data => {
-    //     this.curUser = data;
-    //   },
-    //   (err) => console.log(err)
-    //   )
-  
+
+    this.appComponent.curUser = this.tempUser;
+
+    this.currAddress.users = this.appComponent.curUser;
+    // this.updateAddress();
+
+    this.userv.updateUser(this.appComponent.curUser).subscribe(
+      data => {
+        this.appComponent.curUser = data;
+      },
+      (err) => console.log(err)
+    )
+    setTimeout(() => {     
+      this.getPurchases();
+    }, 300)
+    setTimeout(() => {     
+      this.getAddresses();
+    }, 400)
   }
 
   changeContent(content: string) {
@@ -99,25 +99,34 @@ export class UserProfileComponent implements OnInit {
       }
     })
   }
-  
-  getReviews(userId: number){
-    this.reviewService.getUsersReviews(userId).subscribe({
-      next: (response) => {
-        for (let review of Object.values(response)){
-          this.reviews.push(review);
-        }
-      }
-    })
-  }
 
   getPurchases() {
 
-    this.pserv.getUserPurchases(this.curUser.id).subscribe(
+    this.pserv.getUserPurchases(this.appComponent.curUser.id).subscribe(
       data => {
-        this.curUser.purchases = data;
+        this.appComponent.curUser.purchases = data;
       },
       (err) => console.log(err)
     )
+  }
+
+  getAddresses() {
+    this.addresses = [];
+    this.addressService.getUserAddresses(this.appComponent.curUser.id).subscribe(
+      data=> {
+        for (let address of Object.values(data)) {
+          this.addresses.push(address);
+        }
+      },
+      (err) => console.log(err)
+    )
+  }
+
+  updateAddress() {
+    this.addressService.updateAddress(this.currAddress).subscribe(
+      (err) => console.log(err)
+    )
+
   }
 
   selectItem(itemId: number) {

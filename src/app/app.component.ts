@@ -12,5 +12,6 @@ export class AppComponent {
   title = 'E-Commerce Client';
   addresses: Address[] = [];
   purchases: Purchase[] = [];
-  curUser: User = new User(0, "", "", "", "", "", this.addresses, this.purchases);
+  reviews: any[] = []
+  curUser: User = new User(0, "", "", "", "", "", this.reviews, this.purchases, this.addresses);
 }

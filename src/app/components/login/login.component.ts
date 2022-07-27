@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         sessionStorage.setItem("userId", response.id);
         this.authService.loggedIn=true;
-        this.appComponent.curUser = data;
+        this.appComponent.curUser = response;
       },
       (err) => console.log(err),
       () => this.router.navigate(['home'])

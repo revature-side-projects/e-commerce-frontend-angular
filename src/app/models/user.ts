@@ -6,24 +6,24 @@ export class User{
 
     id: number;
     email: string;
+    password: string;
     firstName: string;
     lastName: string;
-    password: string;
     role: string;
-    addresses: Address [];
     purchases: Purchase[];
-    // reviews: Review[];
+    reviews: any[];
+    addresses: Address [];
 
     constructor(
         id: number,
         email: string,
+        password: string,
         firstName: string,
         lastName: string,
-        password: string,
         role: string,
-        addresses: Address [],
-        purchases: Purchase[]
-        // reviews: Review[] 
+        purchases: Purchase[],
+        reviews: any[],
+        addresses: Address []
     ) {
         this.id = id
         this.firstName = firstName
@@ -33,7 +33,7 @@ export class User{
         this.email = email
         this.addresses = addresses
         this.purchases = purchases
-        // this.reviews = reviews
+        this.reviews = reviews
     }
 
 }
