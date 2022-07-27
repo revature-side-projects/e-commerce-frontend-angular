@@ -80,6 +80,7 @@ export class UserProfileComponent implements OnInit {
       next: (response) => {
         for (let review of Object.values(response)) {
           this.reviews.push(review);
+          console.log(review);
         }
 
         this.reviews = this.reviews.filter((review) => {
