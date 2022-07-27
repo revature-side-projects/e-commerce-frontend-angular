@@ -32,7 +32,7 @@ export class CreateProductComponent{
     pimage: new FormControl('')
   })
 
-  change(event:any){
+  change(_event:any){
     this.changeImage = true;
   }
   viewImage(){
