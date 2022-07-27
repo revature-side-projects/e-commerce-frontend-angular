@@ -186,6 +186,8 @@
 
           <div class="container text-center p-4 content shadow-lg bg-white rounded">
 
+          <div *ngIf="appComponent.curUser.purchases.length < 1">No purchases for this account!</div>
+
             <div *ngFor="let purch of appComponent.curUser.purchases" class="col">
 
               <div class="card mb-5">
