@@ -1,3 +1,4 @@
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,8 +13,14 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { DisplayProductsComponent } from './components/display-products/display-products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
+=======
+import { ReviewComponent } from './components/review/review.component';
+import { ReviewSubmitComponent } from './components/review-submit/review-submit.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+>>>>>>> 482d189b49e0d50c5a5fd61443e961069885780f
 
 @NgModule({
   declarations: [
@@ -25,8 +32,15 @@ import { SearchFilterComponent } from './components/search-filter/search-filter.
     CartComponent,
     CheckoutComponent,
     DisplayProductsComponent,
+<<<<<<< HEAD
     SearchbarComponent,
     SearchFilterComponent
+=======
+    ReviewComponent,
+    ReviewSubmitComponent,
+    ProductDetailsComponent,
+    UserProfileComponent
+>>>>>>> 482d189b49e0d50c5a5fd61443e961069885780f
   ],
   imports: [
     BrowserModule,
