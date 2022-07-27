@@ -1,3 +1,4 @@
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,7 +13,12 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { DisplayProductsComponent } from './components/display-products/display-products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { ReviewComponent } from './components/review/review.component';
+import { ReviewSubmitComponent } from './components/review-submit/review-submit.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +30,11 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     CartComponent,
     CheckoutComponent,
     DisplayProductsComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    ReviewComponent,
+    ReviewSubmitComponent,
+    ProductDetailsComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
