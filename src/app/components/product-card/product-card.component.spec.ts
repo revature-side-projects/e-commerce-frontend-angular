@@ -5,14 +5,13 @@ import {ProductService} from 'src/app/services/product.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {of} from 'rxjs';
 
-/*
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
 
   beforeEach(async () => {
 	 const productServiceSpy = jasmine.createSpyObj<ProductService>(['getCart']);
-     
+     productServiceSpy.getCart.and.returnValue(of (component));
      
      await TestBed.configureTestingModule({
 	 
@@ -29,10 +28,7 @@ describe('ProductCardComponent', () => {
     fixture.detectChanges();
   });
 
-/*
   it('should create', () => {
-    expect(component).toBeTruthy;
+    expect(component).toBeTruthy();
   });
-    
 });
-*/
