@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-
-    "analytics": "0ac126f7-3509-4c59-a0c5-1597051257ee"
-
+    "analytics": "07bb7b5b-635a-4c3a-ac88-f4b9508ab1fa"
+    
+    "analytics": false
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -101,8 +101,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
-          }
+            "scripts": [],
+            "codeCoverage" : true
+         }
         }
       }
     }

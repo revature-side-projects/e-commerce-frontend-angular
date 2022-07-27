@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DisplayProductsComponent } from './display-products.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('DisplayProductsComponent', () => {
   let component: DisplayProductsComponent;
@@ -8,7 +10,9 @@ describe('DisplayProductsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DisplayProductsComponent ]
+	  imports: [HttpClientTestingModule],
+      declarations: [ DisplayProductsComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
