@@ -5,8 +5,6 @@
 <button class="btn btn-primary" (click)="upload()">Upload</button>
 <br> <br>
 <input type="text" name="image" [(ngModel)]="file" placeholder="File to view">
-<button class="btn btn-primary"(click)="viewImage()">View File</button>
-<!--<button class="btn btn-primary" (click)="deleteFile()">Delet File</button>-->
 <br><img *ngIf="file != ''" src="https://revazon-image-bucket.s3.amazonaws.com/{{file}}" alt="product image">
 <form id="create-product-form" [formGroup]="createProductForm">
     <div class="form-group">

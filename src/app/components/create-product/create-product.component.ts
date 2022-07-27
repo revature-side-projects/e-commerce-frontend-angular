@@ -61,7 +61,6 @@ export class CreateProductComponent{
   }
   updateImage(url: string){
     this.file = 'https://revazon-image-bucket.s3.amazonaws.com/' + url;
-    
   }
   onSubmit(){
     if(this.createProductForm.get('pname')?.value===''){

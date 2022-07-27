@@ -27,6 +27,7 @@ export class ProductCardComponent implements OnInit {
   
   subscription!: Subscription;
   totalPrice: number = 0;
+  msg : string = ""
 
 
   @Input() productInfo!: Product;
@@ -44,16 +45,31 @@ export class ProductCardComponent implements OnInit {
   addToCart(product: Product): void {
 
     let inCart = false;
+    let toBuy = Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value);
+    this.msg = "";
+
+    if(toBuy < 1){
+      this.msg = "Can not add a 0 or negitive number of items to order, please enter a higher order amount."
+      return;
+    }
     
     this.products.forEach(
       (element) => {
-        if (element.product.id == product.id) { 
-          element.quantity += Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
+        if (element.product.id == product.id) {
+          if(toBuy + element.quantity > product.quantity){
+            this.msg = "Can not order more items then currently in stock, please enter a lower order amount.";
+            inCart = true;
+            return;
+          }
+          
+          element.quantity += toBuy
           let cart = {
-            cartCount: this.cartCount + Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value),
+            
+            cartCount: this.cartCount + toBuy,
             products: this.products,
-            totalPrice: this.totalPrice + (product.price * Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value))
+            totalPrice: this.totalPrice + toBuy
           };
+          
           this.productService.setCart(cart);
           inCart = true;
           return;
@@ -63,15 +79,20 @@ export class ProductCardComponent implements OnInit {
     );
 
     if (inCart == false) {
+      
+      if(toBuy > product.quantity){
+        this.msg = "Can not order more items then currently in stock, please enter a lower order amount";
+        return;
+      }
       let newProduct = {
         product: product,
-        quantity: Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
+        quantity: toBuy
       };
       this.products.push(newProduct);
       let cart = {
-        cartCount: this.cartCount + Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value),
+        cartCount: this.cartCount + toBuy,
         products: this.products,
-        totalPrice: this.totalPrice + (product.price * newProduct.quantity)
+        totalPrice: this.totalPrice + (product.price * toBuy)
       }
       this.productService.setCart(cart);
     }
@@ -133,7 +154,7 @@ export class ProductCardComponent implements OnInit {
     }
 
     if(this.updateProductForm.get('pimage')?.value===''){
-      image=product.image
+      image=product.image;
     }else{
       image=this.updateProductForm.get('pimage')?.value
     }
