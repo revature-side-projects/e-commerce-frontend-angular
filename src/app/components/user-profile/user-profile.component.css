@@ -1,0 +1,31 @@
+.content-bg {
+    background-color:rgb(237, 238, 239);
+    outline: auto;
+    outline-color: rgb(138, 136, 136);
+}
+
+.content {
+    background-color:white;
+}
+
+.list-group:hover {
+    cursor: pointer;
+}
+
+.info-field {
+    color: grey
+}
+
+.title {
+    background-color:dimgray;
+    color: white;
+}
+
+.purchase-info {
+    color: grey;
+}
+
+img {
+
+    width: 50%;
+}
