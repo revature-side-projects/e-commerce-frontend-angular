@@ -1,27 +1,29 @@
+import { Purchase } from './purchase';
+import { Product } from './product';
 import { Address } from './address';
 
 export class User{
 
     id: number;
     email: string;
+    password: string;
     firstName: string;
     lastName: string;
-    password: string;
     role: string;
+    purchases: Purchase[];
+    reviews: any[];
     addresses: Address [];
-    // purchases: Purchase[];
-    // reviews: Review[];
 
     constructor(
         id: number,
         email: string,
+        password: string,
         firstName: string,
         lastName: string,
-        password: string,
         role: string,
-        addresses: Address [],
-        // purchases: Purchase[],
-        // reviews: Review[] 
+        purchases: Purchase[],
+        reviews: any[],
+        addresses: Address []
     ) {
         this.id = id
         this.firstName = firstName
@@ -30,8 +32,8 @@ export class User{
         this.role = role
         this.email = email
         this.addresses = addresses
-        // this.purchases = purchases
-        // this.reviews = reviews
+        this.purchases = purchases
+        this.reviews = reviews
     }
 
 }
