@@ -6,6 +6,8 @@ import {ProductService} from 'src/app/services/product.service';
 
 import {of} from 'rxjs';
 
+
+
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
@@ -18,6 +20,7 @@ describe('NavbarComponent', () => {
 	productServiceSpy.getCart.and.returnValue(of());
 	
     await TestBed.configureTestingModule({
+
       declarations: [ NavbarComponent],
       imports: [RouterTestingModule],
       providers:[{provide: AuthService, useValue: authServiceSpy},
@@ -27,6 +30,7 @@ describe('NavbarComponent', () => {
     
   
     
+
   });
 
   beforeEach(() => {

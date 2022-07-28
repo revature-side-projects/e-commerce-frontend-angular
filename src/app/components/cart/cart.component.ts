@@ -32,6 +32,7 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart(): void {
+	console.log('service', this.productService, this.productService.getCart())
     let cart = {
       cartCount: 0,
       products: [],

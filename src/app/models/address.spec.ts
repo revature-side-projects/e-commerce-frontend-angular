@@ -3,6 +3,7 @@ import { Address } from './address';
 
 describe('Address', () => {
   it('should create an instance', () => {
+
     expect(new Address(
 	             "John",
 	             "Doe",
@@ -13,6 +14,7 @@ describe('Address', () => {
 	             "55555",
 	             "USA"
 )).toBeTruthy();
+
   });
 });
 
