@@ -19,6 +19,7 @@ interface Cart {
 export class ProductService {
 
   private productUrl: string = "/api/product";
+  private searchTerm:  string = '';
   private purchasesUrl: string = "/api/purchases";
 
   private _cart = new BehaviorSubject<Cart>({
@@ -41,6 +42,11 @@ export class ProductService {
 
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.baseUrl+this.productUrl, {headers: environment.headers, withCredentials: environment.withCredentials});
+  }
+
+  //maybe remove the ending headers if error?
+  public getSearchProducts(searchTerm:string): Observable<Product[]> {
+    return this.http.get<Product[]>(environment.baseUrl+this.productUrl+`/partial-search/${searchTerm}`, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 
   public getSingleProduct(id: number): Observable<Product> {
