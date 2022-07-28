@@ -12,7 +12,7 @@ import{FormsModule, ReactiveFormsModule} from '@angular/forms';
 import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 
-xdescribe('ProductCardComponent', () => {
+fdescribe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
 

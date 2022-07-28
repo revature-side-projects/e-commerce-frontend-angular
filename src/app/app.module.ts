@@ -12,6 +12,10 @@ import { DisplayProductsComponent } from './components/display-products/display-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
+
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
+
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { ReviewComponent } from './components/review/review.component';
 import { ReviewSubmitComponent } from './components/review-submit/review-submit.component';
@@ -27,7 +31,14 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     ProductCardComponent,
     CartComponent,
     CheckoutComponent,
+
+    DisplayProductsComponent,
+
+    SearchbarComponent,
+
+
     CreateProductComponent,
+
     ReviewComponent,
     ReviewSubmitComponent,
     ProductDetailsComponent,
