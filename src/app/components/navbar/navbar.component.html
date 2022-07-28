@@ -1,13 +1,25 @@
-<nav class="navbar navbar-light bg-light">
-    <h4>
-        <img src="../../../assets/images/favicon.png" width="8%" height="8%" alt="Revature">
+<nav class="navbar gradient-custom">
+    <button class="btn btn-sm bg-transparent" (click)="notSearching()" [routerLink]="['/home']">
+        <h4>
+        <img src="../../../assets/images/favicon.png" width="13%" height="13%" alt="Revature">
         Revature Swag Shop
     </h4>
+        
+    </button>
+    <app-searchbar></app-searchbar> 
+    <!--insert searchbar here-->
+    <!--profile page also here? -->
     <form class="form-inline">
-        <button class="btn btn-light" [routerLink]="['/cart']">
+        <div class="form-group">
+            <button class="btn bg-transparent" [routerLink]="['/cart']">
             Cart
             <span class="badge badge-info">{{cartCount}}</span>
         </button>
+        <button *ngIf="role=='ADMIN'" class="btn btn-light" [routerLink]="['/createproduct']">
+            Create New Product
+        </button>
         <button class="btn btn-outline-danger my-2 my-sm-0" (click)="logout();">Logout</button>
+        </div>
+        
     </form>
 </nav>
