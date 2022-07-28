@@ -11,12 +11,12 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
-  role = this.appcomponent.curUser.role;
+  role = this.appComponent.curUser.role;
   cartCount!: number;
   subscription!: Subscription;
 
 
-  constructor(public appcomponent: AppComponent,private authService: AuthService, private router: Router, private productService: ProductService, ) { }
+  constructor(public appComponent: AppComponent,private authService: AuthService, private router: Router, private productService: ProductService, ) { }
 
   
   ngOnInit(): void {
