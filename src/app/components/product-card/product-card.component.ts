@@ -74,16 +74,17 @@ export class ProductCardComponent implements OnInit {
           inCart = true;
           return;
         }
-        ;
+        
       }
     );
 
-    if (inCart == false) {
-      
+
+    if (!inCart) {
       if(toBuy > product.quantity){
         this.msg = "Can not order more items then currently in stock, please enter a lower order amount";
         return;
       }
+
       let newProduct = {
         product: product,
         quantity: toBuy

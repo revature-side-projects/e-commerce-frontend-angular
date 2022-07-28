@@ -9,7 +9,7 @@ import { Address } from './../../models/address';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   registerForm = new FormGroup({
     fname: new FormControl(''),
@@ -19,10 +19,6 @@ export class RegisterComponent implements OnInit {
   })
 
   constructor(private authService: AuthService, private router: Router) { }
-
-  
-  ngOnInit(): void {
-  }
 
   onSubmit(): void {
     this.authService.register(this.registerForm.get('fname')?.value, this.registerForm.get('lname')?.value, this.registerForm.get('email')?.value, this.registerForm.get('password')?.value).subscribe(
