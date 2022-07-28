@@ -33,13 +33,13 @@ module.exports = function (config) {
       ],
       check: {
 	     global: {
-		   statements: 80,
-		   functions: 80,
-		   lines: 80
+		   statements: 70,
+		   functions: 70,
+		   lines: 70
 	     }
       }
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
