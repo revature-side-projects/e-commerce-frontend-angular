@@ -20,24 +20,25 @@ export class SearchbarComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private formBuilder: FormBuilder,
-              public appComponent: AppComponent) { }
+              public appComponent: AppComponent,
+              public router:Router) { }
 
   ngOnInit(): void {
     
   }
 
   //triggered when we submit search 
-  //q: how to send data from this component to another component? 
   onSubmit():void{
     //isSearching boolean: if the user is searching for products, set the 
     // search results to the products  from this search 
     // and set the string message on the top of the search! 
-    // also, show the filters 
+  
 
-    // when are we not searching? if the page is the home page... 
+    // when do we Not display searched terms? when the user clicks the homepage, it will reset search terms 
+    
     this.appComponent.isSearching = true; 
     this.appComponent.search = this.searchTerm;
-   
+    this.router.navigate(['/home']); // navigate to home so that on other pages, users are able to search 
     console.log(`hitting search() in searchbar component! it was : ${this.searchTerm}`)
 
     this.productService.getSearchProducts(this.searchTerm).subscribe(
