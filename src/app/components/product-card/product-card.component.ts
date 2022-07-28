@@ -1,22 +1,9 @@
-<<<<<<< HEAD
+
 import { Product } from './../../models/product';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-=======
-
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
-
-import { Product } from 'src/app/models/product';
-
-
-import { AuthService } from 'src/app/services/auth.service';
-import { FormControl, FormGroup } from '@angular/forms';
-
 import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
 import { ProductService } from 'src/app/services/product.service';
 import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
@@ -28,16 +15,12 @@ import { AuthService } from '@auth0/auth0-angular';
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css'],
-<<<<<<< HEAD
 })
-export class ProductCardComponent implements OnInit {
-  currentUserString: any = sessionStorage.getItem('user');
-  currentUser: User = JSON.parse(this.currentUserString);
-=======
-  
-})
+
+
 export class ProductCardComponent implements OnInit{
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
+   currentUserString: any = sessionStorage.getItem('user');
+   currentUser: User = JSON.parse(this.currentUserString);
 
   // TODO: change to admin once we retrieve the current user
   @Input() role: String = 'GUEST';
@@ -46,19 +29,17 @@ export class ProductCardComponent implements OnInit{
   cartCount!: number;
   
   products: {
-<<<<<<< HEAD
+
     product: Product;
     quantity: number;
-=======
-    product: Product,
-    quantity: number
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
+
+    
   }[] = [];
 
   subscription!: Subscription;
   
   totalPrice: number = 0;
-<<<<<<< HEAD
+
   msg: string = '';
 
   @Input() productInfo!: Product;
@@ -67,17 +48,16 @@ export class ProductCardComponent implements OnInit{
     private productService: ProductService,
     private router: Router,
     public authService: AuthService
-  ) {}
-=======
-  msg : string = ""
-
-  @Input() productInfo!: Product;
+   ) {}
 
 
-  constructor(private productService: ProductService) { }
   
 
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
+
+  
+  
+
+
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe((cart) => {
       this.cartCount = cart.cartCount;
@@ -88,43 +68,23 @@ export class ProductCardComponent implements OnInit{
 
   addToCart(product: Product): void {
     let inCart = false;
-<<<<<<< HEAD
+
     let toBuy = Number(
       (<HTMLInputElement>document.getElementById(`qty${product.id}`)).value
     );
     this.msg = '';
-=======
 
-    let toBuy = Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value);
-    this.msg = "";
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
+
+   
 
     if (toBuy < 1) {
       this.msg =
         'Can not add a 0 or negitive number of items to order, please enter a higher order amount.';
       return;
     }
-<<<<<<< HEAD
 
-    this.products.forEach((element) => {
-      if (element.product.id == product.id) {
-        if (toBuy + element.quantity > product.quantity) {
-          this.msg =
-            'Can not order more items then currently in stock, please enter a lower order amount.';
-          inCart = true;
-          return;
-        }
 
-        element.quantity += toBuy;
-        let cart = {
-          cartCount: this.cartCount + toBuy,
-          products: this.products,
-          totalPrice: this.totalPrice + toBuy,
-        };
 
-        this.productService.setCart(cart);
-        inCart = true;
-=======
     
     this.products.forEach(
       (element) => {
@@ -152,14 +112,7 @@ export class ProductCardComponent implements OnInit{
     );
 
 
-    if (inCart == false) {
-      
-      if(toBuy > product.quantity){
-        this.msg = "Can not order more items then currently in stock, please enter a lower order amount";
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
-        return;
-      }
-    });
+
 
     if (!inCart) {
       if (toBuy > product.quantity) {
@@ -180,15 +133,11 @@ export class ProductCardComponent implements OnInit{
       };
       this.productService.setCart(cart);
     }
-<<<<<<< HEAD
-  }
 
+   }
   selectProduct(): void {
     sessionStorage.setItem('selectedProductId', this.productInfo.id.toString());
     this.router.navigate(['/product-details']);
-=======
-      
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
   }
 
   ngOnDestroy() {

@@ -9,17 +9,12 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-<<<<<<< HEAD:src/app/pages/cart/cart.component.ts
+
   cartCount!: number;
   products: {
     product: Product;
     quantity: number;
-=======
 
-  products: {
-    product: Product,
-    quantity: number
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab:src/app/components/cart/cart.component.ts
   }[] = [];
   totalPrice!: number;
   cartProducts: Product[] = [];
@@ -27,7 +22,6 @@ export class CartComponent implements OnInit {
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
-<<<<<<< HEAD:src/app/pages/cart/cart.component.ts
     this.productService.getCart().subscribe((cart) => {
       this.cartCount = cart.cartCount;
       this.products = cart.products;
@@ -52,19 +46,7 @@ export class CartComponent implements OnInit {
     this.productService.setCart(cart);
   }
 
-=======
-    this.productService.getCart().subscribe(
-      (cart) => {
-        this.products = cart.products;
-        this.products.forEach(
-          (element) => this.cartProducts.push(element.product)
-        );
-        this.totalPrice = cart.totalPrice;
-      }
-    );
-  }
 
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab:src/app/components/cart/cart.component.ts
   emptyCart(): void {
     console.log('service', this.productService, this.productService.getCart());
     let cart = {
