@@ -29,7 +29,7 @@ export const environment = {
   },
   withCredentials: true,
 };
-<<<<<<< HEAD
+
 /*
 export const environment = {
   production: true,

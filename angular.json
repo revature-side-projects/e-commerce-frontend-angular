@@ -3,13 +3,11 @@
 
   "cli": {
 
-<<<<<<< HEAD
+
     "analytics": "0ac126f7-3509-4c59-a0c5-1597051257ee"
     
-=======
-    "analytics": "07bb7b5b-635a-4c3a-ac88-f4b9508ab1fa"
 
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
+  
   },
 
   "version": 1,
@@ -116,9 +114,5 @@
     }
   },
   "defaultProject": "e-commerce"
-<<<<<<< HEAD
- 
-=======
-  
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
+
 }
