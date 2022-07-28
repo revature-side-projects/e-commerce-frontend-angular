@@ -20,10 +20,9 @@ import { ReviewComponent } from './components/review/review.component';
 import { ReviewSubmitComponent } from './components/review-submit/review-submit.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
-
 @NgModule({
   declarations: [
-    AppComponent,
+   AppComponent,
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
@@ -40,6 +39,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
     ReviewSubmitComponent,
     ProductDetailsComponent,
     UserProfileComponent
+
   ],
   imports: [
     BrowserModule,

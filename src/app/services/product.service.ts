@@ -21,7 +21,7 @@ export class ProductService {
   private productUrl: string = "/api/product";
   private searchTerm:  string = '';
   private purchasesUrl: string = "/api/purchases";
-
+  
   private _cart = new BehaviorSubject<Cart>({
     cartCount: 0,
     products: [],
