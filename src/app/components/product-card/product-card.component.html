@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="card" style="width: 18rem">
   <img
     class="card-img-top"
@@ -65,7 +66,31 @@
       <button class="btn btn-outline-primary" (click)="wantsToUpdate()">
         Update Item Info
       </button>
+=======
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" [src]="productInfo.image" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{productInfo.name}}</h5>
+      <p class="card-text">{{productInfo.description}}</p>
+      <p class="card-text text-danger "> {{msg}} </p>
     </div>
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">$</span>
+      </div>
+      <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.price" aria-describedby="inputGroup-sizing-sm" disabled>
+    </div>
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Quantity in Stock</span>
+        </div>
+        <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.quantity" aria-describedby="inputGroup-sizing-sm" disabled>
+      </div>
+
+      <input id="qty{{productInfo.id}}" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" min="1"  [value]="1">
+>>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
+    </div>
+
     <div class="card-body">
       <button class="btn btn-outline-danger" (click)="wantsToDelete()">
         Delete Product

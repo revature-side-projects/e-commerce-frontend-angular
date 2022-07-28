@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { Address } from './address';
 //
 //
@@ -7,3 +8,25 @@
 //     expect(address).toBeTruthy();
 //   });
 // });
+=======
+import { Address } from './address';
+
+
+describe('Address', () => {
+  it('should create an instance', () => {
+
+    expect(new Address(
+	             "John",
+	             "Doe",
+	             "1234 Number Pl",
+	             "Apt 2b",
+	             "Phoenix",
+	             "AZ",
+	             "55555",
+	             "USA"
+)).toBeTruthy();
+
+  });
+});
+
+>>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab

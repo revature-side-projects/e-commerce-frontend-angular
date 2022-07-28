@@ -29,6 +29,7 @@ export const environment = {
   },
   withCredentials: true,
 };
+<<<<<<< HEAD
 /*
 export const environment = {
   production: true,
@@ -39,6 +40,8 @@ export const environment = {
     'Access-Control-Allow-Origin': '*',
   }
 }
+=======
+>>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
 
 
 /*
