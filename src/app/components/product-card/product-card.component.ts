@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -6,16 +6,20 @@ import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.css']
+  styleUrls: ['./product-card.component.css'],
+  
 })
 export class ProductCardComponent implements OnInit{
 
   cartCount!: number;
+  
   products: {
     product: Product,
     quantity: number
   }[] = [];
+  
   subscription!: Subscription;
+  
   totalPrice: number = 0;
 
   @Input() productInfo!: Product;
