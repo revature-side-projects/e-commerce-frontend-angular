@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+
+<div class="row mt-5">
+  <div class="col-md-3"></div>
+  <div class="col-md-3">
+    <div class="well">
+      <img [src]="productDetail.image" alt="" class="img-fluid" />
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well">
+          <h1>{{ productDetail.name }}</h1>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="well align-items-end">
+          <h3>${{ productDetail.price.toFixed(2) }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well">
+          <p class="font-weight-bold">About this item:</p>
+
+          {{ productDetail.description }}
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="well">
+          <p>Quantity in Stock: {{ productDetail.quantity }}</p>
+          <button
+            class="btn btn-outline-success"
+            (click)="addToCart(productDetail)"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="well"></div>
+  </div>
+  <div class="col-md-3">
+    <div class="well"><p class="font-weight-bold">Product Reviews</p></div>
+    <div>
+      <app-review-submit
+        [productId]="productId"
+        [isReviewed]="userReview !== null"
+      ></app-review-submit>
+      <app-review
+        *ngFor="let review of reviews"
+        [reviewObj]="review"
+      ></app-review>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="well"></div>
+  </div>
+</div>
