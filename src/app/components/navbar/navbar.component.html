@@ -10,8 +10,9 @@
     <!--insert searchbar here-->
     <!--profile page also here? -->
     <form class="form-inline">
+        <button [routerLink]="['/profile']">Profile</button>
         <div class="form-group">
-            <button class="btn bg-transparent" [routerLink]="['/cart']">
+             <button class="btn btn-light" [routerLink]="['/cart']">
             Cart
             <span class="badge badge-info">{{cartCount}}</span>
         </button>

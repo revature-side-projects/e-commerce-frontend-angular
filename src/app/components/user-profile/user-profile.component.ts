@@ -1,3 +1,4 @@
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AddressService } from './../../services/address.service';
 import { ReviewService } from './../../services/review.service';
 import { Router } from '@angular/router';
@@ -27,6 +28,17 @@ export class UserProfileComponent implements OnInit {
   currAddress: Address = new Address(0, '', '', '', '', '', this.tempUser);
 
   contentSelected: string = "info";
+
+  updateUserInfoForm = new FormGroup({
+    firstName : new FormControl(this.tempUser.firstName, [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
+    lastName : new FormControl(this.tempUser.lastName, [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
+    email : new FormControl(this.tempUser.email, [Validators.required, Validators.email]),
+    address : new FormControl(this.currAddress.street, [Validators.required, Validators.pattern('^[0-9]{1,5}( [a-zA-Z]+\.?)+$')]),
+    secondary : new FormControl(this.currAddress.secondary),
+    city : new FormControl(this.currAddress.city, [Validators.required, Validators.pattern('^([A-Z][a-z]+){1}( [A-Z][a-z]+)*$')]),
+    state : new FormControl(this.currAddress.state, [Validators.required]),
+    zip : new FormControl(this.currAddress.zip, [Validators.required, Validators.pattern('^[0-9]{5}-?([0-9]{4})?')])
+  })
 
   constructor(public appComponent: AppComponent, private userv: UserService, 
     private pserv: PurchaseService,

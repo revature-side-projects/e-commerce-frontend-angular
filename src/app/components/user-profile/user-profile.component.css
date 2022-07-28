@@ -25,6 +25,10 @@
     color: grey;
 }
 
+.form-control.invalid, .form-select.invalid {
+    border: 2px solid #dc3545 !important;
+}
+
 img {
 
     width: 50%;
