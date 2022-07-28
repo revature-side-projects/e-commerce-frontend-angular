@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+
   "cli": {
+<<<<<<< HEAD
 <<<<<<< HEAD
     "analytics": "5296fa2f-2083-4335-b2c9-39e30e20440a"
 =======
@@ -10,7 +12,13 @@
     "analytics": false
 >>>>>>> 66e8c952bc6361202017368d6ca0d113d5f8ebcd
 >>>>>>> 482d189b49e0d50c5a5fd61443e961069885780f
+=======
+
+    "analytics": "0ac126f7-3509-4c59-a0c5-1597051257ee"
+
+>>>>>>> e3db8f717784f5ac8cf285a15bffcbac2d6a3d5b
   },
+
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -107,12 +115,14 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "codeCoverage" : true
-         }
+            "scripts": []
+          }
         }
       }
     }
   },
-  "defaultProject": "e-commerce"
+  "defaultProject": "e-commerce",
+  "cli": {
+    "analytics": false
+  }
 }

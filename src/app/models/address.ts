@@ -7,7 +7,7 @@ export class Address {
   city: string;
   state: string;
   zip: string;
-  users: User[];
+  users: User;
   
 
   constructor (
@@ -17,7 +17,7 @@ export class Address {
     city: string,
     state: string,
     zip: string,
-    users: User[]
+    users: User
     
   ) {
     this.id = id
