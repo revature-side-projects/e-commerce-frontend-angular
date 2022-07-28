@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -10,8 +11,10 @@ import { ProductService } from 'src/app/services/product.service';
 export class DisplayProductsComponent implements OnInit {
 
   allProducts: Product[] = [];
+  searchProducts: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              public appComponent: AppComponent) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(
@@ -20,5 +23,7 @@ export class DisplayProductsComponent implements OnInit {
       () => console.log("Products Retrieved")
     );
   }
+
+  
 
 }
