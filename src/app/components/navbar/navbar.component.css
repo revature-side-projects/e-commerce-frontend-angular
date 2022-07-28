@@ -1,0 +1,13 @@
+.badge-info {
+  background-color: #f26925;
+}
+
+.gradient-custom {
+  background: rgb(242, 105, 37);
+  background: linear-gradient(135deg, rgba(242, 105, 37, 1) 63%, rgba(240, 240, 240, 1) 86%);
+}
+
+.btn-sm{
+  width: 20em;
+
+}

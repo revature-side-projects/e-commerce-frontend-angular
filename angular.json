@@ -1,5 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+
+  "cli": {
+
+    "analytics": "0ac126f7-3509-4c59-a0c5-1597051257ee"
+
+  },
+
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -102,5 +109,8 @@
       }
     }
   },
-  "defaultProject": "e-commerce"
+  "defaultProject": "e-commerce",
+  "cli": {
+    "analytics": false
+  }
 }
