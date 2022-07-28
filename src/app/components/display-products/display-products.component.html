@@ -1,12 +1,12 @@
 <app-navbar></app-navbar>
 
-<div class="row justify-content-center mt-2" *ngIf="appComponent.isSearching">
+<div class="row justify-content-center mt-2" style="margin: 0%;"*ngIf="appComponent.isSearching">
     <h3 *ngIf="appComponent.searchProducts.length > 0">Search results for "{{appComponent.search}}"</h3>
 
-    <h4 *ngIf="appComponent.searchProducts.length === 0" class="text-muted">Sorry, no results for
+    <h4 *ngIf="appComponent.searchProducts.length === 0" style="margin: 0%;" class="text-muted">Sorry, no results for
         "{{appComponent.search}}". Please try another query</h4>
 </div>
-<div class="row justify-content-center mt-2" *ngIf="!appComponent.isSearching">
+<div class="row justify-content-center mt-2" style="margin: 0%;" *ngIf="!appComponent.isSearching">
     <h3>Featured Products</h3>
 </div>
 
