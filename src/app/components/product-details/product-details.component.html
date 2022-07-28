@@ -36,15 +36,18 @@
         <h3 class="font-weight-bold">Product Reviews</h3>
       </div>
     </div>
-    
-      <div>
+
+    <div>
+      <div class="justify-content-center text-center mb-2" *ngIf="reviews.length == 0">
+        <p class="text-muted text-center">No reviews for this product yet.</p>
         <app-review-submit [productId]="productId" [isReviewed]="userReview !== null"></app-review-submit>
-        <app-review *ngFor="let review of reviews" [reviewObj]="review" class="border-top"></app-review>
-        <div class="justify-content-center text-center"*ngIf="reviews.length == 0">
-          <p class="text-muted text-center">No reviews for this product yet.</p>
-        </div>
       </div>
-    
+
+
+      <app-review *ngFor="let review of reviews" [reviewObj]="review" class="border-top"></app-review>
+
+    </div>
+
   </div>
 
 
