@@ -52,11 +52,11 @@ export class ProductCardComponent implements OnInit {
           inCart = true;
           return;
         }
-        ;
+        
       }
     );
 
-    if (inCart == false) {
+    if (!inCart) {
       let newProduct = {
         product: product,
         quantity: Number((<HTMLInputElement>document.getElementById((`qty${product.id}`))).value)
