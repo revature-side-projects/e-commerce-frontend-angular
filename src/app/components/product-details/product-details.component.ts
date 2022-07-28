@@ -1,5 +1,8 @@
-import { ReviewService } from './../../services/review.service';
-import {ProductService} from './../../services/product.service';
+//import { ReviewService } from './../../services/review.service';
+import {ReviewService} from 'src/app/services/review.service';
+
+//import {ProductService} from './../../services/product.service';
+import {ProductService} from 'src/app/services/product.service';
 import {Subscription} from 'rxjs';
 import {Component, Input, OnInit} from '@angular/core';
 import {Product} from 'src/app/models/product';
@@ -39,7 +42,7 @@ ngOnInit(): void {
     this.productService.getSingleProduct(this.productId).subscribe(
       response => this.productDetail = response,
       err => {console.log(err)});
-
+   
     this.subscription = this.productService.getCart().subscribe(
       (cart) => {
         this.cartCount = cart.cartCount;
