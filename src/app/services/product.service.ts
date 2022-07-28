@@ -19,18 +19,9 @@ interface Cart {
 export class ProductService {
 
   private productUrl: string = "/api/product";
-<<<<<<< HEAD
-<<<<<<< HEAD
-  private searchTerm:  string = '';
-=======
-  private purchasesUrl: string = "/api/purchases";
-
->>>>>>> 482d189b49e0d50c5a5fd61443e961069885780f
-=======
   private searchTerm:  string = '';
   private purchasesUrl: string = "/api/purchases";
-
->>>>>>> e3db8f717784f5ac8cf285a15bffcbac2d6a3d5b
+  
   private _cart = new BehaviorSubject<Cart>({
     cartCount: 0,
     products: [],
