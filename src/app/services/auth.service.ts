@@ -10,6 +10,7 @@ export class AuthService {
 
   authUrl: string = `${environment.baseUrl}/auth`;
   loggedIn: boolean = false;
+  userRole: string = '';
 
   constructor(private http: HttpClient) { }
 

@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   })
   
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public appComponent: AppComponent, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
       () => {
         this.authService.loggedIn=true;
+        this.appComponent.curUser = response;
       },
       (err) => console.log(err),
       () => this.router.navigate(['home'])

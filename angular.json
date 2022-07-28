@@ -1,7 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
+
     "analytics": "07bb7b5b-635a-4c3a-ac88-f4b9508ab1fa"
+
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -99,12 +101,12 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "codeCoverage" : true
-         }
+            "scripts": []
+          }
         }
       }
     }
   },
   "defaultProject": "e-commerce"
+  
 }

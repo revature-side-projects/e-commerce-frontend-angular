@@ -1,4 +1,5 @@
 export class Address {
+
     firstName: string
     lastName: string
     address1: string
@@ -27,4 +28,5 @@ export class Address {
       this.zip = zip
       this.country = country
     }
+
 }
