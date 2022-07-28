@@ -1,34 +1,26 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ProductService } from './product.service';
-<<<<<<< HEAD
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-=======
 
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
 
 
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
 describe('ProductService', () => {
   let service: ProductService;
   let httpTestingController: HttpTestingController;
   
   beforeEach(() => {
     TestBed.configureTestingModule({
-<<<<<<< HEAD
       imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(ProductService);
-=======
 
-		imports: [HttpClientTestingModule],
-		providers: [ProductService]
-     });
+		
      httpTestingController = TestBed.inject(HttpTestingController);
      service = TestBed.inject(ProductService);
 
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab
+
   });
 
   afterEach(() => {

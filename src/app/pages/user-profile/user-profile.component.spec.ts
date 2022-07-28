@@ -13,16 +13,12 @@ describe('UserProfileComponent', () => {
 	userServiceSpy.findUserById.and.returnValue(of());
 	
     await TestBed.configureTestingModule({
-<<<<<<< HEAD:src/app/pages/user-profile/user-profile.component.spec.ts
-      declarations: [UserProfileComponent],
-    }).compileComponents();
-=======
+
       declarations: [ UserProfileComponent ],
       providers: [{provide: UserService, useValue: userServiceSpy}]
 
     })
     .compileComponents();
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab:src/app/components/user-profile/user-profile.component.spec.ts
   });
 
   beforeEach(() => {

@@ -17,10 +17,7 @@ xdescribe('ProductDetailsComponent', () => {
 	reviewServiceSpy.getAllReviews.and.returnValue(of());
 		
     await TestBed.configureTestingModule({
-<<<<<<< HEAD:src/app/pages/product-details/product-details.component.spec.ts
-      declarations: [ProductDetailsComponent],
-    }).compileComponents();
-=======
+
       declarations: [ ProductDetailsComponent ],
       providers: [
 		{provide: ProductService, useValue: productServiceSpy},
@@ -29,7 +26,6 @@ xdescribe('ProductDetailsComponent', () => {
        schemas:[CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
->>>>>>> 4bd3e1d11cb57551743587ebe3fce235b03e43ab:src/app/components/product-details/product-details.component.spec.ts
   });
 
   beforeEach(() => {
