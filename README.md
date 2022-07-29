@@ -1,6 +1,6 @@
 # Revazon
 
-![Project Image](project-image-url)
+![Project Image](src/assets/images/revazon-nav-bar-image.png)
 
 > Revazon is a sample e-commerce application that allows customers to buy Revature clothing and merchandise. This is a group project done as part of our cohort training at Revature.
 ---
