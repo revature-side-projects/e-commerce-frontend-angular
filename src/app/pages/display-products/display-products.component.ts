@@ -28,23 +28,15 @@ export class DisplayProductsComponent implements OnInit {
   ngOnInit(): void {
     this.auth.user$.subscribe({
       next: (user) => {
-        console.log(user);
 
         if (
           user !== null &&
           user!.email !== undefined &&
           user?.sub !== undefined
         ) {
-          // console.log(user?.email);
-          // console.log(user);
-          this.authentication.login(user!.email, user?.sub).subscribe({
+          this.authentication.login(user.email, user?.sub).subscribe({
             next: (value) => {
-              console.log(value);
               sessionStorage.setItem('userId', value.id);
-              // console.log('Cur User value');
-              // console.log(value);
-              // console.log(this.appComponent.curUser);
-              // this.appComponent.curUserId = value.id;
 
               const newUser = new User(
                 value.email,
@@ -58,17 +50,15 @@ export class DisplayProductsComponent implements OnInit {
               );
               sessionStorage.setItem('user', JSON.stringify(newUser));
               this.role = value.role;
-              // this.appComponent.curUser = newUser;
-              // console.log(this.appComponent.curUser);
             },
-            error: (err) => {
+            error: (_err) => {
               if (
                 user?.nickname !== undefined &&
                 user.email !== undefined &&
                 user.sub !== undefined
               ) {
                 const newUser = new User(
-                  user!.email,
+                  user.email,
                   user?.nickname?.substring(0, user?.nickname?.length / 2),
                   user?.nickname?.substring(
                     user?.nickname?.length / 2,
@@ -80,26 +70,19 @@ export class DisplayProductsComponent implements OnInit {
                   [],
                   []
                 );
-                // console.log(newUser);
 
                 this.userService.registerUser(newUser).subscribe({
                   next: (data) => {
-                    console.log(data);
                     if (
                       data.email !== undefined &&
                       data.password !== undefined
                     ) {
                       this.authentication
-                        .login(data!.email, data.password)
+                        .login(data.email, data.password)
                         .subscribe({
                           next: (value) => {
-                            // console.log(value)
                             sessionStorage.setItem('userId', value.id);
-                            // this.appComponent.curUserId = value.id;
-                            // console.log('Cur User value');
-                            // console.log(value);
-                            // console.log(this.appComponent.curUser);
-                            const newUser = new User(
+                            const newUserTwo = new User(
                               value.email,
                               value.firstName,
                               value.lastName,
@@ -111,22 +94,18 @@ export class DisplayProductsComponent implements OnInit {
                             );
                             sessionStorage.setItem(
                               'user',
-                              JSON.stringify(newUser)
+                              JSON.stringify(newUserTwo)
                             );
                             this.role = value.role;
-
-                            // this.appComponent.curUser = value;
                           },
                         });
                     }
                   },
-                  error: (err) => {
-                    console.log(err.status);
+                  error: (_errTwo) => {
+                    //Intentional: Removed console logging
                   },
                 });
               }
-
-              console.log(err.status);
             },
           });
         }
@@ -134,8 +113,12 @@ export class DisplayProductsComponent implements OnInit {
     });
     this.productService.getProducts().subscribe(
       (resp) => (this.allProducts = resp),
-      (err) => console.log(err),
-      () => console.log('Products Retrieved')
+      (err) => {
+        //Intentional: Removed console logging
+      },
+      () => {
+        //Intentional: Removed console logging
+      }
     );
   }
 }
