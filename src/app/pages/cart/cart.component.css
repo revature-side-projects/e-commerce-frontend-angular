@@ -1,0 +1,13 @@
+.btn
+{
+  margin-left: 2%;
+}
+
+#delete-button{
+  margin-left: 5%;
+}
+
+#delete-button:hover
+{
+  background-color: #bb2d3b;
+}
