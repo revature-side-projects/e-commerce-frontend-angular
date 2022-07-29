@@ -2,32 +2,28 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductCardComponent } from './product-card.component';
 
+
+import {Router} from '@angular/router';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+
+import {AppComponent} from 'src/app/app.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ProductService} from 'src/app/services/product.service';
+import { AuthService } from '@auth0/auth0-angular';
 
-
-import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 
 
-import{FormsModule, ReactiveFormsModule} from '@angular/forms';
-import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
-
-fdescribe('ProductCardComponent', () => {
+describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
 
   beforeEach(async () => {
-
-	 const productServiceSpy = jasmine.createSpyObj<ProductService>(['getCart']);
-     productServiceSpy.getCart.and.returnValue(of());
-
 	
     await TestBed.configureTestingModule({
-      declarations: [ ProductCardComponent],
-      imports:[RouterTestingModule, FormsModule, ReactiveFormsModule],
-      providers: [{provide: ProductService, useValue: productServiceSpy}],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+     
+      
       
 
 
