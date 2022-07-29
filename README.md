@@ -27,22 +27,32 @@ This repository serves as the frontend of an e-commerce application. Any visitor
 - rxJs
 - Bootstrap
 - Html/Css
+- Jasmine
+- Docker
+- AWS
 
+#### Deployment Diagram
+
+![Project Image](src/assets/images/deployment-frontend.jpg)
+- Our frontend deployment is hosted in an AWS cloud environment. Static images and the Angular distributable files are stored in an S3 bucket. Cloud Front is used to cache our S3 files at the Edge. Certificate Manager redirects all traffic to use HTTPS. Finally, Code Pipeline was used as a CI/CD pipeline configured to build and deploy on each push to the dev branch.
 ---
 
 ## How To Use
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-Run `ng build` to build the project.
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 #### Installation
 
 ```html
     git clone https://github.com/Revature-Sophia-ECommerce-1376/e-commerce-frontend-angular.git
 ```
+
+#### Running the Application
+- Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+- Run `ng build` to build the project.
+
+- Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
 
 #### API Reference
 https://app.swaggerhub.com/apis/ANDYHUGHES39_1/Revazon/1.0.0
