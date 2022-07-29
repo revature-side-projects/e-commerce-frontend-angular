@@ -51,7 +51,7 @@ export class DisplayProductsComponent implements OnInit {
               sessionStorage.setItem('user', JSON.stringify(newUser));
               this.role = value.role;
             },
-            error: (err) => {
+            error: (_err) => {
               if (
                 user?.nickname !== undefined &&
                 user.email !== undefined &&
@@ -101,7 +101,8 @@ export class DisplayProductsComponent implements OnInit {
                         });
                     }
                   },
-                  error: (errTwo) => {
+                  error: (_errTwo) => {
+                    //Intentional: Removed console logging
                   },
                 });
               }
@@ -112,8 +113,12 @@ export class DisplayProductsComponent implements OnInit {
     });
     this.productService.getProducts().subscribe(
       (resp) => (this.allProducts = resp),
-      (err) => {},
-      () => {}
+      (err) => {
+        //Intentional: Removed console logging
+      },
+      () => {
+        //Intentional: Removed console logging
+      }
     );
   }
 }
