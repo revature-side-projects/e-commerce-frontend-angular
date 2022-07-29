@@ -1,16 +1,14 @@
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReviewService {
-
   reviewsUrl: string = `${environment.baseUrl}/api/review`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Get a list of all reviews for all products
   getAllReviews() {
@@ -19,17 +17,23 @@ export class ReviewService {
 
   // Get a list of reviews related to a product with the given product ID
   getProductReviews(productId: number) {
-    return this.http.get(`${this.reviewsUrl}/product/${productId}`, { headers: environment.headers });
+    return this.http.get(`${this.reviewsUrl}/product/${productId}`, {
+      headers: environment.headers,
+    });
   }
 
   // Get a list of reviews written by the user with the given user ID
   getUsersReviews(userId: number) {
-    return this.http.get(`${this.reviewsUrl}/user/${userId}`, { headers: environment.headers });
+    return this.http.get(`${this.reviewsUrl}/user/${userId}`, {
+      headers: environment.headers,
+    });
   }
 
   // Get a specific review by its ID
   getReviewById(id: number) {
-    return this.http.get(`${this.reviewsUrl}/${id}`, { headers: environment.headers });
+    return this.http.get(`${this.reviewsUrl}/${id}`, {
+      headers: environment.headers,
+    });
   }
 
   postReview(productId: number, stars: number, title: string, review: string) {
@@ -37,11 +41,22 @@ export class ReviewService {
       stars = 5;
     }
 
-    const userReview = { productId: productId, stars: stars, title: title, review: review }
-    return this.http.post(`${this.reviewsUrl}`, userReview, { headers: environment.headers, withCredentials: environment.withCredentials });
+    const userReview = {
+      productId: productId,
+      stars: stars,
+      title: title,
+      review: review,
+    };
+    return this.http.post(`${this.reviewsUrl}`, userReview, {
+      headers: environment.headers,
+      withCredentials: environment.withCredentials,
+    });
   }
 
   deleteReviewById(id: number) {
-    return this.http.delete(`${this.reviewsUrl}/${id}`, { headers: environment.headers, withCredentials: environment.withCredentials });
+    return this.http.delete(`${this.reviewsUrl}/${id}`, {
+      headers: environment.headers,
+      withCredentials: environment.withCredentials,
+    });
   }
 }
