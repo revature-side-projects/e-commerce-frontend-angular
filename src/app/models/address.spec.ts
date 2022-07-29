@@ -1,12 +1,11 @@
-
 import { Address } from './address';
 
 
 describe('Address', () => {
-  it('should create an instance', () => {
-
+  it('should create an instance and initialize fildes', () => {
+  const address = new Address("add1", "add2", "city", "state", "12345", []);     
+  expect(address).toBeTruthy();  
  
-
   });
 });
 
