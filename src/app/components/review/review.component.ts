@@ -31,7 +31,9 @@ export class ReviewComponent implements OnInit {
     name: '',
   };
 
-  constructor() { }
+  constructor() {
+    //This is intentional
+   }
 
   ngOnInit(): void {
     this.id = this.reviewObj.id;
