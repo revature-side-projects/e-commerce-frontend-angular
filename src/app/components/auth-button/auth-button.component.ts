@@ -8,7 +8,7 @@ import { DOCUMENT } from '@angular/common';
     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
       <button
         (click)="auth.logout({ returnTo: document.location.origin })"
-        class="btn btn-outline-danger my-2 my-sm-0"
+        class="btn btn-outline-danger my-2 my-sm-0 mr-4"
       >
         Log out
       </button>
@@ -17,7 +17,7 @@ import { DOCUMENT } from '@angular/common';
     <ng-template #loggedOut>
       <button
         (click)="auth.loginWithRedirect()"
-        class="btn btn-outline-success my-2 my-sm-0"
+        class="btn btn-outline-success my-2 my-sm-0 mr-4"
       >
         Log in
       </button>
