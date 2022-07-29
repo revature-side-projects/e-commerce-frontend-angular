@@ -1,25 +1,28 @@
-<nav class="navbar gradient-custom shadow">
-    <button class="btn btn-sm bg-transparent" (click)="notSearching()" [routerLink]="['/home']">
-        <h4>
-        <img src="../../../assets/images/favicon.png" width="13%" height="13%" alt="Revature">
-        Revazon
+<nav class="navbar gradient-custom">
+  <button class="btn btn-sm bg-transparent" (click)="notSearching()" [routerLink]="['/']">
+    <h4>
+      <img src="../../../assets/images/favicon.png" width="13%" height="13%" alt="Revature">
+      Revature Swag Shop
     </h4>
-        
-    </button>
-    <app-searchbar></app-searchbar> 
-    <!--insert searchbar here-->
-    <!--profile page also here? -->
-    <form class="form-inline">
-        <div class="form-group">
-            <button class="btn bg-transparent" [routerLink]="['/cart']">
-            Cart
-            <span class="badge badge-info">{{cartCount}}</span>
-        </button>
-        <button *ngIf="role=='ADMIN'" class="btn btn-light" [routerLink]="['/createproduct']">
-            Create New Product
-        </button>
-        <button class="btn btn-outline-danger my-2 my-sm-0" (click)="logout();">Logout</button>
-        </div>
-        
-    </form>
+
+  </button>
+  <app-searchbar></app-searchbar>
+  <!--insert searchbar here-->
+  <!--profile page also here? -->
+  <form class="form-inline">
+    <button [routerLink]="['/profile']" *ngIf="auth.isAuthenticated$ | async" >Profile</button>
+    <div class="form-group">
+      <button class="btn btn-light" [routerLink]="['/cart']"      *ngIf="auth.isAuthenticated$ | async"
+      >
+        Cart
+        <span class="badge badge-info">{{cartCount}}</span>
+      </button>
+      <button *ngIf="role=='ADMIN'" class="btn btn-light" [routerLink]="['/create-product']">
+        Create New Product
+      </button>
+      <app-auth-button></app-auth-button>
+
+    </div>
+
+  </form>
 </nav>

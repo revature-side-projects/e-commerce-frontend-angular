@@ -1,51 +1,43 @@
-import { AuthService } from './../../services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
-  styleUrls: ['./review.component.css']
+  styleUrls: ['./review.component.css'],
 })
 export class ReviewComponent implements OnInit {
-
   @Input() reviewObj: any = {};
 
   id: number = 0;
   stars: number = 0;
-  starsUnchecked: number = 0;
-
-  title: string = "";
-  review: string = "";
-  posted: string = "";
-  updated: string = "";
+  title: string = '';
+  review: string = '';
+  posted: string = '';
+  updated: string = '';
   user: any = {
     id: 0,
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: ""
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
   };
   product: any = {
     id: 0,
     quantity: 0,
     price: 0.0,
-    description: "",
-    image: "",
-    name: ""
+    description: '',
+    image: '',
+    name: '',
   };
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.id = this.reviewObj.id;
     this.stars = this.reviewObj.stars;
-    this.starsUnchecked = 5 - this.stars;//out of 5 rating 
     this.title = this.reviewObj.title;
     this.review = this.reviewObj.review;
-    //convert posted time from utc to machine's local time 
-    let localDate = new Date(this.reviewObj.posted);
-    console.log(`Local: ${localDate}`);
-    this.posted = localDate.toLocaleString();
+    this.posted = this.reviewObj.posted;
     this.updated = this.reviewObj.updated;
     this.user = this.reviewObj.user;
     this.product = this.reviewObj.product;
