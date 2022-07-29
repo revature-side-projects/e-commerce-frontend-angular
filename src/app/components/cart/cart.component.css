@@ -3,23 +3,25 @@
     margin: 3%;
 } */
 
-.btn
-{
+.btn {
     margin-left: 2%;
 }
 
-#delete-button
-{
+#delete-button {
     background-color: #dc3545;
-    margin-top:3%;
-    margin-left: 5%
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#delete-button:hover
-{
+#delete-button:hover {
     background-color: #bb2d3b;
 }
 
-.cart-container{
+.cart-container {
     margin-top: 6%;
 }
+
