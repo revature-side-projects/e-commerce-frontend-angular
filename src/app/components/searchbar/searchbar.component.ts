@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AppComponent } from './../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -18,7 +19,8 @@ export class SearchbarComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private formBuilder: FormBuilder,
-    public appComponent: AppComponent
+    public appComponent: AppComponent,
+    public router:Router
   ) {}
 
   ngOnInit(): void {}
@@ -34,6 +36,7 @@ export class SearchbarComponent implements OnInit {
     // when are we not searching? if the page is the home page...
     this.appComponent.isSearching = true;
     this.appComponent.search = this.searchTerm;
+    this.router.navigate(['/']); // navigate to home so that on other pages, users are able to search
 
     console.log(
       `hitting search() in searchbar component! it was : ${this.searchTerm}`

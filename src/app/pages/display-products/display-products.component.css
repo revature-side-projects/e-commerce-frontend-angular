@@ -6,9 +6,25 @@
   /* margin-left: 6%; */
 }
 
+.start-cards {
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 
 /* small size viewport */
 @media screen and (max-width: 640px) {
+
   /* Item sizing */
   .cardListItem {
     flex: 0 0 307px;
@@ -16,8 +32,10 @@
     padding-left: 3%;
   }
 }
+
 /* medium size viewport */
 @media screen and (max-width: 959px) {
+
   /* Item sizing */
   .cardListItem {
     /* flex: 0 0 307px; */
@@ -37,11 +55,11 @@
   }
 }
 
-.container
-{
+.container {
   margin-top: 1%;
 }
-.grid{
+
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 2%;
@@ -51,6 +69,6 @@
 
 
 
-.row > div[class*='col-'] {
+.row>div[class*='col-'] {
   display: flex;
 }
