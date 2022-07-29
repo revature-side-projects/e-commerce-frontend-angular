@@ -1,27 +1,81 @@
-# ECommerce
+# Revazon
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
+![Project Image](project-image-url)
 
-## Development server
+> Revazon is a sample e-commerce application that allows customers to buy Revature clothing and merchandise. This is a group project done as part of our cohort training at Revature.
+---
+
+### Table of Contents
+You're sections headers will be used to reference location of destination.
+
+- [Description](#description)
+- [How To Use](#how-to-use)
+- [References](#references)
+- [License](#license)
+- [Author Info](#author-info)
+
+---
+
+## Description
+
+This repository serves as the frontend of an e-commerce application. Any visitors can browse featured products. Logged in users have more privileges such as adding a product to a cart, purchasing a product, and viewing profile information.
+
+#### Technologies
+
+- Angular
+- JavaScript
+- rxJs
+- Bootstrap
+- Html/Css
+
+---
+
+## How To Use
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
+Run `ng build` to build the project.
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+#### Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```html
+    git clone https://github.com/Revature-Sophia-ECommerce-1376/e-commerce-frontend-angular.git
+```
 
-## Further help
+#### API Reference
+https://app.swaggerhub.com/apis/ANDYHUGHES39_1/Revazon/1.0.0
+```html
+    
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+---
+
+## References
+
+
+---
+
+## License
+
+MIT License
+
+Copyright (c) [2022] [Revature]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so.
+
+
+---
+
+## Contributors
+
+
+
+[Back To The Top](#read-me-template)
