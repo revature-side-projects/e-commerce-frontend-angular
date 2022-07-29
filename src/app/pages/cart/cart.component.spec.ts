@@ -33,4 +33,13 @@ describe('CartComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  it('empty cart should empty the cart', ()=>{
+	expect(component).toBeTruthy();
+	component.emptyCart();
+	expect(component.cartCount).toEqual(0);
+	expect(component.products).toEqual([]);
+	expect(component.totalPrice).toEqual(0.0);
+  })
+  
 });

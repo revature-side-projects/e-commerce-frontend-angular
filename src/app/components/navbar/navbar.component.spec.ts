@@ -52,7 +52,7 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
   
-  it('notSearching should re-initialize fields', () => {
+  it('should not search', () => {
       component.notSearching();
       expect(component["appComponent"].isSearching).toEqual(false);
       expect(component["appComponent"].searchProducts).toEqual([]);
