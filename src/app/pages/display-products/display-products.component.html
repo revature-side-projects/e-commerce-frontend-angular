@@ -1,0 +1,34 @@
+<app-navbar [role]="role"></app-navbar>
+
+<div class="row justify-content-center mt-2" *ngIf="appComponent.isSearching">
+  <h3 *ngIf="appComponent.searchProducts.length > 0">
+    Search results for "{{ appComponent.search }}"
+  </h3>
+
+  <h4 *ngIf="appComponent.searchProducts.length === 0" class="text-muted">
+    Sorry, no results for "{{ appComponent.search }}". Please try another query
+  </h4>
+</div>
+<div class="row justify-content-center mt-2" *ngIf="!appComponent.isSearching">
+  <h3>Featured Products</h3>
+</div>
+
+<div *ngIf="!appComponent.isSearching" class="grid">
+  <div *ngFor="let product of allProducts">
+    <app-product-card
+      class="cardListItem"
+      [productInfo]="product"
+      [role]="role"
+    ></app-product-card>
+  </div>
+</div>
+
+<div *ngIf="appComponent.isSearching" class="grid">
+  <div *ngFor="let product of appComponent.searchProducts">
+    <app-product-card
+      class="cardListItem"
+      [productInfo]="product"
+      [role]="role"
+    ></app-product-card>
+  </div>
+</div>
