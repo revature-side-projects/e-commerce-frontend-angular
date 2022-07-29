@@ -9,14 +9,14 @@
     Sorry, no results for "{{ appComponent.search }}". Please try another query
   </h4>
 </div>
-<div class="row justify-content-center mt-2" *ngIf="!appComponent.isSearching">
+<div class="row justify-content-center mt-2 text-center" style="margin:0%;" *ngIf="!appComponent.isSearching">
   <h3>Featured Products</h3>
 </div>
 
 <div *ngIf="!appComponent.isSearching" class="grid">
   <div *ngFor="let product of allProducts">
     <app-product-card
-      class="cardListItem"
+      class="cardListItem start-cards"
       [productInfo]="product"
       [role]="role"
     ></app-product-card>
