@@ -27,7 +27,8 @@
       </div>
     </div>
 
-    <div class="col-10" *ngIf="addresses.length >= 1">
+    <!-- <div class="col-10" *ngIf="addresses.length >= 1"> -->
+    <div class="col-10">
       <div class="content-bg">
         <div *ngIf="contentSelected == 'info'">
           <div class="text-left p-2 title mb-4">User Profile</div>
@@ -52,9 +53,9 @@
             <div class="row justify-content-md-center">
               <div class="col col-lg-2 info-field">Mailing Address</div>
               <div class="col col-lg-2">
-                <div *ngIf="addresses[0].street === ''">No mailing address</div>
+                <div *ngIf="addresses.length <= 0">No mailing address</div>
 
-                <div *ngIf="addresses[0].street !== ''">
+                <div *ngIf="addresses.length >= 1">
                   {{ addresses[0].street }} {{ addresses[0].secondary }}
                   {{ addresses[0].city }}, {{ addresses[0].state }}
                   {{ addresses[0].zip }}
