@@ -12,7 +12,7 @@ const { domain, clientId, apiUri, errorPath } = config as {
 };
 
 export const environment = {
-  production: false,
+  //production: false,
   auth: {
     domain,
     clientId,
