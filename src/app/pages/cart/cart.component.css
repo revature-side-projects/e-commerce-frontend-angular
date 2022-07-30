@@ -5,6 +5,9 @@
 
 #delete-button{
   margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: #dc3545;
 }
 
 #delete-button:hover
