@@ -8,12 +8,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class PurchaseService {
-  private purchaseUrl: string = '/api/purchases';
+  private purchaseUrl: string = environment.baseUrl + '/api/purchases' ;
 
   constructor(private http: HttpClient) {}
 
   public getAllPurchases(): Observable<Purchase[]> {
-    return this.http.get<Purchase[]>(environment.baseUrl + this.purchaseUrl, {
+    return this.http.get<Purchase[]>(this.purchaseUrl, {
       headers: environment.headers,
       withCredentials: environment.withCredentials,
     });
@@ -21,7 +21,7 @@ export class PurchaseService {
 
   public getUserPurchases(userId: number): Observable<Purchase[]> {
     return this.http.get<Purchase[]>(
-      environment.baseUrl + this.purchaseUrl + `/user/${userId}`,
+        this.purchaseUrl + `/user/${userId}`,
       {
         headers: environment.headers,
         withCredentials: environment.withCredentials,
