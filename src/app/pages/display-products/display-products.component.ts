@@ -25,59 +25,58 @@ export class DisplayProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.auth.idTokenClaims$.subscribe({
-      next:(data)=>{
-        if (data) {
-          let token:any = data?.__raw;
-          let email:any = data?.email;
-          let password:any = data?.sub;
-          let nickname:any = data?.nickname;
+    this.auth.user$.subscribe({
+      next:(user)=>{
+        this.auth.idTokenClaims$.subscribe({
+          next:(data)=>{
+            if (data) {
+              let token:any = data?.__raw;
+              let email:any = data?.email;
+              let password:any = data?.sub;
+              let nickname:any = data?.nickname;
 
-          const potentialNewUser = new User(
-            email,
-            nickname?.substring(0, nickname?.length / 2),
-            nickname?.substring(
-              nickname?.length / 2,
-              nickname?.length
-            ),
-            password,
-            'CUSTOMER',
-            [],
-            [],
-            []
-          );
-          if (data["http://finally.com/roles"][0]) {
-            this.role = data["http://finally.com/roles"][0].toUpperCase();
-          } else {
-            this.role = "CUSTOMER";
-          }
-          localStorage.setItem('auth', token)
-
-          this.authentication.login(email, password).subscribe({
-            next: (value) => {
-              sessionStorage.setItem('userId', value.id);
-              sessionStorage.setItem('user', JSON.stringify(new User(
-                value.email,
-                value.firstName,
-                value.lastName,
-                '',
-                value.role,
+              const potentialNewUser = new User(
+                email,
+                nickname?.substring(0, nickname?.length / 2),
+                nickname?.substring(
+                  nickname?.length / 2,
+                  nickname?.length
+                ),
+                password,
+                'CUSTOMER',
                 [],
                 [],
                 []
-              )));
-            },
-            error: () => {
-              this.userService.registerUser(potentialNewUser).subscribe({
-                next: (data) => {
-                  this.authentication
-                    .login(data!.email, data.password)
-                    .subscribe({
-                      next: (value) => {
-                        sessionStorage.setItem('userId', value.id);
-                        sessionStorage.setItem(
-                          'user',
-                          JSON.stringify(new User(
+              );
+              if (data["http://finally.com/roles"][0]) {
+                this.role = data["http://finally.com/roles"][0].toUpperCase();
+              } else {
+                this.role = "CUSTOMER";
+              }
+              localStorage.setItem('auth', token)
+              localStorage.setItem('user', JSON.stringify(user))
+
+              this.userService.findUserByEmail(email).subscribe({
+                next:(value) => {
+                  sessionStorage.setItem('userId', String(value.id));
+                  sessionStorage.setItem('user', JSON.stringify(new User(
+                    value.email,
+                    value.firstName,
+                    value.lastName,
+                    '',
+                    value.role,
+                    [],
+                    [],
+                    []
+                  )));
+                },
+                error: () => {
+                  this.userService.registerUser(potentialNewUser).subscribe({
+                    next: (data) => {
+                      this.userService.findUserByEmail(email).subscribe({
+                        next:(value) => {
+                          sessionStorage.setItem('userId', String(value.id));
+                          sessionStorage.setItem('user', JSON.stringify(new User(
                             value.email,
                             value.firstName,
                             value.lastName,
@@ -86,21 +85,21 @@ export class DisplayProductsComponent implements OnInit {
                             [],
                             [],
                             []
-                          ))
-                        );
-                        this.role = value.role;
-                      },
-                    });
+                          )));
+                        }})
+                    }
+                  });
                 }
-              });
+              })
             }
-          });
-        }
 
-        this.productService.getProducts().subscribe(
-          (resp) => (this.allProducts = resp),
-          (err) => console.log(err),
-        );
+            this.productService.getProducts().subscribe(
+              (resp) => (this.allProducts = resp),
+              (err) => console.log(err),
+            );
+          }
+        })
+
       }
     })
 

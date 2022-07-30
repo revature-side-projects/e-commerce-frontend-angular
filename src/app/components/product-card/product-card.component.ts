@@ -186,7 +186,7 @@ export class ProductCardComponent implements OnInit {
       () => {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['/']);
+        window.location.reload()
       },
       (err: any) => console.log(err),
       () => window.location.reload()

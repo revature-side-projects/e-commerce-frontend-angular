@@ -6,7 +6,7 @@ import { Purchase } from '../../models/purchase';
 import { Address } from '../../models/address';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild, ViewChildren} from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -16,6 +16,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
+
   currentUserIdString: any = sessionStorage.getItem('userId');
   currentUserId: number = parseInt(this.currentUserIdString);
 

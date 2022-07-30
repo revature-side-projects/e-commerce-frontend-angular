@@ -17,6 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let userString:any = localStorage.getItem('user');
     let userJSON:User = JSON.parse(userString);
+    console.log(userJSON)
 
     if (userJSON !== null && this.authentication.token !== undefined) {
       request = request.clone({

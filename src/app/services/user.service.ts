@@ -9,6 +9,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { User } from '../models/user';
+import {UserWithId} from "../models/userWithId";
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,11 @@ export class UserService {
   findUserById(id: number): Observable<User> {
     return this.http
       .get<User>(`${this.userUrl}/${id}`, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+  findUserByEmail(email: string): Observable<UserWithId> {
+    return this.http
+      .get<UserWithId>(`${this.userUrl}/email/${email}`, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
