@@ -1,8 +1,8 @@
-<nav class="navbar gradient-custom">
+<nav class="navbar gradient-custom shadow">
   <button class="btn btn-sm bg-transparent" (click)="notSearching()" [routerLink]="['/']">
     <h4>
       <img src="../../../assets/images/favicon.png" width="13%" height="13%" alt="Revature">
-      Revature Swag Shop
+      Revazon
     </h4>
 
   </button>
@@ -10,14 +10,14 @@
   <!--insert searchbar here-->
   <!--profile page also here? -->
   <form class="form-inline">
-    <button [routerLink]="['/profile']" *ngIf="auth.isAuthenticated$ | async" >Profile</button>
+    <button class="btn bg-transparent btn-anim" [routerLink]="['/profile']" *ngIf="auth.isAuthenticated$ | async" >Profile</button>
     <div class="form-group">
-      <button class="btn btn-light" [routerLink]="['/cart']"      *ngIf="auth.isAuthenticated$ | async"
+      <button class="btn bg-transparent btn-anim" [routerLink]="['/cart']"      *ngIf="auth.isAuthenticated$ | async"
       >
         Cart
         <span class="badge badge-info">{{cartCount}}</span>
       </button>
-      <button *ngIf="role=='ADMIN'" class="btn btn-light" [routerLink]="['/create-product']">
+      <button *ngIf="role=='ADMIN'" class="btn bg-transparent btn-anim" [routerLink]="['/create-product']">
         Create New Product
       </button>
       <app-auth-button></app-auth-button>

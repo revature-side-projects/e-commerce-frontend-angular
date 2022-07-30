@@ -1,4 +1,16 @@
 <app-navbar></app-navbar>
+<!-- if cart is empty, display empty cart, only show button to return to shop -->
+<!-- otherwise, display cart components -->
+<div class="container cart-container">
+  <h2 class="text-center mb-2">Shopping Cart</h2>
+  <div class="empty-cart mt-4 text-center" *ngIf="products.length === 0">
+    <em class="fa fa-shopping-cart text-center align-items-center" style="font-size:50px;"></em>
+    <h5 class="text-center">Your cart is currently empty! </h5>
+    <h6 class="text-center text-muted sm">Before you proceed to checkout you must add some products to your cart. Go find some products!</h6>
+    <button class="btn btn-shop mt-4" [routerLink]="['/']">Return to shop</button>
+  </div>
+  <div *ngIf="products.length != 0">
+    
 <table class="table table-striped" id="cart-table">
   <thead>
     <tr>
@@ -41,3 +53,5 @@
 <button class="btn btn-primary" [routerLink]="['/checkout']">
   Proceed to Checkout (${{ totalPrice }})
 </button>
+  </div>
+</div>

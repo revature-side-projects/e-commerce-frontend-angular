@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AppComponent } from './../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -18,10 +19,11 @@ export class SearchbarComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private formBuilder: FormBuilder,
-    public appComponent: AppComponent
-  ) {}
+    public appComponent: AppComponent,
+    public router: Router
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   //triggered when we submit search
   //q: how to send data from this component to another component?
@@ -32,12 +34,18 @@ export class SearchbarComponent implements OnInit {
     // also, show the filters
 
     // when are we not searching? if the page is the home page...
-    this.appComponent.isSearching = true;
-    this.appComponent.search = this.searchTerm;
 
-    console.log(
-      `hitting search() in searchbar component! it was : ${this.searchTerm}`
-    );
+    this.appComponent.search = this.searchTerm;
+    //input validation: only when the length is > 1 do we search 
+    
+    if (this.searchTerm.length >= 1) {
+
+      this.appComponent.isSearching = true;
+      this.router.navigate(['/']); // navigate to home so that on other pages, users are able to search
+
+      console.log(
+        `hitting search() in searchbar component! it was : ${this.searchTerm}`
+      );
 
     this.productService.getSearchProducts(this.searchTerm).subscribe(
       (resp) => {
@@ -51,6 +59,5 @@ export class SearchbarComponent implements OnInit {
       }
     );
   }
-
-  search() {}
+  search() { }
 }

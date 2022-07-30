@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UploadService {
 
+
   constructor(private http : HttpClient) { }
 
   pushFile(file: File): Observable<string> { //: Observable<HttpEvent<{}>>
@@ -17,7 +18,7 @@ export class UploadService {
     data.append('file', file);
     console.log(data.get("file"));
 
-    return this.http.put('http://localhost:8080/api/product/uploadFile', data, {headers: headers,
+    return this.http.put(`${environment.baseUrl}/api/product/uploadFile`, data, {headers: environment.headers,
       withCredentials: environment.withCredentials,
       reportProgress: true,
       responseType: 'text'});
