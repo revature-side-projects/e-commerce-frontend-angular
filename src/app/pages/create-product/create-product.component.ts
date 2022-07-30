@@ -20,7 +20,7 @@ export class CreateProductComponent {
   imageSelected = false;
   warningTextMessage: string = '';
   warningNumberMessage: string = '';
-
+  modalVisibility: string = '';
   constructor(
     private prodService: ProductService,
     private router: Router,
@@ -58,6 +58,7 @@ export class CreateProductComponent {
     this.currentFile = this.selectedFiles[0];
     this.uploadService.pushFile(this.currentFile).subscribe((event) => {
       console.log(event);
+      this.modalVisibility = 'none';
     });
   }
   selectFile(event: any) {
@@ -95,9 +96,20 @@ export class CreateProductComponent {
               this.createProductForm.get('pprice')?.value,
               this.createProductForm.get('pimage')?.value
             )
-            .subscribe(() => this.router.navigate(['home']));
+            .subscribe(() => this.router.navigate(['']));
         }
       }
     }
   }
+
+  openPopup() {
+    this.modalVisibility = 'block';
+  }
+
+  closePopup() {
+    this.modalVisibility = 'none';
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+  }
+
 }

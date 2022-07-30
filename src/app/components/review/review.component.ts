@@ -10,6 +10,7 @@ export class ReviewComponent implements OnInit {
 
   id: number = 0;
   stars: number = 0;
+  starsUnchecked: number = 0;
   title: string = '';
   review: string = '';
   posted: string = '';
@@ -30,14 +31,16 @@ export class ReviewComponent implements OnInit {
     name: '',
   };
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.id = this.reviewObj.id;
     this.stars = this.reviewObj.stars;
+    this.starsUnchecked = 5 - this.stars;//out of 5 rating, for displaying correct amt of stars 
     this.title = this.reviewObj.title;
     this.review = this.reviewObj.review;
-    this.posted = this.reviewObj.posted;
+    let localDate = new Date(this.reviewObj.posted);//convert posted time from utc to machine's local time 
+    this.posted = localDate.toLocaleString();
     this.updated = this.reviewObj.updated;
     this.user = this.reviewObj.user;
     this.product = this.reviewObj.product;

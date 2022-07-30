@@ -2,13 +2,14 @@
 <div class="card" style="width: 18rem">
   <img
     class="card-img-top"
+    style="cursor: pointer;"
     [src]="productInfo.image"
     (click)="selectProduct()"
     alt="Card image cap"
   />
-  <div class="card-body">
+  <div class="card-body" style="cursor: pointer;">
     <h5 class="card-title" (click)="selectProduct()">{{ productInfo.name }}</h5>
-    <p class="card-text">{{ productInfo.description }}</p>
+    <p class="card-text " (click)="selectProduct()">{{ productInfo.description }}</p>
     <p class="card-text text-danger">{{ msg }}</p>
   </div>
   <div class="input-group input-group-sm mb-3">
@@ -19,7 +20,7 @@
       type="number"
       class="form-control"
       aria-label="Sizing example input"
-      [value]="productInfo.price"
+      [value]="productInfo.price.toFixed(2)"
       aria-describedby="inputGroup-sizing-sm"
       disabled
     />
