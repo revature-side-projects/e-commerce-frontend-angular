@@ -28,6 +28,16 @@ export const environment = {
     'Access-Control-Allow-Origin': 'http://127.0.0.1:4200',
   }
 };
+/*
+export const environment = {
+  production: true,
+  withCredentials: true,
+  baseUrl: "http://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com",
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  }
+}
 
 
 /*
