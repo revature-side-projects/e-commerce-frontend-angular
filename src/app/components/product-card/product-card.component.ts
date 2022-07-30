@@ -72,7 +72,7 @@ export class ProductCardComponent implements OnInit {
         let cart = {
           cartCount: this.cartCount + toBuy,
           products: this.products,
-          totalPrice: this.totalPrice + toBuy,
+          totalPrice: this.totalPrice + (toBuy * this.productInfo.price),
         };
 
         this.productService.setCart(cart);
