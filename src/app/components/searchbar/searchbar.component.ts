@@ -45,7 +45,10 @@ export class SearchbarComponent implements OnInit {
         this.appComponent.searchProducts = resp;
       },
       (err) => console.log(err),
-      () => console.log('Products search Retrieved')
+      () => {
+        this.appComponent.found = true;
+        console.log('Products search Retrieved')
+      }
     );
   }
 
