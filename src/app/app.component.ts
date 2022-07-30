@@ -9,8 +9,7 @@ import { Product } from './models/product';
 export class AppComponent {
   title = 'E-Commerce Client';
   public isSearching: boolean = false;
-  //list of products from search
-  // this will be set when issearching is true.
+  public found: boolean = false;
   searchProducts: Product[] = [];
   search: string = 'help';
 }

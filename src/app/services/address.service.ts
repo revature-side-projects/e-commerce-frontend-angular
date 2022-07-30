@@ -12,7 +12,7 @@ export class AddressService {
   constructor(private http: HttpClient) {}
 
   getUserAddresses(userId: number) {
-    return this.http.get(`${this.addressUrl}/${userId}`, {
+    return this.http.get(`${this.addressUrl}/user/${userId}`, {
       headers: environment.headers,
     });
   }

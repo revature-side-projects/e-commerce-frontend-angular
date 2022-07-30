@@ -17,6 +17,7 @@ export const environment = {
     domain,
     clientId,
     redirectUri: window.location.origin,
+    audience: "http://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com/",
     errorPath,
   },
   httpInterceptor: {
