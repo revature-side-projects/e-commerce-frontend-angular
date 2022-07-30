@@ -47,20 +47,17 @@ export class SearchbarComponent implements OnInit {
         `hitting search() in searchbar component! it was : ${this.searchTerm}`
       );
 
-      this.productService.getSearchProducts(this.searchTerm).subscribe(
-        (resp) => {
-          console.log(resp);
-          this.appComponent.searchProducts = resp;
-        },
-        (err) => console.log(err),
-        () => console.log('Products search Retrieved')
-      );
-    }
-    else{
-      this.appComponent.isSearching = false;
-    }
-    
+    this.productService.getSearchProducts(this.searchTerm).subscribe(
+      (resp) => {
+        console.log(resp);
+        this.appComponent.searchProducts = resp;
+      },
+      (err) => console.log(err),
+      () => {
+        this.appComponent.found = true;
+        console.log('Products search Retrieved')
+      }
+    );
   }
-
   search() { }
 }
