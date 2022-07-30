@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 import { ProductService } from 'src/app/services/product.service';
 import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
-import { AuthenticationService } from '../../services/authentication.service';
+
 import { AuthService } from '@auth0/auth0-angular';
 
 
@@ -23,7 +23,7 @@ export class ProductCardComponent implements OnInit{
    currentUser: User = JSON.parse(this.currentUserString);
 
   // TODO: change to admin once we retrieve the current user
-  @Input() role: String = 'GUEST';
+  @Input() role: string = 'GUEST';
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
   cartCount!: number;
@@ -85,6 +85,7 @@ export class ProductCardComponent implements OnInit{
 
 
 
+
     
     this.products.forEach(
       (element) => {
@@ -108,6 +109,7 @@ export class ProductCardComponent implements OnInit{
           inCart=true;
           return;
         };
+
       }
     );
 

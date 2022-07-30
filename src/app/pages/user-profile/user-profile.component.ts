@@ -196,9 +196,13 @@ export class UserProfileComponent implements OnInit {
   // }
 
   changeContent(content: string) {
-    document.getElementsByName('button').forEach((button) => {
-      button.classList.remove('active');
-    });
+
+    var listItems = document.getElementsByClassName('list-group-item')
+
+    for (var i = 0; i < listItems.length; i++) {
+
+      listItems.item(i)?.classList.remove('active');
+    }
 
     document.getElementById(content)?.classList.add('active');
     this.contentSelected = content;
