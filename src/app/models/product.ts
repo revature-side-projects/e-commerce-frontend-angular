@@ -1,4 +1,5 @@
 export class Product {
+
     id: number;
     name: string;
     quantity: number;
@@ -15,3 +16,4 @@ export class Product {
         this.image = image;
     }
 }
+

@@ -5,6 +5,9 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    preprocessors:{
+	   '*.js': 'coverage'
+    },
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -28,11 +31,20 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, './coverage/e-commerce'),
       subdir: '.',
       reporters: [
-        { type: 'html' },
-        { type: 'text-summary' }
-      ]
+        { type: 'html', 
+          dir: 'coverage/' },
+        { type: 'text-summary'},
+        'coverage'
+      ],
+      check: {
+	     global: {
+		   statements: 70,
+		   functions: 70,
+		   lines: 70
+	     }
+      }
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
