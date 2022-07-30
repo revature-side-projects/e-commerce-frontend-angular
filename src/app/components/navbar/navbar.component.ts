@@ -39,6 +39,7 @@ export class NavbarComponent implements OnInit {
 
   notSearching(): void {
     this.appComponent.isSearching = false;
+    this.appComponent.found = false;
     this.appComponent.searchProducts = [];
     this.appComponent.search = '';
   }

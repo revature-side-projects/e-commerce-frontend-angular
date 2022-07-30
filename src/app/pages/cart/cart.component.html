@@ -23,13 +23,15 @@
         </td>
         <td>{{ product.product.description }}</td>
         <!--When this button is clicked change the boolean for that row-->
-        <button
-          class="btn btn-danger"
-          id="delete-button"
-          (click)="removeFromCart(product)"
-        >
-          X
-        </button>
+        <td>
+          <button
+            class="btn btn-danger"
+            id="delete-button"
+            (click)="removeFromCart(product)"
+          >
+            X
+          </button>
+        </td>
       </ng-container>
     </tr>
   </tbody>
