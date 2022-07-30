@@ -124,6 +124,7 @@ export class UserProfileComponent implements OnInit {
         }
         if (this.addresses.length === 0) {
           this.isNewAddress = true;
+          console.log(`NewAddress: ${this.isNewAddress}`)
         } else {
           this.updatedAddress.street = this.addresses[0].street;
           this.updatedAddress.secondary = this.addresses[0].secondary;

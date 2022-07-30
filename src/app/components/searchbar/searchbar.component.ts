@@ -39,7 +39,7 @@ export class SearchbarComponent implements OnInit {
     //input validation: only when the length is > 1 do we search 
     
     if (this.searchTerm.length >= 1) {
-
+      
       this.appComponent.isSearching = true;
       this.router.navigate(['/']); // navigate to home so that on other pages, users are able to search
 
@@ -47,18 +47,23 @@ export class SearchbarComponent implements OnInit {
         `hitting search() in searchbar component! it was : ${this.searchTerm}`
       );
 
-    this.productService.getSearchProducts(this.searchTerm).subscribe(
-      (resp) => {
-        console.log(resp);
-        this.appComponent.searchProducts = resp;
-      },
-      (err) => console.log(err),
-      () => {
-        this.appComponent.found = true;
-        console.log('Products search Retrieved')
-      }
-    );
+      this.productService.getSearchProducts(this.searchTerm).subscribe(
+        (resp) => {
+          console.log(resp);
+          this.appComponent.searchProducts = resp;
+        },
+        (err) => console.log(err),
+        () => {
+          this.appComponent.found = true;
+          console.log('Products search Retrieved')
+        }
+      );
+    }
+    else{
+      this.appComponent.isSearching = false;
+    }
+    
   }
-   //search();
-  }
+
+  search() { }
 }
