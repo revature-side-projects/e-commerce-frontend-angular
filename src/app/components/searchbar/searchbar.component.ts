@@ -59,5 +59,6 @@ export class SearchbarComponent implements OnInit {
       }
     );
   }
-  search() { }
+   //search();
+  }
 }
