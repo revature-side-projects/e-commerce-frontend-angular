@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
+import {AuthService} from "@auth0/auth0-angular";
 
 interface Cart {
   cartCount: number;
@@ -36,12 +37,11 @@ export class ProductService {
     return this._cart.next(latestValue);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.baseUrl + this.productUrl, {
       headers: environment.headers,
-      withCredentials: environment.withCredentials,
     });
   }
 
@@ -51,7 +51,6 @@ export class ProductService {
       environment.baseUrl + this.productUrl + `/partial-search/${searchTerm}`,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -61,7 +60,6 @@ export class ProductService {
       environment.baseUrl + this.productUrl + '/' + id,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -85,7 +83,6 @@ export class ProductService {
       payload,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -111,7 +108,6 @@ export class ProductService {
       payload,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -125,7 +121,6 @@ export class ProductService {
       payload,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -139,7 +134,6 @@ export class ProductService {
       payload,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -148,7 +142,6 @@ export class ProductService {
       environment.baseUrl + this.productUrl + '/' + id,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }

@@ -51,7 +51,6 @@ export class UserService {
     return this.http
       .put<User>(`${this.userUrl}`, user, {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       })
       .pipe(catchError(this.handleError));
   }
@@ -98,9 +97,7 @@ export class UserService {
     if (httpError.error instanceof ErrorEvent) {
       console.log('An error has occured: ', httpError.error.message);
     } else {
-      console.error(`
-      Backend returned code ${httpError.status}
-      with body: ${httpError.error}`);
+      console.error();
     }
 
     return throwError(() => new Error('something went wrong'));

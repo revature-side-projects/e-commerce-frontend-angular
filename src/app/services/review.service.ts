@@ -49,14 +49,12 @@ export class ReviewService {
     };
     return this.http.post(`${this.reviewsUrl}`, userReview, {
       headers: environment.headers,
-      withCredentials: environment.withCredentials,
     });
   }
 
   deleteReviewById(id: number) {
     return this.http.delete(`${this.reviewsUrl}/${id}`, {
       headers: environment.headers,
-      withCredentials: environment.withCredentials,
     });
   }
 }

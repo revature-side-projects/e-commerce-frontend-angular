@@ -15,10 +15,6 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./product-card.component.css'],
 })
 export class ProductCardComponent implements OnInit {
-  currentUserString: any = sessionStorage.getItem('user');
-  currentUser: User = JSON.parse(this.currentUserString);
-
-  // TODO: change to admin once we retrieve the current user
   @Input() role: String = 'GUEST';
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
@@ -190,10 +186,10 @@ export class ProductCardComponent implements OnInit {
       () => {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['home']);
+        this.router.navigate(['/']);
       },
       (err: any) => console.log(err),
-      () => this.router.navigate(['home'])
+      () => window.location.reload()
     );
   }
 }

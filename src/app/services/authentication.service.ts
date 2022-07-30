@@ -11,11 +11,14 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {}
 
+  get token() {
+    return localStorage.getItem('auth')
+  }
+
   login(email: string, password: string): Observable<any> {
     const payload = { email: email, password: password };
     return this.http.post<any>(`${this.authUrl}/login`, payload, {
       headers: environment.headers,
-      withCredentials: environment.withCredentials,
     });
   }
 

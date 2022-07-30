@@ -14,7 +14,6 @@ import { AppComponent } from '../../app.component';
 })
 export class DisplayProductsComponent implements OnInit {
   allProducts: Product[] = [];
-  searchProducts: Product[] = [];
   role: string = 'GUEST';
 
   constructor(
@@ -26,27 +25,38 @@ export class DisplayProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.auth.user$.subscribe({
-      next: (user) => {
-        console.log(user);
+    this.auth.idTokenClaims$.subscribe({
+      next:(data)=>{
+        if (data) {
+          let token:any = data?.__raw;
+          let email:any = data?.email;
+          let password:any = data?.sub;
+          let nickname:any = data?.nickname;
 
-        if (
-          user !== null &&
-          user!.email !== undefined &&
-          user?.sub !== undefined
-        ) {
-          // console.log(user?.email);
-          // console.log(user);
-          this.authentication.login(user!.email, user?.sub).subscribe({
+          const potentialNewUser = new User(
+            email,
+            nickname?.substring(0, nickname?.length / 2),
+            nickname?.substring(
+              nickname?.length / 2,
+              nickname?.length
+            ),
+            password,
+            'CUSTOMER',
+            [],
+            [],
+            []
+          );
+          if (data["http://finally.com/roles"][0]) {
+            this.role = data["http://finally.com/roles"][0].toUpperCase();
+          } else {
+            this.role = "CUSTOMER";
+          }
+          localStorage.setItem('auth', token)
+
+          this.authentication.login(email, password).subscribe({
             next: (value) => {
-              console.log(value);
               sessionStorage.setItem('userId', value.id);
-              // console.log('Cur User value');
-              // console.log(value);
-              // console.log(this.appComponent.curUser);
-              // this.appComponent.curUserId = value.id;
-
-              const newUser = new User(
+              sessionStorage.setItem('user', JSON.stringify(new User(
                 value.email,
                 value.firstName,
                 value.lastName,
@@ -55,87 +65,44 @@ export class DisplayProductsComponent implements OnInit {
                 [],
                 [],
                 []
-              );
-              sessionStorage.setItem('user', JSON.stringify(newUser));
-              this.role = value.role;
-              // this.appComponent.curUser = newUser;
-              // console.log(this.appComponent.curUser);
+              )));
             },
-            error: (err) => {
-              if (
-                user?.nickname !== undefined &&
-                user.email !== undefined &&
-                user.sub !== undefined
-              ) {
-                const newUser = new User(
-                  user!.email,
-                  user?.nickname?.substring(0, user?.nickname?.length / 2),
-                  user?.nickname?.substring(
-                    user?.nickname?.length / 2,
-                    user?.nickname?.length
-                  ),
-                  user?.sub,
-                  'CUSTOMER',
-                  [],
-                  [],
-                  []
-                );
-                // console.log(newUser);
-
-                this.userService.registerUser(newUser).subscribe({
-                  next: (data) => {
-                    console.log(data);
-                    if (
-                      data.email !== undefined &&
-                      data.password !== undefined
-                    ) {
-                      this.authentication
-                        .login(data!.email, data.password)
-                        .subscribe({
-                          next: (value) => {
-                            // console.log(value)
-                            sessionStorage.setItem('userId', value.id);
-                            // this.appComponent.curUserId = value.id;
-                            // console.log('Cur User value');
-                            // console.log(value);
-                            // console.log(this.appComponent.curUser);
-                            const newUser = new User(
-                              value.email,
-                              value.firstName,
-                              value.lastName,
-                              '',
-                              value.role,
-                              [],
-                              [],
-                              []
-                            );
-                            sessionStorage.setItem(
-                              'user',
-                              JSON.stringify(newUser)
-                            );
-                            this.role = value.role;
-
-                            // this.appComponent.curUser = value;
-                          },
-                        });
-                    }
-                  },
-                  error: (err) => {
-                    console.log(err.status);
-                  },
-                });
-              }
-
-              console.log(err.status);
-            },
+            error: () => {
+              this.userService.registerUser(potentialNewUser).subscribe({
+                next: (data) => {
+                  this.authentication
+                    .login(data!.email, data.password)
+                    .subscribe({
+                      next: (value) => {
+                        sessionStorage.setItem('userId', value.id);
+                        sessionStorage.setItem(
+                          'user',
+                          JSON.stringify(new User(
+                            value.email,
+                            value.firstName,
+                            value.lastName,
+                            '',
+                            value.role,
+                            [],
+                            [],
+                            []
+                          ))
+                        );
+                        this.role = value.role;
+                      },
+                    });
+                }
+              });
+            }
           });
         }
-      },
-    });
-    this.productService.getProducts().subscribe(
-      (resp) => (this.allProducts = resp),
-      (err) => console.log(err),
-      () => console.log('Products Retrieved')
-    );
+
+        this.productService.getProducts().subscribe(
+          (resp) => (this.allProducts = resp),
+          (err) => console.log(err),
+        );
+      }
+    })
+
   }
 }

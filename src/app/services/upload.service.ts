@@ -18,7 +18,6 @@ export class UploadService {
     console.log(data.get("file"));
 
     return this.http.put('http://localhost:8080/api/product/uploadFile', data, {headers: headers,
-      withCredentials: environment.withCredentials,
       reportProgress: true,
       responseType: 'text'});
   }
