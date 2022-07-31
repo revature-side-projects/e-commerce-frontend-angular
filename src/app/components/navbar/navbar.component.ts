@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { AppComponent } from '../../app.component';
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-navbar',
@@ -14,12 +15,13 @@ export class NavbarComponent implements OnInit {
   cartCount!: number;
   subscription!: Subscription;
 
-  @Input() role: string = 'GUEST';
+  role: string = this.authentication.role;
 
   constructor(
     private router: Router,
     private productService: ProductService,
     public auth: AuthService,
+    public authentication:AuthenticationService,
     private appComponent: AppComponent
   ) {}
 

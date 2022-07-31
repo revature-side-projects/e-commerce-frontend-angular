@@ -25,27 +25,29 @@ export class DisplayProductsComponent implements OnInit {
     public appComponent: AppComponent
   ) {}
 
+
   ngOnInit(): void {
-    localStorage.setItem("auth", "")
-    localStorage.setItem("user", "")
-    this.auth.isAuthenticated$.subscribe((data) => {
-      if (data) {
+    this.auth.isAuthenticated$.subscribe((authenticated) => {
+      if (authenticated) {
         this.auth
           .getAccessTokenSilently()
           .pipe(
             switchMap((token) =>{
-                localStorage.setItem("auth", token)
+                this.authentication.token = token;
                 return this.productService.getProducts();
               }
             ),
           )
           .subscribe({
             next:(products => {
+
               this.allProducts = products;
               this.auth.user$.subscribe({
                 next:(user)=>{
+
                   this.auth.idTokenClaims$.subscribe({
                     next:(data)=>{
+
                       if (data) {
                         let email:any = data?.email;
                         let password:any = data?.sub;
@@ -65,11 +67,10 @@ export class DisplayProductsComponent implements OnInit {
                           []
                         );
                         if (data["http://finally.com/roles"][0]) {
-                          this.role = data["http://finally.com/roles"][0].toUpperCase();
+                          this.authentication.role = data["http://finally.com/roles"][0].toUpperCase();
                         } else {
-                          this.role = "CUSTOMER";
+                          this.authentication.role = "CUSTOMER";
                         }
-                        localStorage.setItem('user', JSON.stringify(user))
 
                         this.userService.findUserByEmail(email).subscribe({
                           next:(value) => {

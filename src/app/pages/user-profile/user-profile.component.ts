@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   currentUserId: number = parseInt(this.currentUserIdString);
 
   currentUserString: any = sessionStorage.getItem('user');
-  currentUser: User = JSON.parse(this.currentUserString);
+  currentUser: User = this.currentUserString ? JSON.parse(this.currentUserString) : new User("", "", "", "" ,"",[],[],[]);
 
   addresses: any[] = [];
   purchases: Purchase[] = [];
@@ -85,17 +85,15 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.auth.isAuthenticated$.subscribe({
       next: (data) => {
-        if (!data || this.currentUserId <= 0) {
+        if (!data) {
           this.router.navigate(['/']);
+          return
         }
+        this.getPurchases(this.currentUserId);
+        this.getReviews(this.currentUserId);
+        this.getAddresses(this.currentUserId);
       },
     });
-
-    this.getPurchases(this.currentUserId);
-    console.log(this.currentUserId)
-    this.getReviews(this.currentUserId);
-    this.getAddresses(this.currentUserId);
-    console.log(this.currentUser);
   }
 
   getReviews(userId: number) {

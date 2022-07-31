@@ -8,6 +8,7 @@ import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
 
 import { AuthService } from '@auth0/auth0-angular';
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-product-card',
@@ -15,7 +16,6 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./product-card.component.css'],
 })
 export class ProductCardComponent implements OnInit {
-  @Input() role: String = 'GUEST';
 
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
@@ -28,13 +28,14 @@ export class ProductCardComponent implements OnInit {
   subscription!: Subscription;
   totalPrice: number = 0;
   msg: string = '';
+  role: string = this.authentication.role;
 
   @Input() productInfo!: Product;
   constructor(
-    public appcomponent: AppComponent,
     private productService: ProductService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private authentication:AuthenticationService
   ) {}
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe((cart) => {
