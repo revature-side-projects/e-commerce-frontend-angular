@@ -21,14 +21,14 @@
           <div class="text-left p-2 title mb-4">User Profile</div>
 
           <div class="container text-center p-4 content shadow-lg bg-white rounded">
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-md-center mb-2">
               <div class="col col-lg-2 info-field">First Name</div>
               <div class="col col-lg-2">
                 {{ currentUser.firstName }}
               </div>
             </div>
 
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-md-center mb-2">
               <div class="col col-lg-2 info-field">Last Name</div>
               <div class="col col-lg-2">
                 {{ currentUser.lastName }}
@@ -50,7 +50,7 @@
 
             <div class="row justify-content-md-center">
               <div class="col col-lg-2">
-                <button (click)="openPopup()" class="btn btn-primary">
+                <button (click)="openPopup()" class="btn btn-primary mt-4">
                   Update Information
                 </button>
               </div>
