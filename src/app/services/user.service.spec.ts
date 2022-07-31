@@ -27,6 +27,7 @@ describe('UserService', () => {
     expect(service).toBeTruthy();
   });
   
+  
  describe('findAllUsers', ()=>{
   		it('should return expected users when findAllUsers() is called via GET', () =>{
 		   const dummyUsers = [
