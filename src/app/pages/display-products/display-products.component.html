@@ -8,14 +8,13 @@
   <h4 *ngIf="appComponent.searchProducts.length === 0" class="text-muted">
     Sorry, no results for "{{ appComponent.search }}". Please try another query
   </h4>
+  
 </div>
 
 <div *ngIf="appComponent.found === false">
-
   <div class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
   </div>
-
 </div>
 
 

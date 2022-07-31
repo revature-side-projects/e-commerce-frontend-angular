@@ -193,7 +193,9 @@
 
           <div class="container text-center p-4 content shadow-lg bg-white rounded">
             <div *ngIf="purchases.length < 1">
-              No purchases for this account!
+              <h3 class="text-muted mt-2">No purchases for this account!</h3>
+              <h5 class="text-muted mt-2">Make a purchase!</h5>
+              <button class="btn btn-shop mt-4" [routerLink]="['/']">Return to shop</button>
             </div>
 
             <div *ngFor="let purchase of purchases" class="col">
@@ -236,7 +238,7 @@
           </div>
 
           <div class="container text-center p-4 content shadow-lg bg-white rounded">
-            <div class="card text-left">
+            <div class=" text-left">
               <app-review *ngFor="let review of reviews" [reviewObj]="review"></app-review>
               <p *ngIf="!reviews.length" class="text-center">
                 No reviews by {{ currentUser.firstName }} yet.
