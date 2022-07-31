@@ -13,5 +13,5 @@ export class AppComponent {
   //list of products from search
   // this will be set when issearching is true.
   searchProducts: Product[] = [];
-  search: string = 'help';
+  search: string = '';
 }
