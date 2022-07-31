@@ -61,18 +61,19 @@
       Add to Cart
     </button>
   </div>
-  <div *ngIf="role == 'ADMIN'">
-    <div class="card-body">
-      <button class="btn btn-outline-primary" (click)="updatePopUp(productInfo)">
+  <div *ngIf="role == 'ADMIN'" class="wrapper text-center">
+    <div class="card-body btn-group text-center">
+     
+        <button class="btn btn-outline-primary btn-sm" (click)="updatePopUp(productInfo)">
         Update Item Info
       </button>
-    </div>
-    <div class="card-body">
-      <button class="btn btn-outline-danger" (click)="deletePopUp(productInfo)">
+      <button class="btn btn-outline-danger btn-sm" (click)="deletePopUp(productInfo)">
         Delete Product
       </button>
-      <!--ngif user role = admin-->
+      
+      
     </div>
+    
   </div>
 
 </div>
