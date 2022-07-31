@@ -9,12 +9,17 @@
     Sorry, no results for "{{ appComponent.search }}". Please try another query
   </h4>
 </div>
+
 <div *ngIf="appComponent.found === false">
 
   <div class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
   </div>
+
 </div>
+
+
+
 <div class="row justify-content-center mt-2 text-center" style="margin:0%;" *ngIf="!appComponent.isSearching">
   <h3>Featured Products</h3>
 </div>
