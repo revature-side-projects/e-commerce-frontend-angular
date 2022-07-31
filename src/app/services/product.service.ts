@@ -19,7 +19,7 @@ interface Cart {
 export class ProductService {
 
 
-  private productUrl: string = "/api/product";
+  private productUrl: string = environment.baseUrl +"/api/product";
 
   private searchTerm:  string = '';
   private purchasesUrl: string = "/api/purchases";
@@ -45,7 +45,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   public getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(environment.baseUrl + this.productUrl, {
+    return this.http.get<Product[]>( this.productUrl, {
       headers: environment.headers,
       withCredentials: environment.withCredentials,
     });
@@ -54,7 +54,7 @@ export class ProductService {
   //maybe remove the ending headers if error?
   public getSearchProducts(searchTerm: string): Observable<Product[]> {
     return this.http.get<Product[]>(
-      environment.baseUrl + this.productUrl + `/partial-search/${searchTerm}`,
+        this.productUrl + `/partial-search/${searchTerm}`,
       {
         headers: environment.headers,
         withCredentials: environment.withCredentials,
@@ -65,7 +65,7 @@ export class ProductService {
   public getSingleProduct(id: number): Observable<Product> {
 
     return this.http.get<Product>(
-      environment.baseUrl + this.productUrl + '/' + id,
+      this.productUrl + '/' + id,
       {
         headers: environment.headers,
         withCredentials: environment.withCredentials,
@@ -93,7 +93,7 @@ export class ProductService {
       price: price,
     };
     return this.http.put<any>(
-      environment.baseUrl + this.productUrl + '/create-update',
+      this.productUrl + '/create-update',
       payload,
       {
         headers: environment.headers,
@@ -108,7 +108,7 @@ export class ProductService {
     const payload = JSON.stringify(products);
 
     return this.http.patch<any>(
-      environment.baseUrl + this.productUrl,
+      this.productUrl,
       payload,
       {
         headers: environment.headers,
@@ -120,7 +120,7 @@ export class ProductService {
 
   public createProduct(name : string, quantity : number, description : string, price : number, image : string): Observable<any> {
     const payload = {name: name, quantity: quantity, description: description, image: 'https://revazon-image-bucket.s3.amazonaws.com/' + image, price: price}
-    return this.http.put<any>(environment.baseUrl+this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})                                                   
+    return this.http.put<any>(this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})                                                   
   }
 
   public addPurchase(
@@ -128,7 +128,7 @@ export class ProductService {
   ): Observable<any> {
     const payload = JSON.stringify(products);
     return this.http.post<any>(
-      environment.baseUrl + this.purchasesUrl,
+      this.purchasesUrl,
       payload,
       {
         headers: environment.headers,
@@ -138,7 +138,7 @@ export class ProductService {
   }
   public deleteProduct(id: number) {
     return this.http.delete<any>(
-      environment.baseUrl + this.productUrl + '/' + id,
+      this.productUrl + '/' + id,
       {
         headers: environment.headers,
         withCredentials: environment.withCredentials,

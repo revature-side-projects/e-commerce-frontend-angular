@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { PurchaseService } from './purchase.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
-fdescribe('PurchaseService', () => {
+describe('PurchaseService', () => {
   let service: PurchaseService;
   let httpMock: HttpTestingController;
   
