@@ -5,10 +5,13 @@
     Search results for "{{ appComponent.search }}"
   </h3>
 
-  <h4 *ngIf="appComponent.searchProducts.length === 0" class="text-muted">
-    Sorry, no results for "{{ appComponent.search }}". Please try another query
-  </h4>
-</div>
+    <h4 *ngIf="appComponent.searchProducts.length === 0" class="text-muted">
+      Sorry, no results for "{{ appComponent.search }}". Please try another query
+    </h4>
+  </div>
+    <h4 *ngIf="appComponent.found === false">
+      Currently searching for "{{ appComponent.search }}".
+    </h4>
 <div class="row justify-content-center mt-2 text-center" style="margin:0%;" *ngIf="!appComponent.isSearching">
   <h3>Featured Products</h3>
 </div>
