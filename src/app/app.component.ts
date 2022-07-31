@@ -11,5 +11,6 @@ export class AppComponent {
   public isSearching: boolean = false;
   public found: boolean = false;
   searchProducts: Product[] = [];
-  search: string = 'help';
+  search: string = '';
+  token: string = '';
 }

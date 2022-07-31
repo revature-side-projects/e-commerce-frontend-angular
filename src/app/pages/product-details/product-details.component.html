@@ -9,26 +9,26 @@
         <div class="well">
           <h1>{{ productDetail.name }}</h1>
         </div>
-        
+
       </div>
       <div class="well align-items-end" style="margin-left:5%">
         <h3>${{ productDetail.price.toFixed(2) }}</h3>
       </div>
       <div class="card-body">
-        
+
       <div class="well">
         <p class="font-weight-bold">Description</p>
         <p> {{ productDetail.description }}</p>
       </div>
       <div class="well">
         <p>Quantity in Stock: {{productDetail.quantity}}</p>
-        <button class="btn btn-outline-success" (click)="addToCart(productDetail)">
+        <button class="btn btn-outline-success" (click)="addToCart(productDetail)" *ngIf="auth.isAuthenticated$ | async">
           Add to Cart
         </button>
       </div>
       </div>
     </div>
-    
+
     </div>
   </div>
 
@@ -41,7 +41,7 @@
     <p *ngIf="reviews.length == 0" class="text-muted text-center">No reviews for this product yet.</p>
   <app-review-submit [productId]="productId" [isReviewed]="userReview !== null"></app-review-submit>
   </div>
-  
+
   <app-review *ngFor="let review of reviews" [reviewObj]="review"></app-review>
 </div>
 

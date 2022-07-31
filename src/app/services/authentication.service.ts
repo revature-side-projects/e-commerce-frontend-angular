@@ -11,9 +11,11 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {}
 
+
   get token() {
-    return localStorage.getItem('auth')
+    return localStorage.getItem('auth');
   }
+
 
   login(email: string, password: string): Observable<any> {
     const payload = { email: email, password: password };

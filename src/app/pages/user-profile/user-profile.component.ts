@@ -92,6 +92,7 @@ export class UserProfileComponent implements OnInit {
     });
 
     this.getPurchases(this.currentUserId);
+    console.log(this.currentUserId)
     this.getReviews(this.currentUserId);
     this.getAddresses(this.currentUserId);
     console.log(this.currentUser);

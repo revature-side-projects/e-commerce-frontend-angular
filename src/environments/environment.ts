@@ -4,12 +4,14 @@
 // @ts-ignore
 import config from '../../auth_config.json';
 
-const { domain, clientId, apiUri, errorPath } = config as {
+const { domain, clientId, apiUri, errorPath, audience } = config as {
   domain: string;
   clientId: string;
   apiUri: string;
   errorPath: string;
+  audience:string;
 };
+
 
 export const environment = {
   production: false,
@@ -17,8 +19,8 @@ export const environment = {
     domain,
     clientId,
     redirectUri: window.location.origin,
-    audience: "http://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com/",
     errorPath,
+    audience: "http://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com/"
   },
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],

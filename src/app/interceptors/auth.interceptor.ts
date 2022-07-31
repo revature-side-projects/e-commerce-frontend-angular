@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import {AuthenticationService} from "../services/authentication.service";
 import {User} from "../models/user";
+import {AuthService} from "@auth0/auth0-angular";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -15,11 +16,10 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authentication: AuthenticationService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let userString:any = localStorage.getItem('user');
-    let userJSON:User = JSON.parse(userString);
-    console.log(userJSON)
-
-    if (userJSON !== null && this.authentication.token !== undefined) {
+    let token = this.authentication.token;
+    console.log("I GOT THE TOKEN!!!!")
+    console.log(token)
+    if (token) {
       request = request.clone({
         headers: request.headers.set('authorization', 'Bearer ' + this.authentication.token)
       })

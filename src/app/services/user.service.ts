@@ -15,7 +15,7 @@ import {UserWithId} from "../models/userWithId";
 })
 export class UserService {
   // userUrl: string = url + `/users`;
-  userUrl: string = environment.baseUrl + `/users`;
+  userUrl: string = environment.baseUrl + `/api/users`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
