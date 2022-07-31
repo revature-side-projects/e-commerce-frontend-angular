@@ -151,50 +151,52 @@ export class UserProfileComponent implements OnInit {
 
     //TODO: Something to work on
 
-    // if (this.isNewAddress) {
-    //   this.addressService.addAddress(this.addresses[0]);
-    // } else {
-    //   this.addressService.updateAddress(this.addresses[0]);
-    // }
+    if (this.isNewAddress) {
+      this.addressService.addAddress(this.addresses[0]);
+    } else {
+      this.addressService.updateAddress(this.addresses[0]);
+    }
 
-    // this.currentUser.purchases = this.purchases;
-    // this.currentUser.reviews = this.reviews;
-    // this.currentUser.addresses = this.addresses
-    // console.log(this.currentUser)
+    //this.updatedAddress = this.addresses[0]; 
 
-    // this.appComponent.curUser = this.tempUser;
-    //
-    // this.currAddress.users = [this.appComponent.curUser];
-    // this.updateAddress();
-    //
-    // setTimeout(() => {
-    //   this.appComponent.curUser.addresses = this.addresses;
-    //   this.userService.updateUser(this.appComponent.curUser).subscribe(
-    //     (data) => {
-    //       this.appComponent.curUser = data;
-    //     },
-    //     (err) => console.log(err)
-    //   );
-    // }, 200);
-    //
-    // setTimeout(() => {
-    //   this.getPurchases(this.currentUserId);
-    // }, 300);
-    // setTimeout(() => {
-    //   this.getAddresses(this.currentUserId);
-    // }, 400);
+    this.currentUser.purchases = this.purchases;
+    this.currentUser.reviews = this.reviews;
+    this.currentUser.addresses = this.addresses
+    console.log(this.currentUser)
+
+    this.currentUser = this.updatedUserPlaceholder;
+    
+    this.updatedAddress.users = [this.currentUser];
+    this.updateAddress();
+    
+    setTimeout(() => {
+      this.currentUser.addresses = this.addresses;
+      this.userService.updateUser(this.currentUser).subscribe(
+        (data) => {
+          this.currentUser = data;
+        },
+        (err) => console.log(err)
+      );
+    }, 200);
+    
+    setTimeout(() => {
+      this.getPurchases(this.currentUserId);
+    }, 300);
+    setTimeout(() => {
+      this.getAddresses(this.currentUserId);
+    }, 400);
   }
 
-  // updateAddress() {
-  // // TODO: something to work on
-  //   this.addresses = [];
-  //   this.addressService.updateAddress(this.currAddress).subscribe(
-  //     (data) => {
-  //       this.addresses.push(data);
-  //     },
-  //     (err) => console.log(err)
-  //   );
-  // }
+  updateAddress() {
+  // TODO: something to work on
+    this.addresses = [];
+    this.addressService.updateAddress(this.updatedAddress).subscribe(
+      (data) => {
+        this.addresses.push(data);
+      },
+      (err) => console.log(err)
+    );
+  }
 
   changeContent(content: string) {
 
