@@ -6,10 +6,9 @@ import { Purchase } from '../../models/purchase';
 import { Address } from '../../models/address';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import {Component, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {UserWithId} from "../../models/userWithId";
 
 @Component({
   selector: 'app-user-profile',
@@ -147,12 +146,7 @@ export class UserProfileComponent implements OnInit {
 
   updateInfo() {
     this.modalVisibility = 'none';
-<<<<<<< HEAD
-    
-    console.log(this.currentUser)
-=======
     console.log("updateInfo Ran")
->>>>>>> 7f0be7917e8678b66011499f3e47118a1433687b
 
     this.addresses[0].street = this.updatedAddress.street
     this.addresses[0].secondary = this.updatedAddress.secondary
@@ -160,29 +154,6 @@ export class UserProfileComponent implements OnInit {
     this.addresses[0].zip = this.updatedAddress.zip
     this.addresses[0].city = this.updatedAddress.city
 
-<<<<<<< HEAD
-    this.userService.updateUser(this.currentUser).subscribe({
-      next: (data) => {
-
-        console.log(data);
-
-      }
-    })
-
-    // if (this.isNewAddress) {
-    //   console.log(this.updatedAddress)
-    //   this.addressService.addAddress(this.updatedAddress).subscribe( {
-    //     next: (data) => {
-    //       console.log(data);
-    //     }
-    //   }
-    //   )
-    //   console.log("Addign new address")
-    // } else {
-    //   this.addressService.updateAddress(this.addresses[0]);
-    //   console.log("Upodating info")
-    // }
-=======
     if (this.isNewAddress) {
       this.addressService.addAddress(this.addresses[0], this.currentUserId).subscribe({
         next: () => {
@@ -207,7 +178,6 @@ export class UserProfileComponent implements OnInit {
           this.currentUser.firstName = this.updatedUserPlaceholder.firstName;
           this.currentUser.lastName = this.updatedUserPlaceholder.lastName;
           this.currentUser.addresses[0] = updatedAddresses;
->>>>>>> 7f0be7917e8678b66011499f3e47118a1433687b
 
           this.userService.updateUser(this.currentUser, this.currentUserId).subscribe({
             next: (updatedUser) => {
