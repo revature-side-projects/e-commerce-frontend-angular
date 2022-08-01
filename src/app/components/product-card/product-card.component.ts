@@ -137,12 +137,9 @@ deletePopUp(product: Product){
       () => {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['/']);
       },
       (err: any) => console.log(err),
-      () => this.router.navigate([''])
-      },
-      (err: any) => console.log(err),
-      () => window.location.reload()
     );
   }
 

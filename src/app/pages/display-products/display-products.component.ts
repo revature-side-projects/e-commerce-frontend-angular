@@ -20,7 +20,6 @@ import {switchMap} from "rxjs/operators";
 export class DisplayProductsComponent implements OnInit {
   allProducts: Product[] = [];
   searchProducts: Product[] = [];
-  role: string = 'GUEST';
   updateModalVisibility: string = '';
   deleteModalVisibility: string = '';
   productToUpdate: Product = new Product(0,'',0,'',0,'');
