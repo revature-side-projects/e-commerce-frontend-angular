@@ -1,3 +1,4 @@
+import { DisplayProductsComponent } from './../../pages/display-products/display-products.component';
 import { Product } from './../../models/product';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
@@ -6,9 +7,8 @@ import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
-
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AuthService } from '@auth0/auth0-angular';
-import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-product-card',
@@ -16,7 +16,10 @@ import {AuthenticationService} from "../../services/authentication.service";
   styleUrls: ['./product-card.component.css'],
 })
 export class ProductCardComponent implements OnInit {
+  currentUserString: any = sessionStorage.getItem('user');
+  currentUser: User = JSON.parse(this.currentUserString);
 
+  
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
   cartCount!: number;
@@ -28,14 +31,23 @@ export class ProductCardComponent implements OnInit {
   subscription!: Subscription;
   totalPrice: number = 0;
   msg: string = '';
+
+  modalVisibility: string = '';
   role: string = this.authentication.role;
+
+
 
   @Input() productInfo!: Product;
   constructor(
+    public appcomponent: AppComponent,
     private productService: ProductService,
     private router: Router,
+
     public authService: AuthService,
+    public disProdComp: DisplayProductsComponent,
     private authentication:AuthenticationService
+    
+
   ) {}
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe((cart) => {
@@ -110,88 +122,35 @@ export class ProductCardComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  wantsToUpdate() {
-    this.wantToUpdate = !this.wantToUpdate;
+  updatePopUp(product: Product){
+    this.disProdComp.productToUpdate.id=product.id;
+    this.disProdComp.productToUpdate.name=product.name;
+    this.disProdComp.productToUpdate.quantity=product.quantity;
+    this.disProdComp.productToUpdate.price=product.price;
+    this.disProdComp.productToUpdate.image=product.image;
+    this.disProdComp.productToUpdate.description=product.description;
+    this.disProdComp.updateModalVisibility = 'block';
   }
 
-  updateProductForm = new FormGroup({
-    pname: new FormControl(''),
-    pquantity: new FormControl(''),
-    pdescription: new FormControl(''),
-    pprice: new FormControl(''),
-    pimage: new FormControl(''),
-  });
-
-  onSubmitUpdate(product: Product) {
-    let name: string;
-    let quantity: number;
-    let description: string;
-    let price: number;
-    let image: string;
-
-    if (this.updateProductForm.get('pname')?.value === '') {
-      name = product.name;
-    } else {
-      // @ts-ignore
-      name = this.updateProductForm.get('pname')?.value;
-    }
-
-    if (this.updateProductForm.get('pquantity')?.value === '') {
-      quantity = product.quantity;
-    } else {
-      // @ts-ignore
-      quantity = this.updateProductForm.get('pquantity')?.value;
-    }
-
-    if (this.updateProductForm.get('pdescription')?.value === '') {
-      description = product.description;
-    } else {
-      // @ts-ignore
-      description = this.updateProductForm.get('pdescription')?.value;
-    }
-
-    if (this.updateProductForm.get('pprice')?.value === '') {
-      price = product.price;
-    } else {
-      // @ts-ignore
-      price = this.updateProductForm.get('pprice')?.value;
-    }
-
-    if (this.updateProductForm.get('pimage')?.value === '') {
-      image = product.image;
-    } else {
-      // @ts-ignore
-      image = this.updateProductForm.get('pimage')?.value;
-    }
-
-    this.productService
-      .updateProduct(product.id, name, quantity, description, price, image)
-      .subscribe(
-        () => {
-          this.wantToUpdate = false;
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['home']);
-        },
-        (err) => console.log(err),
-        () => this.router.navigate(['home'])
-      );
-  }
-
+deletePopUp(product: Product){
+  this.disProdComp.productToDelete.id=product.id;
+  this.disProdComp.deleteModalVisibility='block';
+}
   wantsToDelete() {
     this.wantToDelete = !this.wantToDelete;
   }
 
   onDeleteProduct(product: Product) {
-    // @ts-ignore
     this.productService.deleteProduct(product.id).subscribe(
       () => {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
-        window.location.reload()
+
+        this.router.navigate(['/']);
       },
       (err: any) => console.log(err),
-      () => window.location.reload()
     );
   }
+
 }
+

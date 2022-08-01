@@ -6,10 +6,9 @@ import { Purchase } from '../../models/purchase';
 import { Address } from '../../models/address';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import {Component, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {UserWithId} from "../../models/userWithId";
 
 @Component({
   selector: 'app-user-profile',
