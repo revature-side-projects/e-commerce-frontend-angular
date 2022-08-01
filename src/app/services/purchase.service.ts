@@ -15,7 +15,6 @@ export class PurchaseService {
   public getAllPurchases(): Observable<Purchase[]> {
     return this.http.get<Purchase[]>(this.purchaseUrl, {
       headers: environment.headers,
-      withCredentials: environment.withCredentials,
     });
   }
 
@@ -24,7 +23,6 @@ export class PurchaseService {
         this.purchaseUrl + `/user/${userId}`,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }

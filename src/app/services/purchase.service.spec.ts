@@ -14,6 +14,7 @@ describe('PurchaseService', () => {
     });
     service = TestBed.inject(PurchaseService);
     httpMock = TestBed.inject(HttpTestingController);
+    
   });
 
   afterEach(() => {
@@ -57,8 +58,8 @@ describe('PurchaseService', () => {
 		})
 		const purchaseUrl = service["purchaseUrl"];
 		const request = httpMock.expectOne(`${purchaseUrl}`);
-		//expect(request.request.method).toBe('GET');
-		//request.flush(dummyPurchases)
+		expect(request.request.method).toBe('GET');
+		request.flush(dummyPurchases)
 	});
 
 

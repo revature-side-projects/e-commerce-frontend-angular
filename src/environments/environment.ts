@@ -4,12 +4,14 @@
 // @ts-ignore
 import config from '../../auth_config.json';
 
-const { domain, clientId, apiUri, errorPath } = config as {
+const { domain, clientId, apiUri, errorPath, audience } = config as {
   domain: string;
   clientId: string;
   apiUri: string;
   errorPath: string;
+  audience:string;
 };
+
 
 export const environment = {
   production: false,
@@ -18,6 +20,7 @@ export const environment = {
     clientId,
     redirectUri: window.location.origin,
     errorPath,
+    audience: "http://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com/"
   },
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],
@@ -26,8 +29,7 @@ export const environment = {
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'http://127.0.0.1:4200',
-  },
-  withCredentials: true,
+  }
 };
 
 /*

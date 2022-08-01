@@ -1,5 +1,4 @@
 import { environment } from './../../environments/environment';
-import { Address } from './../models/address';
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -9,13 +8,17 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { User } from '../models/user';
+import {UserWithId} from "../models/userWithId";
+import { Address } from '../models/address';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   // userUrl: string = url + `/users`;
+
   userUrl: string = `http://localhost:8080/api` + `/users`;
+
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -34,6 +37,11 @@ export class UserService {
       .get<User>(`${this.userUrl}/${id}`, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+  findUserByEmail(email: string): Observable<UserWithId> {
+    return this.http
+      .get<UserWithId>(`${this.userUrl}/email/${email}`, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
 
   findUserByUsername(username: string): Observable<User> {
     return this.http
@@ -47,11 +55,11 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  updateUser(user: User): Observable<User> {
+  updateUser(user: User, id:number): Observable<User> {
+    let updatedUser = new UserWithId(id, user.email, user.firstName, user.lastName, user.password, user.role, [], [], [])
     return this.http
-      .put<User>(`${this.userUrl}`, user, {
+      .put<User>(`${this.userUrl}`, updatedUser, {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       })
       .pipe(catchError(this.handleError));
   }
@@ -98,9 +106,7 @@ export class UserService {
     if (httpError.error instanceof ErrorEvent) {
       console.log('An error has occured: ', httpError.error.message);
     } else {
-      console.error(`
-      Backend returned code ${httpError.status}
-      with body: ${httpError.error}`);
+      console.error();
     }
 
     return throwError(() => new Error('something went wrong'));

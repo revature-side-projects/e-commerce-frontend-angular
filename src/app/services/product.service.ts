@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
+import {AuthService} from "@auth0/auth0-angular";
 
 interface Cart {
   cartCount: number;
@@ -42,12 +43,11 @@ export class ProductService {
     return this._cart.next(latestValue);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>( this.productUrl, {
       headers: environment.headers,
-      withCredentials: environment.withCredentials,
     });
   }
 
@@ -57,7 +57,6 @@ export class ProductService {
         this.productUrl + `/partial-search/${searchTerm}`,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -68,13 +67,35 @@ export class ProductService {
       this.productUrl + '/' + id,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
 
   }
 
-  
+
+  public createProduct(
+    name: string,
+    quantity: number,
+    description: string,
+    price: number,
+    image: string
+  ): Observable<any> {
+    const payload = {
+      name: name,
+      quantity: quantity,
+      description: description,
+      image: 'https://revazon-image-bucket.s3.amazonaws.com/' + image,
+      price: price,
+    };
+    return this.http.put<any>(
+      environment.baseUrl + this.productUrl + '/create-update',
+      payload,
+      {
+        headers: environment.headers,
+      }
+    );
+  }
+
 
   public updateProduct(
     id: number,
@@ -97,7 +118,6 @@ export class ProductService {
       payload,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -112,27 +132,29 @@ export class ProductService {
       payload,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
 //    return this.http.patch<any>(environment.baseUrl+this.productUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
-
+/*
   public createProduct(name : string, quantity : number, description : string, price : number, image : string): Observable<any> {
     const payload = {name: name, quantity: quantity, description: description, image: 'https://revazon-image-bucket.s3.amazonaws.com/' + image, price: price}
     return this.http.put<any>(this.productUrl+'/create-update',payload,{headers: environment.headers, withCredentials: environment.withCredentials})                                                   
   }
+*/
 
   public addPurchase(
     products: { id: number; quantity: number }[]
   ): Observable<any> {
     const payload = JSON.stringify(products);
+    const id = sessionStorage.getItem('userId');
     return this.http.post<any>(
+
       this.purchasesUrl,
+
       payload,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
@@ -141,7 +163,6 @@ export class ProductService {
       this.productUrl + '/' + id,
       {
         headers: environment.headers,
-        withCredentials: environment.withCredentials,
       }
     );
   }
