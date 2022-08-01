@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
-import { AuthenticationService } from '../../services/authentication.service';
+
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -18,8 +18,8 @@ export class ProductCardComponent implements OnInit {
   currentUserString: any = sessionStorage.getItem('user');
   currentUser: User = JSON.parse(this.currentUserString);
 
-  // TODO: change to admin once we retrieve the current user
-  @Input() role: String = 'GUEST';
+  
+  @Input() role: string = 'GUEST';
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
   cartCount!: number;
@@ -66,19 +66,19 @@ export class ProductCardComponent implements OnInit {
           this.msg =
             'Can not order more items then currently in stock, please enter a lower order amount.';
           inCart = true;
-          return;
         }
-
+        else{
         element.quantity += toBuy;
         let cart = {
           cartCount: this.cartCount + toBuy,
           products: this.products,
-          totalPrice: this.totalPrice + toBuy,
+          totalPrice: this.totalPrice + (toBuy * this.productInfo.price),
         };
 
         this.productService.setCart(cart);
         inCart = true;
         return;
+        }
       }
     });
 
