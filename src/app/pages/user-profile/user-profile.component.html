@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-2">
       <div class="list-group">
-      
+
         <a (click)="changeContent('info')" id="info" class="list-group-item list-group-item-action active">User
           Information</a>
         <a (click)="changeContent('purchases')" id="purchases" class="list-group-item list-group-item-action">Purchase
@@ -42,9 +42,9 @@
             <div class="row justify-content-md-center">
               <div class="col col-lg-2 info-field">Mailing Address</div>
               <div class="col col-lg-2">
-                <div *ngIf="addresses.length <= 0">No mailing address</div>
+                <div *ngIf="addresses[0].street === ''">No mailing address</div>
 
-                <div *ngIf="addresses.length >= 1">
+                <div *ngIf="addresses[0].street !== ''">
                   {{ addresses[0].street }} {{ addresses[0].secondary }}
                   {{ addresses[0].city }}, {{ addresses[0].state }}
                   {{ addresses[0].zip }}
@@ -73,7 +73,7 @@
                     <div class="form-group mt-2">
                       <label for="first-name">First Name</label>
 
-                      <input [(ngModel)]="currentUser.firstName" name="first-name" type="text" class="form-control"
+                      <input [(ngModel)]="updatedUserPlaceholder.firstName" name="first-name" type="text" class="form-control"
                         formControlName="firstName" [ngClass]="{
                           invalid: updateUserInfoForm.get('firstName')!.invalid
                         }" id="first-name" placeholder="First Name" />
@@ -82,7 +82,7 @@
                     <div class="form-group mt-2">
                       <label for="last-name">Last Name</label>
 
-                      <input [(ngModel)]="currentUser.lastName" name="last-name" type="text" class="form-control"
+                      <input [(ngModel)]="updatedUserPlaceholder.lastName" name="last-name" type="text" class="form-control"
                         formControlName="lastName" [ngClass]="{
                           invalid: updateUserInfoForm.get('lastName')!.invalid
                         }" id="last-name" placeholder="Last Name" />
