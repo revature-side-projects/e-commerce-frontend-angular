@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { AppComponent } from '../../app.component';
+import {switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-display-products',
@@ -14,8 +15,7 @@ import { AppComponent } from '../../app.component';
 })
 export class DisplayProductsComponent implements OnInit {
   allProducts: Product[] = [];
-  searchProducts: Product[] = [];
-  role: string = 'GUEST';
+  role: string = this.authentication.role;
 
   constructor(
     private productService: ProductService,
@@ -25,64 +25,57 @@ export class DisplayProductsComponent implements OnInit {
     public appComponent: AppComponent
   ) {}
 
+
   ngOnInit(): void {
-    this.auth.user$.subscribe({
-      next: (user) => {
+    this.auth.isAuthenticated$.subscribe((authenticated) => {
+      if (authenticated) {
+        this.auth
+          .getAccessTokenSilently()
+          .pipe(
+            switchMap((token) =>{
+                this.authentication.token = token;
+                return this.productService.getProducts();
+              }
+            ),
+          )
+          .subscribe({
+            next:(products => {
 
-        if (
-          user !== null &&
-          user!.email !== undefined &&
-          user?.sub !== undefined
-        ) {
-          this.authentication.login(user.email, user?.sub).subscribe({
-            next: (value) => {
-              sessionStorage.setItem('userId', value.id);
+              this.allProducts = products;
+              this.auth.user$.subscribe({
+                next:(user)=>{
 
-              const newUser = new User(
-                value.email,
-                value.firstName,
-                value.lastName,
-                '',
-                value.role,
-                [],
-                [],
-                []
-              );
-              sessionStorage.setItem('user', JSON.stringify(newUser));
-              this.role = value.role;
-            },
-            error: (_err) => {
-              if (
-                user?.nickname !== undefined &&
-                user.email !== undefined &&
-                user.sub !== undefined
-              ) {
-                const newUser = new User(
-                  user.email,
-                  user?.nickname?.substring(0, user?.nickname?.length / 2),
-                  user?.nickname?.substring(
-                    user?.nickname?.length / 2,
-                    user?.nickname?.length
-                  ),
-                  user?.sub,
-                  'CUSTOMER',
-                  [],
-                  [],
-                  []
-                );
+                  this.auth.idTokenClaims$.subscribe({
+                    next:(data)=>{
 
-                this.userService.registerUser(newUser).subscribe({
-                  next: (data) => {
-                    if (
-                      data.email !== undefined &&
-                      data.password !== undefined
-                    ) {
-                      this.authentication
-                        .login(data.email, data.password)
-                        .subscribe({
-                          next: (value) => {
-                            sessionStorage.setItem('userId', value.id);
-                            const newUserTwo = new User(
+                      if (data) {
+                        let email:any = data?.email;
+                        let password:any = data?.sub;
+                        let nickname:any = data?.nickname;
+
+                        const potentialNewUser = new User(
+                          email,
+                          nickname?.substring(0, nickname?.length / 2),
+                          nickname?.substring(
+                            nickname?.length / 2,
+                            nickname?.length
+                          ),
+                          password,
+                          'CUSTOMER',
+                          [],
+                          [],
+                          []
+                        );
+                        if (data["http://finally.com/roles"][0]) {
+                          this.authentication.role = data["http://finally.com/roles"][0].toUpperCase();
+                        } else {
+                          this.authentication.role = "CUSTOMER";
+                        }
+
+                        this.userService.findUserByEmail(email).subscribe({
+                          next:(value) => {
+                            sessionStorage.setItem('userId', String(value.id));
+                            sessionStorage.setItem('user', JSON.stringify(new User(
                               value.email,
                               value.firstName,
                               value.lastName,
@@ -91,34 +84,46 @@ export class DisplayProductsComponent implements OnInit {
                               [],
                               [],
                               []
-                            );
-                            sessionStorage.setItem(
-                              'user',
-                              JSON.stringify(newUserTwo)
-                            );
-                            this.role = value.role;
+                            )));
                           },
-                        });
+                          error: () => {
+                            this.userService.registerUser(potentialNewUser).subscribe({
+                              next: () => {
+                                this.userService.findUserByEmail(email).subscribe({
+                                  next:(value) => {
+                                    sessionStorage.setItem('userId', String(value.id));
+                                    sessionStorage.setItem('user', JSON.stringify(new User(
+                                      value.email,
+                                      value.firstName,
+                                      value.lastName,
+                                      '',
+                                      value.role,
+                                      [],
+                                      [],
+                                      []
+                                    )));
+                                  }})
+                              },
+                              error: (bruh)=>{
+                                console.log(bruh)
+                              }
+                            });
+
+                          }
+                        })
+                      }
                     }
-                  },
-                  error: (_errTwo) => {
-                    //Intentional: Removed console logging
-                  },
-                });
-              }
-            },
-          });
-        }
-      },
-    });
-    this.productService.getProducts().subscribe(
-      (resp) => (this.allProducts = resp),
-      (err) => {
-        //Intentional: Removed console logging
-      },
-      () => {
-        //Intentional: Removed console logging
+                  })
+                }
+              })
+            })
+          })
+      } else {
+        this.productService.getProducts().subscribe(
+          (resp) => (this.allProducts = resp),
+          (err) => console.log(err)
+        );
       }
-    );
+    })
   }
 }

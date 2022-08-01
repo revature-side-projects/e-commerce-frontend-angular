@@ -10,8 +10,6 @@ export class AppComponent {
   title = 'E-Commerce Client';
   public isSearching: boolean = false;
   public found: boolean = false;
-  //list of products from search
-  // this will be set when issearching is true.
   searchProducts: Product[] = [];
-  search: string = 'help';
+  search: string = '';
 }
