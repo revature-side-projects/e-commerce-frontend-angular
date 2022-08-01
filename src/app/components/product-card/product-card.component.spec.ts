@@ -1,64 +1,155 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductCardComponent } from './product-card.component';
-
-import {Router} from '@angular/router';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-
-import {ProductService} from 'src/app/services/product.service';
-
-import {RouterTestingModule} from '@angular/router/testing';
-import {of} from 'rxjs';
-import { AuthService } from '@auth0/auth0-angular';
+import { DisplayProductsComponent } from './../../pages/display-products/display-products.component';
+import { Product } from './../../models/product';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { ProductService } from 'src/app/services/product.service';
 import { AppComponent } from 'src/app/app.component';
+import { User } from '../../models/user';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthService } from '@auth0/auth0-angular';
 
+@Component({
+  selector: 'app-product-card',
+  templateUrl: './product-card.component.html',
+  styleUrls: ['./product-card.component.css'],
+})
+export class ProductCardComponent implements OnInit {
+  currentUserString: any = sessionStorage.getItem('user');
+  currentUser: User = JSON.parse(this.currentUserString);
 
-
-xdescribe('ProductCardComponent', () => {
-  let component: ProductCardComponent;
-  let fixture: ComponentFixture<ProductCardComponent>;
   
-  let appComponent: AppComponent;
-  let router: RouterTestingModule;
-  let productService: ProductService;
-  
-    //not testing ngOnInit auth services
-    //so set ngOnInity to be empty function  
-	
-	
-  beforeEach(async () => {
-	const productServiceSpy = jasmine.createSpyObj<ProductService>(['getCart'])
-	//productServiceSpy.getCart.and.returnValue(of());
-	
-	const routerSpy = jasmine.createSpyObj<RouterTestingModule>(['']);
-	
-	const authServiceSpy = jasmine.createSpyObj<AuthService>(['getUser']);
-	authServiceSpy.getUser.and.returnValue(of());
-	
-    await TestBed.configureTestingModule({
-     
-      providers: [ProductCardComponent, AppComponent, 
-         {provide: ProductService, useValue: productServiceSpy},
-         {provide: Router, useValue: routerSpy},
-         {provide: AuthService, useValue: authServiceSpy}
-        
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  wantToDelete: boolean = false;
+  wantToUpdate: boolean = false;
+  cartCount!: number;
+  products: {
+    product: Product;
+    quantity: number;
+  }[] = [];
 
-    })
-    .compileComponents();
+  subscription!: Subscription;
+  totalPrice: number = 0;
+  msg: string = '';
+
+  modalVisibility: string = '';
+  role: string = this.authentication.role;
+
+
+
+  @Input() productInfo!: Product;
+  constructor(
+    public appcomponent: AppComponent,
+    private productService: ProductService,
+    private router: Router,
+
+    public authService: AuthService,
+    public disProdComp: DisplayProductsComponent,
+    private authentication:AuthenticationService
     
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProductCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    
-    productService = TestBed.inject(ProductService);
-  });
+  ) {}
+  ngOnInit(): void {
+    this.subscription = this.productService.getCart().subscribe((cart) => {
+      this.cartCount = cart.cartCount;
+      this.products = cart.products;
+      this.totalPrice = cart.totalPrice;
+    });
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  addToCart(product: Product): void {
+    let inCart = false;
+    let toBuy = Number(
+      (<HTMLInputElement>document.getElementById(`qty${product.id}`)).value
+    );
+    this.msg = '';
 
-});
+    if (toBuy < 1) {
+      this.msg =
+        'Can not add a 0 or negitive number of items to order, please enter a higher order amount.';
+      return;
+    }
+
+    this.products.forEach((element) => {
+      if (element.product.id == product.id) {
+        if (toBuy + element.quantity > product.quantity) {
+          this.msg =
+            'Can not order more items then currently in stock, please enter a lower order amount.';
+          inCart = true;
+        }
+        else{
+        element.quantity += toBuy;
+        let cart = {
+          cartCount: this.cartCount + toBuy,
+          products: this.products,
+          totalPrice: this.totalPrice + (toBuy * this.productInfo.price),
+        };
+
+        this.productService.setCart(cart);
+        inCart = true;
+        return;
+        }
+      }
+    });
+
+    if (!inCart) {
+      if (toBuy > product.quantity) {
+        this.msg =
+          'Can not order more items then currently in stock, please enter a lower order amount';
+        return;
+      }
+
+      let newProduct = {
+        product: product,
+        quantity: toBuy,
+      };
+      this.products.push(newProduct);
+      let cart = {
+        cartCount: this.cartCount + toBuy,
+        products: this.products,
+        totalPrice: this.totalPrice + product.price * toBuy,
+      };
+      this.productService.setCart(cart);
+    }
+  }
+
+  selectProduct(): void {
+    sessionStorage.setItem('selectedProductId', this.productInfo.id.toString());
+    this.router.navigate(['/product-details']);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  updatePopUp(product: Product){
+    this.disProdComp.productToUpdate.id=product.id;
+    this.disProdComp.productToUpdate.name=product.name;
+    this.disProdComp.productToUpdate.quantity=product.quantity;
+    this.disProdComp.productToUpdate.price=product.price;
+    this.disProdComp.productToUpdate.image=product.image;
+    this.disProdComp.productToUpdate.description=product.description;
+    this.disProdComp.updateModalVisibility = 'block';
+  }
+
+deletePopUp(product: Product){
+  this.disProdComp.productToDelete.id=product.id;
+  this.disProdComp.deleteModalVisibility='block';
+}
+  wantsToDelete() {
+    this.wantToDelete = !this.wantToDelete;
+  }
+
+  onDeleteProduct(product: Product) {
+    this.productService.deleteProduct(product.id).subscribe(
+      () => {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+
+        this.router.navigate(['/']);
+      },
+      (err: any) => console.log(err),
+    );
+  }
+
+}
