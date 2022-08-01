@@ -20,6 +20,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { AppRoutingModule } from './app-routing.module';
+import {AuthInterceptorProvider} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { AppRoutingModule } from './app-routing.module';
     }),
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

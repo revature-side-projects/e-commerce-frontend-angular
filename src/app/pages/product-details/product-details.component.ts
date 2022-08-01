@@ -3,6 +3,7 @@ import { ProductService } from './../../services/product.service';
 import { Subscription } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
+import {AuthService} from "@auth0/auth0-angular";
 
 @Component({
   selector: 'app-product-details',
@@ -30,7 +31,8 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    public auth:AuthService
   ) {}
 
   ngOnInit(): void {

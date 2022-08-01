@@ -9,6 +9,7 @@ import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
 
 import { AuthService } from '@auth0/auth0-angular';
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-product-card',
@@ -16,11 +17,7 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./product-card.component.css'],
 })
 export class ProductCardComponent implements OnInit {
-  currentUserString: any = sessionStorage.getItem('user');
-  currentUser: User = JSON.parse(this.currentUserString);
 
-  // TODO: change to admin once we retrieve the current user
-  @Input() role: string = 'GUEST';
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
   cartCount!: number;
@@ -33,14 +30,16 @@ export class ProductCardComponent implements OnInit {
   totalPrice: number = 0;
   msg: string = '';
   modalVisibility: string = '';
+  role: string = this.authentication.role;
+
 
   @Input() productInfo!: Product;
   constructor(
-    public appcomponent: AppComponent,
     private productService: ProductService,
     private router: Router,
     public authService: AuthService,
-    public disProdComp: DisplayProductsComponent
+    public disProdComp: DisplayProductsComponent,
+    private authentication:AuthenticationService
   ) {}
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe((cart) => {
@@ -141,6 +140,9 @@ deletePopUp(product: Product){
       },
       (err: any) => console.log(err),
       () => this.router.navigate([''])
+      },
+      (err: any) => console.log(err),
+      () => window.location.reload()
     );
   }
 
