@@ -28,7 +28,7 @@ export class ReviewSubmitComponent implements OnInit {
           this.isReviewed = true;
           console.log(response);
         },
-        (error) => console.error(error)
+        (error) => console.error()
       );
     document.getElementById('modal-close')?.click();
   }

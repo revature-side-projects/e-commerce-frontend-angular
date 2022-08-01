@@ -85,7 +85,7 @@ export class CheckoutComponent implements OnInit {
             totalPrice: 0.0,
           };
           this.productService.setCart(cart);
-          this.router.navigate(['/home']);
+          this.router.navigate(['']);
         }
       );
       this.productService.addPurchase(this.finalProducts).subscribe(
@@ -93,7 +93,7 @@ export class CheckoutComponent implements OnInit {
         (err) => console.log(err)
       );
     } else {
-      this.router.navigate(['/home']);
+      this.router.navigate(['']);
     }
   }
 }

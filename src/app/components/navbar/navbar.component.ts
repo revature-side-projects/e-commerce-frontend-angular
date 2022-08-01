@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { AppComponent } from '../../app.component';
-import { User } from '../../models/user';
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-navbar',
@@ -12,18 +12,16 @@ import { User } from '../../models/user';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  // currentUserString: any = sessionStorage.getItem('user');
-  // currentUser: User = JSON.parse(this.currentUserString);
-
   cartCount!: number;
   subscription!: Subscription;
 
-  @Input() role: string = 'GUEST';
+  role: string = this.authentication.role;
 
   constructor(
     private router: Router,
     private productService: ProductService,
     public auth: AuthService,
+    public authentication:AuthenticationService,
     private appComponent: AppComponent
   ) {}
 
@@ -32,11 +30,6 @@ export class NavbarComponent implements OnInit {
       .getCart()
       .subscribe((cart) => (this.cartCount = cart.cartCount));
   }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
   notSearching(): void {
     this.appComponent.isSearching = false;
     this.appComponent.found = false;

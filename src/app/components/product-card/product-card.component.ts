@@ -19,7 +19,7 @@ export class ProductCardComponent implements OnInit {
   currentUserString: any = sessionStorage.getItem('user');
   currentUser: User = JSON.parse(this.currentUserString);
 
-  // TODO: change to admin once we retrieve the current user
+  
   @Input() role: string = 'GUEST';
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
@@ -143,5 +143,9 @@ deletePopUp(product: Product){
       () => this.router.navigate([''])
     );
   }
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> 4fd7e06bbd0ae3cd9271ced7418386cf414086d4

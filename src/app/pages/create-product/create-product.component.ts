@@ -2,15 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { UploadService } from 'src/app/services/upload.service';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import {AuthService} from "@auth0/auth0-angular";
 
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css'],
 })
-export class CreateProductComponent {
+export class CreateProductComponent implements OnInit{
   selectedFiles!: FileList;
   currentFile!: File;
   selectedFile = null;
@@ -21,12 +22,26 @@ export class CreateProductComponent {
   warningTextMessage: string = '';
   warningNumberMessage: string = '';
   modalVisibility: string = '';
+
   constructor(
     private prodService: ProductService,
     private router: Router,
     private uploadService: UploadService,
-    private http: HttpClient
+    private http: HttpClient,
+    private auth:AuthService
   ) {}
+
+
+  ngOnInit(): void {
+    this.auth.isAuthenticated$.subscribe({
+      next: (data) => {
+        if (!data ) {
+          this.router.navigate(['/']);
+        }
+      },
+    });
+  }
+
 
   createProductForm = new FormGroup({
     pname: new FormControl(''),
@@ -111,5 +126,4 @@ export class CreateProductComponent {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
   }
-
 }
