@@ -112,13 +112,7 @@ export class DisplayProductsComponent implements OnInit {
       },
     });
     this.productService.getProducts().subscribe(
-      (resp) => (this.allProducts = resp),
-      (err) => {
-        //Intentional: Removed console logging
-      },
-      () => {
-        //Intentional: Removed console logging
-      }
-    );
+      (resp) => (this.allProducts = resp)
+      );
   }
 }
