@@ -2,6 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
 
+/**
+ * Renders login button if User is logged out.
+ * Else renders logout button
+ */
 @Component({
   selector: 'app-auth-button',
   template: `
@@ -25,15 +29,26 @@ import { DOCUMENT } from '@angular/common';
   `,
   styles: [],
 })
+
+/**
+ * Inject DOM into component
+ */
 export class AuthButtonComponent {
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService
-  ) {}
+  ) { }
 
+  /**
+   * Logs User in
+   */
   login() {
     this.auth.loginWithRedirect()
   }
+
+  /**
+   * Logs User out
+   */
   logout() {
     this.auth.logout({ returnTo: document.location.origin })
   }
