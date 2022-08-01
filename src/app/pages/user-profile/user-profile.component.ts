@@ -148,13 +148,31 @@ export class UserProfileComponent implements OnInit {
 
   updateInfo() {
     this.modalVisibility = 'none';
+    
+    console.log(this.currentUser)
 
     //TODO: Something to work on
 
+    this.userService.updateUser(this.currentUser).subscribe({
+      next: (data) => {
+
+        console.log(data);
+
+      }
+    })
+
     // if (this.isNewAddress) {
-    //   this.addressService.addAddress(this.addresses[0]);
+    //   console.log(this.updatedAddress)
+    //   this.addressService.addAddress(this.updatedAddress).subscribe( {
+    //     next: (data) => {
+    //       console.log(data);
+    //     }
+    //   }
+    //   )
+    //   console.log("Addign new address")
     // } else {
     //   this.addressService.updateAddress(this.addresses[0]);
+    //   console.log("Upodating info")
     // }
 
     // this.currentUser.purchases = this.purchases;
