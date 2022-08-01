@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
-
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -46,8 +46,7 @@ export class ProductCardComponent implements OnInit {
     public authService: AuthService,
     public disProdComp: DisplayProductsComponent,
     private authentication:AuthenticationService
-
-    public authService: AuthService
+    
 
   ) {}
   ngOnInit(): void {
