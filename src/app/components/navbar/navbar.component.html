@@ -1,19 +1,24 @@
-<nav class="navbar  gradient-custom">
-    <button class="btn btn-sm bg-transparent" [routerLink]="['/home']">
-        <h4>
-        <img src="../../../assets/images/favicon.png" width="13%" height="13%" alt="Revature">
-        Revature Swag Shop
+<nav class="navbar gradient-custom">
+  <button class="btn btn-sm bg-transparent" [routerLink]="['/home']">
+    <h4>
+      <img
+        src="../../../assets/images/favicon.png"
+        width="13%"
+        height="13%"
+        alt="Revature"
+      />
+      Revature Swag Shop
     </h4>
-        
+  </button>
+
+  <form class="form-inline">
+    <app-searchbar></app-searchbar>
+    <button class="btn bg-transparent" [routerLink]="['/cart']">
+      Cart
+      <span class="badge badge-info">{{ cartCount }}</span>
     </button>
-    
-    <form class="form-inline">
-        <!--insert searchbar here-->
-        <!--profile page also here? -->
-        <button class="btn bg-transparent" [routerLink]="['/cart']">
-            Cart
-            <span class="badge badge-info">{{cartCount}}</span>
-        </button>
-        <button class="btn btn-outline-danger my-2 my-sm-0" (click)="logout();">Logout</button>
-    </form>
+    <button class="btn btn-outline-danger my-2 my-sm-0" (click)="logout()">
+      Logout
+    </button>
+  </form>
 </nav>
