@@ -125,5 +125,19 @@ export class DisplayProductsComponent implements OnInit {
         );
       }
     })
+                  },
+                  error: (_errTwo) => {
+                    //Intentional: Removed console logging
+                  },
+                });
+              }
+            },
+          });
+        }
+      },
+    });
+    this.productService.getProducts().subscribe(
+      (resp) => (this.allProducts = resp)
+      );
   }
 }
