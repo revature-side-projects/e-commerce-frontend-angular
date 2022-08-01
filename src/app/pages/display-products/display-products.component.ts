@@ -86,29 +86,31 @@ export class DisplayProductsComponent implements OnInit {
                               []
                             )));
                           },
-                          error: () => {
-                            this.userService.registerUser(potentialNewUser).subscribe({
-                              next: () => {
-                                this.userService.findUserByEmail(email).subscribe({
-                                  next:(value) => {
-                                    sessionStorage.setItem('userId', String(value.id));
-                                    sessionStorage.setItem('user', JSON.stringify(new User(
-                                      value.email,
-                                      value.firstName,
-                                      value.lastName,
-                                      '',
-                                      value.role,
-                                      [],
-                                      [],
-                                      []
-                                    )));
-                                  }})
-                              },
-                              error: (bruh)=>{
-                                console.log(bruh)
-                              }
-                            });
-
+                          error: (err) => {
+                            if (this.authentication.token && potentialNewUser.email === email) {
+                              this.userService.registerUser(potentialNewUser).subscribe({
+                                next: () => {
+                                  this.userService.findUserByEmail(email).subscribe({
+                                    next:(value) => {
+                                      sessionStorage.setItem('userId', String(value.id));
+                                      sessionStorage.setItem('user', JSON.stringify(new User(
+                                        value.email,
+                                        value.firstName,
+                                        value.lastName,
+                                        '',
+                                        value.role,
+                                        [],
+                                        [],
+                                        []
+                                      )));
+                                    }})
+                                },
+                                error: (bruh)=>{
+                                  console.log(bruh)
+                                }
+                              });
+                            }
+                            console.log(err)
                           }
                         })
                       }
