@@ -6,30 +6,33 @@ import { ReviewSubmitComponent } from './review-submit.component';
 import {AuthService} from  '@auth0/auth0-angular';
 import {ReviewService} from 'src/app/services/review.service';
 import {of} from 'rxjs';
-
+import {Router} from "@angular/router";
+import {RouterTestingModule} from "@angular/router/testing";
  
 describe('ReviewSubmitComponent', () => {
   let component: ReviewSubmitComponent;
   let fixture: ComponentFixture<ReviewSubmitComponent>;
-
-
+  let router: RouterTestingModule;
+  let reviewService: ReviewService;
+  
   beforeEach(async () => {
-	const authServiceSpy = jasmine.createSpyObj(AuthService, ['logout']);
-	authServiceSpy.logout.and.returnValue(of());
-	const reviewServiceSpy = jasmine.createSpyObj(ReviewService,['postReview']);
-	reviewServiceSpy.postReview.and.returnValue(of());
+	const authServiceSpy = jasmine.createSpyObj<AuthService>(['logout']);
+	
+	const reviewServiceSpy = jasmine.createSpyObj<ReviewService>(['getAllReviews']);
+
 	
     await TestBed.configureTestingModule({
 
       declarations: [ ReviewSubmitComponent ],
       providers: [
 		  {provide: AuthService, useValue: authServiceSpy},
-		  {provide: ReviewService, useValue: reviewServiceSpy}
+		  {provide: ReviewService, useValue: reviewServiceSpy},
+		  {provide: Router, useValue: router}
        ],
        schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
-    
+    reviewService = TestBed.inject(ReviewService);  
 
   });
 
@@ -49,9 +52,10 @@ describe('ReviewSubmitComponent', () => {
     expect(component.review).toEqual('');
   });
   
-
+ 
+})
 	
-  });
+ 
 
   
   

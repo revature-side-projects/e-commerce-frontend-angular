@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {fakeAsync,tick} from '@angular/core/testing';
 
-describe('CartComponent', () => {
+xdescribe('CartComponent', () => {
   let component: CartComponent;
   let fixture: ComponentFixture<CartComponent>;
   let productService: ProductService;
