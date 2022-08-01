@@ -54,14 +54,14 @@
                   }"
                   required="required"
                 />
-                <i
+                <em
                   [ngClass]="{
                     invalid:
                       checkoutForm.get('cardNumber')!.invalid &&
                       checkoutForm.get('cardNumber')!.touched
                   }"
                   class="fa fa-credit-card"
-                ></i>
+                ></em>
                 <span
                   [ngClass]="{
                     'text-danger':
