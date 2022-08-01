@@ -31,7 +31,7 @@ export class DisplayProductsComponent implements OnInit {
     private productService: ProductService,
     public auth: AuthService,
     private userService: UserService,
-    private authentication: AuthenticationService,
+    public authentication: AuthenticationService,
     public appComponent: AppComponent,
     private router: Router
   ) { }
