@@ -10,8 +10,9 @@
     <button class="btn btn-shop mt-4" [routerLink]="['/']">Return to shop</button>
   </div>
   <div *ngIf="products.length != 0">
-    
+
 <table class="table table-striped" id="cart-table">
+  <caption>Shopping cart with your current purchases </caption>
   <thead>
     <tr>
       <th scope="col">ID</th>
