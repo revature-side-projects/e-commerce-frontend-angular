@@ -12,6 +12,7 @@
   </div>
   <div *ngIf="products.length != 0">
 
+
     <table class="table table-striped" id="cart-table">
       <thead>
         <tr>
@@ -47,5 +48,6 @@
     <button class="btn btn-primary" [routerLink]="['/checkout']">
       Proceed to Checkout (${{ totalPrice.toFixed(2) }})
     </button>
+
   </div>
 </div>
