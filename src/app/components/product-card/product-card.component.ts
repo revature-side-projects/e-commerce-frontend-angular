@@ -17,11 +17,6 @@ import {AuthenticationService} from "../../services/authentication.service";
 })
 export class ProductCardComponent implements OnInit {
 
-<<<<<<< HEAD
-  
-  @Input() role: string = 'GUEST';
-=======
->>>>>>> 7f0be7917e8678b66011499f3e47118a1433687b
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
   cartCount!: number;
