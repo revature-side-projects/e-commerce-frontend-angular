@@ -9,7 +9,7 @@ import { AppComponent } from '../../app.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import {switchMap} from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
 
 
 @Component({
@@ -22,9 +22,8 @@ export class DisplayProductsComponent implements OnInit {
   searchProducts: Product[] = [];
   updateModalVisibility: string = '';
   deleteModalVisibility: string = '';
-  productToUpdate: Product = new Product(0,'',0,'',0,'');
-  productToDelete: Product = new Product(0,'',0,'',0,'');
-
+  productToUpdate: Product = new Product(0, '', 0, '', 0, '');
+  productToDelete: Product = new Product(0, '', 0, '', 0, '');
   role: string = this.authentication.role;
 
 
@@ -35,7 +34,7 @@ export class DisplayProductsComponent implements OnInit {
     private authentication: AuthenticationService,
     public appComponent: AppComponent,
     private router: Router
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
@@ -44,26 +43,26 @@ export class DisplayProductsComponent implements OnInit {
         this.auth
           .getAccessTokenSilently()
           .pipe(
-            switchMap((token) =>{
-                this.authentication.token = token;
-                return this.productService.getProducts();
-              }
+            switchMap((token) => {
+              this.authentication.token = token;
+              return this.productService.getProducts();
+            }
             ),
           )
           .subscribe({
-            next:(products => {
+            next: (products => {
 
               this.allProducts = products;
               this.auth.user$.subscribe({
-                next:(user)=>{
+                next: (user) => {
 
                   this.auth.idTokenClaims$.subscribe({
-                    next:(data)=>{
+                    next: (data) => {
 
                       if (data) {
-                        let email:any = data?.email;
-                        let password:any = data?.sub;
-                        let nickname:any = data?.nickname;
+                        let email: any = data?.email;
+                        let password: any = data?.sub;
+                        let nickname: any = data?.nickname;
 
                         const potentialNewUser = new User(
                           email,
@@ -85,7 +84,7 @@ export class DisplayProductsComponent implements OnInit {
                         }
 
                         this.userService.findUserByEmail(email).subscribe({
-                          next:(value) => {
+                          next: (value) => {
                             sessionStorage.setItem('userId', String(value.id));
                             sessionStorage.setItem('user', JSON.stringify(new User(
                               value.email,
@@ -102,7 +101,7 @@ export class DisplayProductsComponent implements OnInit {
                             this.userService.registerUser(potentialNewUser).subscribe({
                               next: () => {
                                 this.userService.findUserByEmail(email).subscribe({
-                                  next:(value) => {
+                                  next: (value) => {
                                     sessionStorage.setItem('userId', String(value.id));
                                     sessionStorage.setItem('user', JSON.stringify(new User(
                                       value.email,
@@ -114,9 +113,10 @@ export class DisplayProductsComponent implements OnInit {
                                       [],
                                       []
                                     )));
-                                  }})
+                                  }
+                                })
                               },
-                              error: (bruh)=>{
+                              error: (bruh) => {
                                 console.log(bruh)
                               }
                             });
@@ -137,20 +137,6 @@ export class DisplayProductsComponent implements OnInit {
         );
       }
     })
-                  },
-                  error: (_errTwo) => {
-                    //Intentional: Removed console logging
-                  },
-                });
-              }
-            },
-          });
-        }
-      },
-    });
-    this.productService.getProducts().subscribe(
-      (resp) => (this.allProducts = resp)
-      );
   }
 
   updateProductForm = new FormGroup({
@@ -208,7 +194,6 @@ export class DisplayProductsComponent implements OnInit {
         () => this.router.navigate([''])
       );
   }
-
   onDeleteProduct(product: Product) {
     this.productService.deleteProduct(product.id).subscribe(
       () => {
@@ -226,6 +211,9 @@ export class DisplayProductsComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
   }
-
-
 }
+
+
+
+
+
