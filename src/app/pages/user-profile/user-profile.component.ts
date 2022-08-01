@@ -207,7 +207,7 @@ export class UserProfileComponent implements OnInit {
     
     setTimeout(() => {
       this.currentUser.addresses = this.addresses;
-      this.userService.updateUser(this.currentUser).subscribe(
+      this.userService.updateUser(this.currentUser, this.currentUserId).subscribe(
         (data) => {
           this.currentUser = data;
         },
@@ -225,13 +225,13 @@ export class UserProfileComponent implements OnInit {
 
   updateAddress() {
   // TODO: something to work on
-    this.addresses = [];
-    this.addressService.updateAddress(this.updatedAddress).subscribe(
-      (data) => {
-        this.addresses.push(data);
-      },
-      (err) => console.log(err)
-    );
+    // this.addresses = [];
+    // this.addressService.updateAddress(this.updatedAddress).subscribe(
+    //   (data) => {
+    //     this.addresses.push(data);
+    //   },
+    //   (err) => console.log(err)
+    // );
   }
 
   changeContent(content: string) {

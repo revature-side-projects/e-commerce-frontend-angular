@@ -7,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { AppComponent } from '../../app.component';
 import {switchMap} from "rxjs/operators";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-products',

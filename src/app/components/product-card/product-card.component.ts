@@ -143,9 +143,4 @@ deletePopUp(product: Product){
       () => this.router.navigate([''])
     );
   }
-<<<<<<< HEAD
-
 }
-=======
-}
->>>>>>> 4fd7e06bbd0ae3cd9271ced7418386cf414086d4
