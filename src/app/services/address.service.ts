@@ -2,6 +2,7 @@ import { Address } from './../models/address';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -11,21 +12,20 @@ export class AddressService {
 
   constructor(private http: HttpClient) {}
 
-  getUserAddresses(userId: number) {
-    return this.http.get(`${this.addressUrl}/${userId}`, {
+  getUserAddresses(userId: number):Observable<Address[]> {
+    return this.http.get<Address[]>(`${this.addressUrl}/${userId}`, {
       headers: environment.headers,
     });
   }
 
-  addAddress(address: Address) {
-    return this.http.post(`${this.addressUrl}`, address, {
-      headers: environment.headers,
-    });
+  addAddress(address: Address, userId:number):Observable<Address>{
+    return this.http
+      .post<Address>(`${this.addressUrl}/${userId}`, address, {headers: environment.headers,})
   }
 
-  updateAddress(address: Address) {
-    return this.http.put(`${this.addressUrl}`, address, {
-      headers: environment.headers,
+
+  updateAddress(address: Address, userId:number):Observable<Address> {
+    return this.http.put<Address>(`${this.addressUrl}/${userId}`, address, {headers: environment.headers,
     });
   }
 }

@@ -12,5 +12,4 @@ export class AppComponent {
   public found: boolean = false;
   searchProducts: Product[] = [];
   search: string = '';
-  token: string = '';
 }

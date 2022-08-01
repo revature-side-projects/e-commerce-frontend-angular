@@ -15,7 +15,7 @@ import {switchMap} from "rxjs/operators";
 })
 export class DisplayProductsComponent implements OnInit {
   allProducts: Product[] = [];
-  role: string = 'GUEST';
+  role: string = this.authentication.role;
 
   constructor(
     private productService: ProductService,
@@ -74,7 +74,6 @@ export class DisplayProductsComponent implements OnInit {
 
                         this.userService.findUserByEmail(email).subscribe({
                           next:(value) => {
-                            console.log(value)
                             sessionStorage.setItem('userId', String(value.id));
                             sessionStorage.setItem('user', JSON.stringify(new User(
                               value.email,

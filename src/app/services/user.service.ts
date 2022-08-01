@@ -52,9 +52,10 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  updateUser(user: User): Observable<User> {
+  updateUser(user: User, id:number): Observable<User> {
+    let updatedUser = new UserWithId(id, user.email, user.firstName, user.lastName, user.password, user.role, [], [], [])
     return this.http
-      .put<User>(`${this.userUrl}`, user, {
+      .put<User>(`${this.userUrl}`, updatedUser, {
         headers: environment.headers,
       })
       .pipe(catchError(this.handleError));

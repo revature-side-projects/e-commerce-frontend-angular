@@ -9,6 +9,7 @@ import { UserService } from '../../services/user.service';
 import {Component, OnInit, ViewChild, ViewChildren} from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {UserWithId} from "../../models/userWithId";
 
 @Component({
   selector: 'app-user-profile',
@@ -124,7 +125,6 @@ export class UserProfileComponent implements OnInit {
         }
         if (this.addresses.length === 0) {
           this.isNewAddress = true;
-          console.log(`NewAddress: ${this.isNewAddress}`)
         } else {
           this.updatedAddress.street = this.addresses[0].street;
           this.updatedAddress.secondary = this.addresses[0].secondary;
@@ -132,7 +132,6 @@ export class UserProfileComponent implements OnInit {
           this.updatedAddress.state = this.addresses[0].state;
           this.updatedAddress.zip = this.addresses[0].zip;
         }
-        console.log(this.addresses);
       },
     });
   }
@@ -148,15 +147,50 @@ export class UserProfileComponent implements OnInit {
 
   updateInfo() {
     this.modalVisibility = 'none';
+    console.log("updateInfo Ran")
 
-    //TODO: Something to work on
+    this.addresses[0].street = this.updatedAddress.street
+    this.addresses[0].secondary = this.updatedAddress.secondary
+    this.addresses[0].state = this.updatedAddress.state
+    this.addresses[0].zip = this.updatedAddress.zip
+    this.addresses[0].city = this.updatedAddress.city
 
-    // if (this.isNewAddress) {
-    //   this.addressService.addAddress(this.addresses[0]);
-    // } else {
-    //   this.addressService.updateAddress(this.addresses[0]);
-    // }
+    if (this.isNewAddress) {
+      this.addressService.addAddress(this.addresses[0], this.currentUserId).subscribe({
+        next: () => {
+          this.userService.findUserById(this.currentUserId).subscribe({
+            next:(user)=>{
+              user.firstName = this.updatedUserPlaceholder.firstName;
+              user.lastName = this.updatedUserPlaceholder.lastName;
+              this.userService.updateUser(user, this.currentUserId).subscribe({
+                next: (updatedUser) => {
+                  this.currentUser.firstName = updatedUser.firstName;
+                  this.currentUser.lastName = updatedUser.lastName;
+                  sessionStorage.setItem("user", JSON.stringify(this.currentUser))
+                }
+              })
+            }
+          });
+        }
+      });
+    } else {
+      this.addressService.updateAddress(this.addresses[0], this.currentUserId).subscribe({
+        next:(updatedAddresses) =>{
+          this.currentUser.firstName = this.updatedUserPlaceholder.firstName;
+          this.currentUser.lastName = this.updatedUserPlaceholder.lastName;
+          this.currentUser.addresses[0] = updatedAddresses;
 
+          this.userService.updateUser(this.currentUser, this.currentUserId).subscribe({
+            next: (updatedUser) => {
+              this.currentUser.firstName = updatedUser.firstName;
+              this.currentUser.lastName = updatedUser.lastName;
+              sessionStorage.setItem("user", JSON.stringify(this.currentUser))
+            }
+          })
+        }
+      });
+    }
+    this.getAddresses(this.currentUserId);
     // this.currentUser.purchases = this.purchases;
     // this.currentUser.reviews = this.reviews;
     // this.currentUser.addresses = this.addresses
