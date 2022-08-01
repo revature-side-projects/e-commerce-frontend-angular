@@ -32,6 +32,7 @@ export class ReviewComponent implements OnInit {
   };
 
   constructor() {
+    //This is intentional
     //Intentional(?)
    }
 
