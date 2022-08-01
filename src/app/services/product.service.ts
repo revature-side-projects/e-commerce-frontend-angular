@@ -129,8 +129,9 @@ export class ProductService {
     products: { id: number; quantity: number }[]
   ): Observable<any> {
     const payload = JSON.stringify(products);
+    const id = sessionStorage.getItem('userId');
     return this.http.post<any>(
-      environment.baseUrl + this.purchasesUrl,
+      environment.baseUrl + this.purchasesUrl + "/" + id,
       payload,
       {
         headers: environment.headers,
