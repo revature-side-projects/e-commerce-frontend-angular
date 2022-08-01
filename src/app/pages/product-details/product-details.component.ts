@@ -58,7 +58,6 @@ export class ProductDetailsComponent implements OnInit {
         });
         this.userReview =
           userReviewArray.length > 0 ? userReviewArray[0] : null;
-        console.log(this.userId, this.userReview);
       });
   }
 
