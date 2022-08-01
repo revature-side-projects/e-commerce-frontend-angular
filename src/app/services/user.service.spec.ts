@@ -100,7 +100,7 @@ describe('findUserByUsername', ()=>{
   		it('should return expected user when updateUser(User ) is called', () =>{
 		   const dummyUser = {email: 'email', firstName: 'Bob', lastName: 'Roberts', password: 'password', role: 'user', purchases: [], reviews: [], addresses: []};
 			
-		service.updateUser(dummyUser).subscribe(user => {
+		service.updateUser(dummyUser,1).subscribe(user => {
 			expect(user).toEqual(dummyUser);
 		})
 		

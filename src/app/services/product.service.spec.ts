@@ -3,12 +3,13 @@ import { TestBed } from '@angular/core/testing';
 import { ProductService } from './product.service';
 
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-
+import {AuthService} from "@auth0/auth0-angular";
 
 
 describe('ProductService', () => {
   let service: ProductService;
   let httpMock: HttpTestingController;
+  
   const dummyProducts = [ 
 		   {
             id : 1,
@@ -30,11 +31,13 @@ describe('ProductService', () => {
 		    
 		     }		   
 	   ];
-	   
+  const authServiceSpy = jasmine.createSpyObj(AuthService, ['']);
+     
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ProductService]
+      providers: [ProductService,
+                  {provide: AuthService, useValue:authServiceSpy}]
     });
     
 
@@ -53,8 +56,15 @@ describe('ProductService', () => {
   
   it('should be created', () => {
     expect(service).toBeTruthy();
+   
   });
 
+  describe('getCart', () => {
+	it('should return a cart', () => {
+		expect(service.getCart()).toBeTruthy();
+	})
+  })
+  
   describe('getProducts', () => {
 	   
 	it('should return the expected products when called', () => {

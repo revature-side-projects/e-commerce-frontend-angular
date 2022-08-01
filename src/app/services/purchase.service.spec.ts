@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {HttpClient} from '@angular/common/http';
+
 import { PurchaseService } from './purchase.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
@@ -10,7 +10,7 @@ describe('PurchaseService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
 	  imports: [HttpClientTestingModule],
-	  providers: [PurchaseService,{provide: HttpClient, useValue: HttpClientTestingModule} ]
+	  providers: [PurchaseService,]
     });
     service = TestBed.inject(PurchaseService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -25,7 +25,7 @@ describe('PurchaseService', () => {
   });
   
   
- fdescribe('getAllPurchase', () => {
+ describe('getAllPurchase', () => {
 		const dummyUser = {
 			email: 'email', firstName: 'Bob', lastName: 'Roberts', password: 'password', role: 'user', purchases: [], reviews: [], addresses: [],
 		}
@@ -61,6 +61,7 @@ describe('PurchaseService', () => {
 		expect(request.request.method).toBe('GET');
 		request.flush(dummyPurchases)
 	});
+	
 
 
 

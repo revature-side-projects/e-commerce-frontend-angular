@@ -88,7 +88,7 @@ export class ProductService {
       price: price,
     };
     return this.http.put<any>(
-      environment.baseUrl + this.productUrl + '/create-update',
+      this.productUrl + '/create-update',
       payload,
       {
         headers: environment.headers,
