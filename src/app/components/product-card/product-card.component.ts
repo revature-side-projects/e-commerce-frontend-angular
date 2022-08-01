@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
-
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -20,7 +20,6 @@ export class ProductCardComponent implements OnInit {
   currentUser: User = JSON.parse(this.currentUserString);
 
   
-  @Input() role: string = 'GUEST';
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
   cartCount!: number;
@@ -32,15 +31,23 @@ export class ProductCardComponent implements OnInit {
   subscription!: Subscription;
   totalPrice: number = 0;
   msg: string = '';
+
   modalVisibility: string = '';
+  role: string = this.authentication.role;
+
+
 
   @Input() productInfo!: Product;
   constructor(
     public appcomponent: AppComponent,
     private productService: ProductService,
     private router: Router,
+
     public authService: AuthService,
-    public disProdComp: DisplayProductsComponent
+    public disProdComp: DisplayProductsComponent,
+    private authentication:AuthenticationService
+    
+
   ) {}
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe((cart) => {
@@ -138,9 +145,12 @@ deletePopUp(product: Product){
       () => {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
+
+        this.router.navigate(['/']);
       },
       (err: any) => console.log(err),
-      () => this.router.navigate([''])
     );
   }
+
 }
+
