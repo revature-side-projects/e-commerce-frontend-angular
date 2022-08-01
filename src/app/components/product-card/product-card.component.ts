@@ -18,7 +18,7 @@ export class ProductCardComponent implements OnInit {
   currentUserString: any = sessionStorage.getItem('user');
   currentUser: User = JSON.parse(this.currentUserString);
 
-  // TODO: change to admin once we retrieve the current user
+  
   @Input() role: string = 'GUEST';
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
