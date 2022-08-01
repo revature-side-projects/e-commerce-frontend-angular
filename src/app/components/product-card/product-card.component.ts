@@ -5,11 +5,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
 import { ProductService } from 'src/app/services/product.service';
-import { AppComponent } from 'src/app/app.component';
+
 import { User } from '../../models/user';
 
 import { AuthService } from '@auth0/auth0-angular';
-import {AuthenticationService} from "../../services/authentication.service";
 
 
 @Component({

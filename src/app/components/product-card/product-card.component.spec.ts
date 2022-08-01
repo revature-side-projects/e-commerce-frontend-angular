@@ -1,13 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ProductCardComponent } from './product-card.component';
 
-
 import {Router} from '@angular/router';
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
-
-import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ProductService} from 'src/app/services/product.service';
 
 import {RouterTestingModule} from '@angular/router/testing';
@@ -23,12 +19,15 @@ xdescribe('ProductCardComponent', () => {
   
   let appComponent: AppComponent;
   let router: RouterTestingModule;
- 
+  let productService: ProductService;
   
- 
+    //not testing ngOnInit auth services
+    //so set ngOnInity to be empty function  
+	
+	
   beforeEach(async () => {
 	const productServiceSpy = jasmine.createSpyObj<ProductService>(['getCart'])
-	productServiceSpy.getCart.and.returnValue(of());
+	//productServiceSpy.getCart.and.returnValue(of());
 	
 	const routerSpy = jasmine.createSpyObj<RouterTestingModule>(['']);
 	
@@ -40,6 +39,7 @@ xdescribe('ProductCardComponent', () => {
       providers: [ProductCardComponent, AppComponent, 
          {provide: ProductService, useValue: productServiceSpy},
          {provide: Router, useValue: routerSpy},
+         {provide: AuthService, useValue: authServiceSpy}
         
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -47,14 +47,14 @@ xdescribe('ProductCardComponent', () => {
     })
     .compileComponents();
     
-    
-    appComponent = TestBed.inject(AppComponent);
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    
+    productService = TestBed.inject(ProductService);
   });
 
   it('should create', () => {

@@ -10,9 +10,9 @@ import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
 import {of} from 'rxjs';
-import { Auth0Client } from '@auth0/auth0-spa-js';
 
-xdescribe('CreateProductComponent', () => {
+
+describe('CreateProductComponent', () => {
   let component: CreateProductComponent;
   let fixture: ComponentFixture<CreateProductComponent>;
   let router: RouterTestingModule;
@@ -27,6 +27,9 @@ xdescribe('CreateProductComponent', () => {
   const uploadServiceSpy = jasmine.createSpyObj<UploadService>(['pushFile']);
   uploadServiceSpy.pushFile.and.returnValue(of());
   
+  //Ignore ngOnInit
+  CreateProductComponent.prototype.ngOnInit = () => {};
+  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CreateProductComponent],
@@ -40,13 +43,36 @@ xdescribe('CreateProductComponent', () => {
     }).compileComponents();
 
    
-  
+    
+    
     fixture = TestBed.createComponent(CreateProductComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+  
+  describe('openPopup', () => {
+	it('should set modalVisibility to block', () => {
+	  component.openPopup();
+	  expect(component.modalVisibility).toEqual('block');
+    })
+  })
+  
+   describe('updateImage', () => {
+	it('should set update the file image url', () => {	
+      component.updateImage("cool");
+      expect(component.file).toEqual('https://revazon-image-bucket.s3.amazonaws.com/cool');
+    })
+  })
+  
+   
+ 
+})
+
+  
+  
+  
