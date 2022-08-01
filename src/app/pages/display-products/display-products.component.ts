@@ -53,81 +53,78 @@ export class DisplayProductsComponent implements OnInit {
             next: (products => {
 
               this.allProducts = products;
-              this.auth.user$.subscribe({
-                next: (user) => {
+              this.auth.idTokenClaims$.subscribe({
+                next: (data) => {
 
-                  this.auth.idTokenClaims$.subscribe({
-                    next: (data) => {
+                  if (data) {
+                    let email: any = data?.email;
+                    let password: any = data?.sub;
+                    let nickname: any = data?.nickname;
 
-                      if (data) {
-                        let email: any = data?.email;
-                        let password: any = data?.sub;
-                        let nickname: any = data?.nickname;
+                    const potentialNewUser = new User(
+                      email,
+                      nickname?.substring(0, nickname?.length / 2),
+                      nickname?.substring(
+                        nickname?.length / 2,
+                        nickname?.length
+                      ),
+                      password,
+                      'CUSTOMER',
+                      [],
+                      [],
+                      []
+                    );
+                    if (data["http://finally.com/roles"][0]) {
+                      this.authentication.role = data["http://finally.com/roles"][0].toUpperCase();
+                    } else {
+                      this.authentication.role = "CUSTOMER";
+                    }
 
-                        const potentialNewUser = new User(
-                          email,
-                          nickname?.substring(0, nickname?.length / 2),
-                          nickname?.substring(
-                            nickname?.length / 2,
-                            nickname?.length
-                          ),
-                          password,
-                          'CUSTOMER',
+                    this.userService.findUserByEmail(email).subscribe({
+                      next: (value) => {
+                        sessionStorage.setItem('userId', String(value.id));
+                        sessionStorage.setItem('user', JSON.stringify(new User(
+                          value.email,
+                          value.firstName,
+                          value.lastName,
+                          '',
+                          value.role,
                           [],
                           [],
                           []
-                        );
-                        if (data["http://finally.com/roles"][0]) {
-                          this.authentication.role = data["http://finally.com/roles"][0].toUpperCase();
-                        } else {
-                          this.authentication.role = "CUSTOMER";
+                        )));
+                      },
+                      error: (err) => {
+                        if (this.authentication.token && potentialNewUser.email === email) {
+                          this.userService.registerUser(potentialNewUser).subscribe({
+                            next: () => {
+                              this.userService.findUserByEmail(email).subscribe({
+                                next:(value) => {
+                                  sessionStorage.setItem('userId', String(value.id));
+                                  sessionStorage.setItem('user', JSON.stringify(new User(
+                                    value.email,
+                                    value.firstName,
+                                    value.lastName,
+                                    '',
+                                    value.role,
+                                    [],
+                                    [],
+                                    []
+                                  )));
+                                }})
+                            },
+                            error: (bruh)=>{
+                              console.log(bruh)
+                            }
+                          });
                         }
-
-                        this.userService.findUserByEmail(email).subscribe({
-                          next: (value) => {
-                            sessionStorage.setItem('userId', String(value.id));
-                            sessionStorage.setItem('user', JSON.stringify(new User(
-                              value.email,
-                              value.firstName,
-                              value.lastName,
-                              '',
-                              value.role,
-                              [],
-                              [],
-                              []
-                            )));
-                          },
-                          error: () => {
-                            this.userService.registerUser(potentialNewUser).subscribe({
-                              next: () => {
-                                this.userService.findUserByEmail(email).subscribe({
-                                  next: (value) => {
-                                    sessionStorage.setItem('userId', String(value.id));
-                                    sessionStorage.setItem('user', JSON.stringify(new User(
-                                      value.email,
-                                      value.firstName,
-                                      value.lastName,
-                                      '',
-                                      value.role,
-                                      [],
-                                      [],
-                                      []
-                                    )));
-                                  }
-                                })
-                              },
-                              error: (bruh) => {
-                                console.log(bruh)
-                              }
-                            });
-
-                          }
-                        })
+                        console.log(err)
                       }
-                    }
-                  })
+                    })
+                  }
                 }
               })
+
             })
           })
       } else {
