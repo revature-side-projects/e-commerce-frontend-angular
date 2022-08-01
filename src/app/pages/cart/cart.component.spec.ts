@@ -52,7 +52,9 @@ describe('CartComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
     
+    
     productService = TestBed.inject(ProductService);
+    
   });
 
   beforeEach(() => {
@@ -65,14 +67,31 @@ describe('CartComponent', () => {
     expect(component).toBeTruthy();
   });
   
-  it('testing subscribe method is getting called', fakeAsync(() => {
+  describe('ngOnInit', () => {
+  it('testing productService getCart subscribe method is getting called', fakeAsync(() => {
 	let subSpy = spyOn(productService.getCart(), 'subscribe');
 	component.ngOnInit();
 	tick();
 	
 	expect(subSpy).toHaveBeenCalled();
   }))
-  
+  })
+  describe('removeFromCart', () => {
+	it('should call removeFromCart() function', () => {
+		 spyOn(component, 'removeFromCart').and.callFake;
+        
+		component.removeFromCart(mockProducts[0]);
+		expect(component.removeFromCart).toHaveBeenCalled();
+	})
+  })
+   describe('emptyCart', () => {
+	it('should call emptyCart() function', () => {
+		spyOn(component, 'emptyCart').and.callFake;
+
+		component.emptyCart();
+		expect(component.emptyCart).toHaveBeenCalled();
+	})
+  })
 
   
 });
