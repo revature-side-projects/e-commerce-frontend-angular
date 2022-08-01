@@ -40,8 +40,8 @@ export class ReviewService {
     if (stars > 5) {
       stars = 5;
     }
-
     const userReview = {
+      userId: sessionStorage.getItem('userId'),
       productId: productId,
       stars: stars,
       title: title,
@@ -53,7 +53,8 @@ export class ReviewService {
   }
 
   deleteReviewById(id: number) {
-    return this.http.delete(`${this.reviewsUrl}/${id}`, {
+    const userId = sessionStorage.getItem('userId');
+    return this.http.delete(`${this.reviewsUrl}/${userId}/${id}`, {
       headers: environment.headers,
     });
   }
