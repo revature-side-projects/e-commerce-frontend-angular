@@ -23,9 +23,7 @@ export class SearchbarComponent implements OnInit {
     public router: Router
   ) { }
 
-  ngOnInit(): void { 
-    //This is intentional
-  }
+  ngOnInit(): void { }
 
   //triggered when we submit search
   //q: how to send data from this component to another component?
@@ -67,7 +65,5 @@ export class SearchbarComponent implements OnInit {
     
   }
 
-  search() {
-    //This is intentional
-   }
+  search() { }
 }

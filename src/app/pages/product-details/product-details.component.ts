@@ -73,6 +73,7 @@ export class ProductDetailsComponent implements OnInit {
         };
         this.productService.setCart(cart);
         inCart = true;
+        return;
       }
     });
 

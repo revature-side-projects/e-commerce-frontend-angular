@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { AppComponent } from '../../app.component';
-//import { User } from '../../models/user';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-navbar',
