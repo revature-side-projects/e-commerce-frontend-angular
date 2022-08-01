@@ -1,4 +1,4 @@
-<app-navbar [role]="role"></app-navbar>
+<app-navbar></app-navbar>
 
 <div class="row justify-content-center mt-2 text-center" *ngIf="appComponent.isSearching">
   <h3 *ngIf="appComponent.searchProducts.length > 0">
@@ -8,11 +8,11 @@
     <h4 *ngIf="appComponent.searchProducts.length === 0" class="text-muted">
       Sorry, no results for "{{ appComponent.search }}". Please try another query
     </h4>
-  </div>
     <h4 *ngIf="appComponent.found === false">
       Currently searching for "{{ appComponent.search }}".
     </h4>
-<div class="row justify-content-center mt-2 text-center" style="margin:0%;" *ngIf="!appComponent.isSearching">
+</div>
+<div class="row justify-content-center mt-2 text-center" style="margin:0;" *ngIf="!appComponent.isSearching">
   <h3>Featured Products</h3>
 </div>
 
@@ -20,13 +20,13 @@
 
   <div *ngIf="!appComponent.isSearching" class="grid">
     <div *ngFor="let product of allProducts">
-      <app-product-card class="cardListItem start-cards" [productInfo]="product" [role]="role"></app-product-card>
+      <app-product-card class="cardListItem start-cards" [productInfo]="product"></app-product-card>
     </div>
   </div>
 
   <div *ngIf="appComponent.isSearching" class="grid">
     <div *ngFor="let product of appComponent.searchProducts">
-      <app-product-card class="cardListItem" [productInfo]="product" [role]="role"></app-product-card>
+      <app-product-card class="cardListItem" [productInfo]="product"></app-product-card>
     </div>
   </div>
 
