@@ -137,6 +137,7 @@ export class DisplayProductsComponent implements OnInit {
         );
       }
     })
+
   }
 
   updateProductForm = new FormGroup({
@@ -212,6 +213,7 @@ export class DisplayProductsComponent implements OnInit {
     this.router.onSameUrlNavigation = 'reload';
   }
 }
+
 
 
 
