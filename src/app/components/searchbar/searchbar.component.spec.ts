@@ -13,17 +13,19 @@ describe('SearchbarComponent', () => {
   let fixture: ComponentFixture<SearchbarComponent>;
   let appComponent: AppComponent;
   let formBuilder: FormBuilder;
+  let router: RouterTestingModule;
   
   beforeEach(async () => {
 	const productServiceSpy =  jasmine.createSpyObj<ProductService>(['getSearchProducts']);
 	productServiceSpy.getSearchProducts.and.returnValue(of([]));
-	const routerSpy = jasmine.createSpyObj<RouterTestingModule>([''])
+	
+
     await TestBed.configureTestingModule({
       declarations: [SearchbarComponent, AppComponent],
       imports:[RouterTestingModule],
       providers: [AppComponent,  FormBuilder,
 	    {provide: ProductService, useValue: productServiceSpy},
-	    {provide: Router, useValue: routerSpy},
+	    {provide: Router, useValue: router},
 	   // {provide: AppComponent, useValue: appComponentSpy},
 	   // {provide: FormBuilder, useValue: formBuilderSpy}
 	  ],
@@ -37,7 +39,7 @@ describe('SearchbarComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     
-   
+    router = TestBed.inject(RouterTestingModule);
     
     
   });
@@ -50,15 +52,8 @@ describe('SearchbarComponent', () => {
     
   });
   
-
   
-/*  describe('onSubmit()', () => {
-	  it('should call getSearchProducts', () =>{
-         
-
-         
-	  })
-   })
-  */
+  
+//cannot test onsubmit router 
   
 });
