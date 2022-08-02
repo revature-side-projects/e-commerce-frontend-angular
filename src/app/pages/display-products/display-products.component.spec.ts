@@ -6,13 +6,18 @@ import { AuthenticationService } from '../../services/authentication.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ProductService} from 'src/app/services/product.service';
 import {of} from 'rxjs';
+import {Router} from '@angular/router';
 import { UserService } from '../../services/user.service';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-xdescribe('DisplayProductsComponent', () => {
+
+describe('DisplayProductsComponent', () => {
   let component: DisplayProductsComponent;
   let fixture: ComponentFixture<DisplayProductsComponent>;
   let authenticationService: AuthenticationService;
   let appComponent: AppComponent;
+  let router: RouterTestingModule;
+  
+  DisplayProductsComponent.prototype.ngOnInit = () => {};
   
   beforeEach(async () => {
 	const productServiceSpy = jasmine.createSpyObj<ProductService>(['getProducts']);
@@ -27,7 +32,10 @@ xdescribe('DisplayProductsComponent', () => {
       providers: [{provide: ProductService, useValue: productServiceSpy},
                   {provide: AuthService, useValue: authServiceSpy},
                   {provide: UserService, useValue: jasmine.createSpyObj([''])},
-                  {provide: AppComponent, useValue: jasmine.createSpyObj([''])}],       
+                  {provide: AppComponent, useValue: jasmine.createSpyObj([''])},
+                  {provide: Router, useValue: router}
+                  
+                  ],       
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();

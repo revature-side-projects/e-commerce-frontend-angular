@@ -6,7 +6,7 @@ import {ReviewService} from 'src/app/services/review.service';
 import {of} from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {fakeAsync, tick} from '@angular/core/testing';
-xdescribe('ProductDetailsComponent', () => {
+describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
   let productService: ProductService;
@@ -52,24 +52,9 @@ xdescribe('ProductDetailsComponent', () => {
   
  
   
-  describe('addToCart', () => {
-	let dummyProduct = { id: 1, name: "cup", quantity: 1, price: 2.50, description: "cup", image: "img"};
-	
-	it('should add an item to the cart', () => {
-	
-	 spyOn(component,'addToCart').and.returnValue();
-	 
-	 component.addToCart(dummyProduct);
-	 
-	 expect(component.addToCart(dummyProduct)).toHaveBeenCalled;
-	 
-	 
-  	//expect(component.products.length).toBe(1);
-//	expect(component.cartCount).toEqual(1);
-//	expect(component.totalPrice).toEqual(2.50);	
-	})
+})
 	
 	
 	
-  })
-});
+  
+
