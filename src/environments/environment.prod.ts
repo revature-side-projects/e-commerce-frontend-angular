@@ -8,7 +8,7 @@ const { domain, clientId, errorPath, audience } = config as {
   audience:string;
 };
 
-const apiUri = 'http://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com/';
+const apiUri = 'https://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com';
 
 export const environment = {
   production: true,
