@@ -4,21 +4,21 @@
   <h3 *ngIf="appComponent.searchProducts.length > 0">
     Search results for "{{ appComponent.search }}"
   </h3>
+  <!-- commenting this out for the pr:
+this seems to cause issues on the homepage, where it will show this regardless
+so it's gone for now -->
+  <div class="text-center mt-2" *ngIf="appComponent.found === false">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
 
-
-  <h4 *ngIf="appComponent.searchProducts.length === 0" class="text-muted">
+  <h4 *ngIf="appComponent.searchProducts.length === 0 && appComponent.found" class="text-muted">
     Sorry, no results for "{{ appComponent.search }}". Please try another query
   </h4>
 
 </div>
-<!-- commenting this out for the pr:
-this seems to cause issues on the homepage, where it will show this regardless
-so it's gone for now -->
-<!--<div *ngIf="appComponent.found === false">
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div> -->
+
 
 
 
@@ -140,4 +140,3 @@ so it's gone for now -->
 
 
 </div>
-
