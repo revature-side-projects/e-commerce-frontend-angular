@@ -9,7 +9,7 @@ import {of} from 'rxjs';
 import {Router} from '@angular/router';
 import { UserService } from '../../services/user.service';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-
+//import { DisplayProductsComponent } from './../../pages/display-products/display-products.component';
 describe('DisplayProductsComponent', () => {
   let component: DisplayProductsComponent;
   let fixture: ComponentFixture<DisplayProductsComponent>;
