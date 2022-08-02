@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-
+import {ReviewComponent} from 'src/app/components/review/review.component';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,8 +12,8 @@ export class ReviewService {
   constructor(private http: HttpClient) { }
 
   // Get a list of all reviews for all products
-  getAllReviews() {
-    return this.http.get(this.reviewsUrl, { headers: environment.headers });
+  getAllReviews(): Observable<ReviewComponent[]> {
+    return this.http.get<ReviewComponent[]>(this.reviewsUrl, { headers: environment.headers });
   }
 
   /**

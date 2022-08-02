@@ -1,20 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-
+import {ReviewComponent} from 'src/app/components/review/review.component';
 import { UserService } from './user.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
 describe('UserService', () => {
   let service: UserService,
-      httpMock: HttpTestingController;
-
+      httpMock: HttpTestingController,
+      reviewComponent: ReviewComponent;
+ 
   beforeEach(() => {
     TestBed.configureTestingModule({
 	  imports: [HttpClientTestingModule],
 	  providers: [
-		UserService	
+		UserService, ReviewComponent	
 	  ]
     });
     service = TestBed.inject(UserService);
+    reviewComponent = TestBed.inject(ReviewComponent);
     httpMock = TestBed.inject(HttpTestingController);
     
   });
