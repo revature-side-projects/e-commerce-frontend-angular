@@ -74,11 +74,7 @@ export class DisplayProductsComponent implements OnInit {
                       [],
                       []
                     );
-                    if (data["http://finally.com/roles"][0]) {
-                      this.authentication.role = data["http://finally.com/roles"][0].toUpperCase();
-                    } else {
-                      this.authentication.role = "CUSTOMER";
-                    }
+                    this.authentication.role = this.setUserRole(data["https://finally.com/roles"][0]);
 
                     this.userService.findUserByEmail(email).subscribe({
                       next: (value) => {
@@ -99,14 +95,14 @@ export class DisplayProductsComponent implements OnInit {
                           this.userService.registerUser(potentialNewUser).subscribe({
                             next: () => {
                               this.userService.findUserByEmail(email).subscribe({
-                                next: (value) => {
-                                  sessionStorage.setItem('userId', String(value.id));
+                                next: (value1) => {
+                                  sessionStorage.setItem('userId', String(value1.id));
                                   sessionStorage.setItem('user', JSON.stringify(new User(
-                                    value.email,
-                                    value.firstName,
-                                    value.lastName,
+                                    value1.email,
+                                    value1.firstName,
+                                    value1.lastName,
                                     '',
-                                    value.role,
+                                    value1.role,
                                     [],
                                     [],
                                     []
@@ -209,6 +205,14 @@ export class DisplayProductsComponent implements OnInit {
     this.deleteModalVisibility = 'none';
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
+  }
+  setUserRole(data: any) {
+    if (data) {
+      return data.toUpperCase();
+    } else {
+      return "CUSTOMER";
+    }
+
   }
 }
 

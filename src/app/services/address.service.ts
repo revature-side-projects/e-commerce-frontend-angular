@@ -12,13 +12,8 @@ export class AddressService {
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * 
-   * @param {number} userId 
-   * @returns {Observable<Address[]>} addresses
-   */
   getUserAddresses(userId: number): Observable<Address[]> {
-    return this.http.get<Address[]>(`${this.addressUrl}/${userId}`, {
+    return this.http.get<Address[]>(`${this.addressUrl}/user/${userId}`, {
       headers: environment.headers,
     });
   }
