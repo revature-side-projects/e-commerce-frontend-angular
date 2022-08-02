@@ -68,7 +68,7 @@ describe('AddressService', () => {
 			zip: "12345",
 			users: []
 		};
-	service.addAddress(dummyAddress).subscribe(address => {
+	service.addAddress(dummyAddress, 1).subscribe(address => {
 		expect(address).toEqual(dummyAddress);
 	})
 	const request = httpMock.expectOne(`${service.addressUrl}`);
@@ -87,7 +87,7 @@ describe('AddressService', () => {
 			zip: "12345",
 			users: []
 		};
-	service.updateAddress(dummyAddress).subscribe(address => {
+	service.updateAddress(dummyAddress,1 ).subscribe(address => {
 		expect(address).toEqual(dummyAddress);
 	})
 	const request = httpMock.expectOne(`${service.addressUrl}`);

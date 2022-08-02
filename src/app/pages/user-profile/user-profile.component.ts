@@ -159,7 +159,7 @@ export class UserProfileComponent implements OnInit {
 
     if (this.isNewAddress) {
 
-      this.addressService.addAddress(this.addresses[0]).subscribe({
+      this.addressService.addAddress(this.addresses[0], 1).subscribe({
         next: () => {
           this.userService.findUserById(this.currentUserId).subscribe({
             next:(user)=>{
@@ -179,7 +179,7 @@ export class UserProfileComponent implements OnInit {
       });
     } else {
 
-      this.addressService.updateAddress(this.addresses[0]).subscribe({
+      this.addressService.updateAddress(this.addresses[0], 1).subscribe({
         next:(updatedAddresses) =>{
 
           this.currentUser.firstName = this.updatedUserPlaceholder.firstName;

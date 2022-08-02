@@ -53,13 +53,11 @@ export class CartComponent implements OnInit {
     this.productService.setCart(cart);
   }
 
-<<<<<<< HEAD
 
-=======
   /**
    * Empty cart and reset our cart.
    */
->>>>>>> 799f466a30ba20f59a16c25df68c42a1a71f767c
+
   emptyCart(): void {
     console.log('service', this.productService, this.productService.getCart());
     let cart = {
