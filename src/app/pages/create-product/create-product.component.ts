@@ -127,11 +127,11 @@ export class CreateProductComponent implements OnInit {
           // @ts-ignore
           this.prodService
             .createProduct(
-              this.createProductForm.get('pname')?.value,
-              this.createProductForm.get('pquantity')?.value,
-              this.createProductForm.get('pdescription')?.value,
-              this.createProductForm.get('pprice')?.value,
-              this.createProductForm.get('pimage')?.value
+              this.createProductForm.get('pname')?.value as string,
+              this.createProductForm.get('pquantity')?.value as unknown as number,
+              this.createProductForm.get('pdescription')?.value as string,
+              this.createProductForm.get('pprice')?.value as unknown as number,
+              this.createProductForm.get('pimage')?.value as string
             )
             .subscribe(() => this.router.navigate(['']));
         }
