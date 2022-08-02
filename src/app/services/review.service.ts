@@ -20,8 +20,8 @@ export class ReviewService {
    * Get a list of reviews related to a product with the given product ID
    * @param {number} productId 
    */
-  getProductReviews(productId: number) {
-    return this.http.get(`${this.reviewsUrl}/product/${productId}`, {
+  getProductReviews(productId: number): Observable<ReviewComponent[]> {
+    return this.http.get<ReviewComponent[]>(`${this.reviewsUrl}/product/${productId}`, {
       headers: environment.headers,
     });
   }
@@ -31,8 +31,8 @@ export class ReviewService {
    * @param {number} userId 
    * @returns 
    */
-  getUsersReviews(userId: number) {
-    return this.http.get(`${this.reviewsUrl}/user/${userId}`, {
+  getUsersReviews(userId: number): Observable<ReviewComponent[]> {
+    return this.http.get<ReviewComponent[]>(`${this.reviewsUrl}/user/${userId}`, {
       headers: environment.headers,
     });
   }
@@ -43,8 +43,8 @@ export class ReviewService {
    * @param {number} id 
    * @returns 
    */
-  getReviewById(id: number) {
-    return this.http.get(`${this.reviewsUrl}/${id}`, {
+  getReviewById(id: number): Observable<ReviewComponent> {
+    return this.http.get<ReviewComponent>(`${this.reviewsUrl}/${id}`, {
       headers: environment.headers,
     });
   }
@@ -57,7 +57,7 @@ export class ReviewService {
    * @param {string} review 
    * @returns 
    */
-  postReview(productId: number, stars: number, title: string, review: string) {
+  postReview(productId: number, stars: number, title: string, review: string): Observable<ReviewComponent> {
     if (stars > 5) {
       stars = 5;
     }
@@ -68,7 +68,7 @@ export class ReviewService {
       title: title,
       review: review,
     };
-    return this.http.post(`${this.reviewsUrl}`, userReview, {
+    return this.http.post<ReviewComponent>(`${this.reviewsUrl}`, userReview, {
       headers: environment.headers,
     });
   }
@@ -77,9 +77,9 @@ export class ReviewService {
    * 
    * @param {number} id 
    */
-  deleteReviewById(id: number) {
-    const userId = sessionStorage.getItem('userId');
-    return this.http.delete(`${this.reviewsUrl}/${userId}/${id}`, {
+  deleteReviewById(id: number, userId: number): Observable<ReviewComponent> {
+    //const userId = sessionStorage.getItem('userId');
+    return this.http.delete<ReviewComponent>(`${this.reviewsUrl}/${userId}/${id}`, {
       headers: environment.headers,
     });
   }
