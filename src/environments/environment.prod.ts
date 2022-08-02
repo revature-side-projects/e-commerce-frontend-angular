@@ -22,7 +22,7 @@ export const environment = {
   httpInterceptor: {
     allowedList: [`${apiUri}/*`],
   },
-  baseUrl: "http://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com/",
+  baseUrl: "https://backend-env.eba-g9uchpeu.us-west-2.elasticbeanstalk.com",
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'https://d1jltnx8c2x3v1.cloudfront.net/',
