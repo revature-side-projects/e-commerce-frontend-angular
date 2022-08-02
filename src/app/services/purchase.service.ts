@@ -10,14 +10,23 @@ import { Injectable } from '@angular/core';
 export class PurchaseService {
   private purchaseUrl: string = environment.baseUrl + '/api/purchases' ;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
+  /**
+   * 
+   * @returns {Observable<Purchase[]>}
+   */
   public getAllPurchases(): Observable<Purchase[]> {
     return this.http.get<Purchase[]>(this.purchaseUrl, {
       headers: environment.headers,
     });
   }
 
+  /**
+   * 
+   * @param {number} userId 
+   * @returns {Observable<Purchase[]>}
+   */
   public getUserPurchases(userId: number): Observable<Purchase[]> {
     return this.http.get<Purchase[]>(
         this.purchaseUrl + `/user/${userId}`,
