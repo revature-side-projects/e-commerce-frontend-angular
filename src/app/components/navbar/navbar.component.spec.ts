@@ -23,7 +23,7 @@ describe('NavbarComponent', () => {
     const appComponentSpy = jasmine.createSpyObj<AppComponent>(['isSearching']);
     appComponentSpy.isSearching.valueOf();
     const routerSpy = jasmine.createSpyObj<Router>(['dispose']);
-    routerSpy.dispose.and.returnValue;
+    
     const authServiceSpy = jasmine.createSpyObj<AuthService>(['getUser']);
     authServiceSpy.getUser.and.returnValue(of());
     

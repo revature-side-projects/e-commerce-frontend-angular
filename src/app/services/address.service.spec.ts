@@ -71,7 +71,7 @@ describe('AddressService', () => {
 	service.addAddress(dummyAddress, 1).subscribe(address => {
 		expect(address).toEqual(dummyAddress);
 	})
-	const request = httpMock.expectOne(`${service.addressUrl}`);
+	const request = httpMock.expectOne(`${service.addressUrl}/1`);
 	expect(request.request.method).toBe('POST');
 	request.flush(dummyAddress);
 		
@@ -90,7 +90,7 @@ describe('AddressService', () => {
 	service.updateAddress(dummyAddress,1 ).subscribe(address => {
 		expect(address).toEqual(dummyAddress);
 	})
-	const request = httpMock.expectOne(`${service.addressUrl}`);
+	const request = httpMock.expectOne(`${service.addressUrl}/1`);
 	expect(request.request.method).toBe('PUT');
 	request.flush(dummyAddress);
 		

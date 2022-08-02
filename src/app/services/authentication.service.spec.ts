@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { AuthenticationService } from './authentication.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
-describe('AuthenticationService', () => {
+fdescribe('AuthenticationService', () => {
   let service: AuthenticationService;
   let httpMock: HttpTestingController;
   
@@ -21,6 +21,11 @@ describe('AuthenticationService', () => {
     expect(service).toBeTruthy();
   });
   
+  describe('getToken', () => {
+	it('should retrieve expected token', () => {
+		
+	})
+  })
   
   
   
