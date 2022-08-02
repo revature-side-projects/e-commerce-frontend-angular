@@ -110,6 +110,8 @@ export class UserProfileComponent implements OnInit {
     this.purchaseService.getUserPurchases(userId).subscribe({
       next: (purchases) => {
         for (let purchase of Object.values(purchases)) {
+          let localDate = new Date(purchase.orderPlaced);
+          purchase.orderPlaced = `${localDate.getMonth().toString()}/${localDate.getDay().toString()}/${localDate.getFullYear().toString()}`;
           this.purchases.push(purchase);
         }
       },

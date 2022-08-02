@@ -15,14 +15,21 @@ import { AuthService } from '@auth0/auth0-angular';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css'],
 })
+
+/**
+ * Create a product card for each product.
+ * Also contains functions to add product to cart
+ */
 export class ProductCardComponent implements OnInit {
   currentUserString: any = sessionStorage.getItem('user');
   currentUser: User = JSON.parse(this.currentUserString);
 
-  
+
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
   cartCount!: number;
+
+  // array of products
   products: {
     product: Product;
     quantity: number;
@@ -45,10 +52,10 @@ export class ProductCardComponent implements OnInit {
 
     public authService: AuthService,
     public disProdComp: DisplayProductsComponent,
-    private authentication:AuthenticationService
-    
+    private authentication: AuthenticationService
 
-  ) {}
+
+  ) { }
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe((cart) => {
       this.cartCount = cart.cartCount;
@@ -57,6 +64,11 @@ export class ProductCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Adds Product to cart
+   * @param {Product} product
+   * @returns void
+   */
   addToCart(product: Product): void {
     let inCart = false;
     let toBuy = Number(
@@ -77,17 +89,17 @@ export class ProductCardComponent implements OnInit {
             'Can not order more items then currently in stock, please enter a lower order amount.';
           inCart = true;
         }
-        else{
-        element.quantity += toBuy;
-        let cart = {
-          cartCount: this.cartCount + toBuy,
-          products: this.products,
-          totalPrice: this.totalPrice + (toBuy * this.productInfo.price),
-        };
+        else {
+          element.quantity += toBuy;
+          let cart = {
+            cartCount: this.cartCount + toBuy,
+            products: this.products,
+            totalPrice: this.totalPrice + (toBuy * this.productInfo.price),
+          };
 
-        this.productService.setCart(cart);
-        inCart = true;
-        return;
+          this.productService.setCart(cart);
+          inCart = true;
+          return;
         }
       }
     });
@@ -113,6 +125,9 @@ export class ProductCardComponent implements OnInit {
     }
   }
 
+  /**
+   * Sets Product in Session storage. Redirects user to /product-details
+   */
   selectProduct(): void {
     sessionStorage.setItem('selectedProductId', this.productInfo.id.toString());
     this.router.navigate(['/product-details']);
@@ -122,24 +137,36 @@ export class ProductCardComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  updatePopUp(product: Product){
-    this.disProdComp.productToUpdate.id=product.id;
-    this.disProdComp.productToUpdate.name=product.name;
-    this.disProdComp.productToUpdate.quantity=product.quantity;
-    this.disProdComp.productToUpdate.price=product.price;
-    this.disProdComp.productToUpdate.image=product.image;
-    this.disProdComp.productToUpdate.description=product.description;
+  /** 
+   * Updates popup with 
+   * @param {Product} product
+  */
+  updatePopUp(product: Product) {
+    this.disProdComp.productToUpdate.id = product.id;
+    this.disProdComp.productToUpdate.name = product.name;
+    this.disProdComp.productToUpdate.quantity = product.quantity;
+    this.disProdComp.productToUpdate.price = product.price;
+    this.disProdComp.productToUpdate.image = product.image;
+    this.disProdComp.productToUpdate.description = product.description;
     this.disProdComp.updateModalVisibility = 'block';
   }
 
-deletePopUp(product: Product){
-  this.disProdComp.productToDelete.id=product.id;
-  this.disProdComp.deleteModalVisibility='block';
-}
+  /**
+   * Removes Popup
+   * @param product 
+   */
+  deletePopUp(product: Product) {
+    this.disProdComp.productToDelete.id = product.id;
+    this.disProdComp.deleteModalVisibility = 'block';
+  }
   wantsToDelete() {
     this.wantToDelete = !this.wantToDelete;
   }
 
+  /**
+   * Removes Product and reroutes to /
+   * @param product 
+   */
   onDeleteProduct(product: Product) {
     this.productService.deleteProduct(product.id).subscribe(
       () => {
