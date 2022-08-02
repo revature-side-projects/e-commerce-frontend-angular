@@ -40,15 +40,9 @@
           [ngClass]="{'invalid': createProductForm.get('pimage')!.invalid &&
                                  createProductForm.get('pimage')!.touched}">
         </div>
-        <div class="warning-messages">
-          <h4 class="text-danger">{{this.warningTextMessage}}</h4>
-          <br>
-          <h4 class="text-danger">{{this.warningNumberMessage}}</h4>
-          <br>
-        </div>
 
         <div class="onsubmitbtn">
-          <button class="btn btn-primary" (click)="onSubmit()">Submit Product</button>
+          <button class="btn btn-primary" [disabled]="createProductForm.invalid" (click)="onSubmit()">Submit Product</button>
         </div>
         <div class="uploadimagebtn">
           <button class="btn btn-primary" (click)="openPopup()">Upload New Image</button>
