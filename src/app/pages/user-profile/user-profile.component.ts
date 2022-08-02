@@ -157,30 +157,33 @@ export class UserProfileComponent implements OnInit {
 
     if (this.isNewAddress) {
       this.addressService.addAddress(this.addresses[0], this.currentUserId).subscribe({
-        next: () => {
-          this.userService.findUserById(this.currentUserId).subscribe({
-            next: (user) => {
-              user.firstName = this.updatedUserPlaceholder.firstName;
-              user.lastName = this.updatedUserPlaceholder.lastName;
-              this.userService.updateUser(user, this.currentUserId).subscribe({
-                next: (updatedUser) => {
-                  this.currentUser.firstName = updatedUser.firstName;
-                  this.currentUser.lastName = updatedUser.lastName;
-                  sessionStorage.setItem("user", JSON.stringify(this.currentUser))
-                }
-              })
+        next: (newAddress) => {
+          this.isNewAddress = false;
+          this.currentUser.firstName = this.updatedUserPlaceholder.firstName;
+          this.currentUser.lastName = this.updatedUserPlaceholder.lastName;
+          this.currentUser.addresses[0] = newAddress;
+          this.currentUser.reviews = this.reviews;
+          this.currentUser.purchases = this.purchases
+          this.userService.updateUser(this.currentUser, this.currentUserId).subscribe({
+            next: (updatedUser) => {
+              this.currentUser.firstName = updatedUser.firstName;
+              this.currentUser.lastName = updatedUser.lastName;
+              sessionStorage.setItem("user", JSON.stringify(this.currentUser))
             }
-          });
+          })
         }
       });
     } else {
       this.addressService.updateAddress(this.addresses[0], this.currentUserId).subscribe({
         next: (updatedAddresses) => {
+
           this.currentUser.firstName = this.updatedUserPlaceholder.firstName;
           this.currentUser.lastName = this.updatedUserPlaceholder.lastName;
           this.currentUser.addresses[0] = updatedAddresses;
           this.currentUser.reviews = this.reviews;
           this.currentUser.purchases = this.purchases
+
+          console.log(this.currentUser)
           this.userService.updateUser(this.currentUser, this.currentUserId).subscribe({
             next: (updatedUser) => {
               this.currentUser.firstName = updatedUser.firstName;
@@ -203,6 +206,9 @@ export class UserProfileComponent implements OnInit {
     }
 
     document.getElementById(content)?.classList.add('active');
+
+    if (content === 'info') this.getAddresses(this.currentUserId);
+
     this.contentSelected = content;
   }
 
