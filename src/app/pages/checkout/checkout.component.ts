@@ -9,12 +9,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
 })
+/**
+ *
+ */
 export class CheckoutComponent implements OnInit {
   products: {
     product: Product;
     quantity: number;
   }[] = [];
-  totalPrice!: number;
+  totalPrice!: string;
   cartProducts: Product[] = [];
   finalProducts: { id: number; quantity: number }[] = [];
 
@@ -55,18 +58,26 @@ export class CheckoutComponent implements OnInit {
     ]),
   });
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router) { }
 
+  /**
+   * Set's checkout's products to cart's products.
+   * Also sets checkout's total price
+   */
   ngOnInit(): void {
     this.productService.getCart().subscribe((cart) => {
       this.products = cart.products;
       this.products.forEach((element) =>
         this.cartProducts.push(element.product)
       );
-      this.totalPrice = cart.totalPrice;
+      this.totalPrice = (Math.round((cart.totalPrice * 100))/100).toString();
     });
   }
 
+  /**
+   * After pressing Submit button, adds each product
+   * to finalProducts. Creates a purchase and empties cart.
+   */
   onSubmit(): void {
     this.products.forEach((element) => {
       const id = element.product.id;

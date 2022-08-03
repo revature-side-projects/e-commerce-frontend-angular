@@ -74,11 +74,8 @@ export class DisplayProductsComponent implements OnInit {
                       [],
                       []
                     );
-                    if (data["http://finally.com/roles"][0]) {
-                      this.authentication.role = data["http://finally.com/roles"][0].toUpperCase();
-                    } else {
-                      this.authentication.role = "CUSTOMER";
-                    }
+                    console.log(data)
+                    this.authentication.role = this.setUserRole(data["https://finally.com/roles"][0]);
 
                     this.userService.findUserByEmail(email).subscribe({
                       next: (value) => {
@@ -99,21 +96,22 @@ export class DisplayProductsComponent implements OnInit {
                           this.userService.registerUser(potentialNewUser).subscribe({
                             next: () => {
                               this.userService.findUserByEmail(email).subscribe({
-                                next:(value) => {
-                                  sessionStorage.setItem('userId', String(value.id));
+                                next: (value1) => {
+                                  sessionStorage.setItem('userId', String(value1.id));
                                   sessionStorage.setItem('user', JSON.stringify(new User(
-                                    value.email,
-                                    value.firstName,
-                                    value.lastName,
+                                    value1.email,
+                                    value1.firstName,
+                                    value1.lastName,
                                     '',
-                                    value.role,
+                                    value1.role,
                                     [],
                                     [],
                                     []
                                   )));
-                                }})
+                                }
+                              })
                             },
-                            error: (bruh)=>{
+                            error: (bruh) => {
                               console.log(bruh)
                             }
                           });
@@ -155,31 +153,31 @@ export class DisplayProductsComponent implements OnInit {
     if (this.updateProductForm.get('pname')?.value === '') {
       name = product.name;
     } else {
-      name = this.updateProductForm.get('pname')?.value;
+      name = this.updateProductForm.get('pname')?.value!;
     }
 
     if (this.updateProductForm.get('pquantity')?.value === '') {
       quantity = product.quantity;
     } else {
-      quantity = this.updateProductForm.get('pquantity')?.value;
+      quantity = this.updateProductForm.get('pquantity')?.value as unknown as number;
     }
 
     if (this.updateProductForm.get('pdescription')?.value === '') {
       description = product.description;
     } else {
-      description = this.updateProductForm.get('pdescription')?.value;
+      description = this.updateProductForm.get('pdescription')?.value!;
     }
 
     if (this.updateProductForm.get('pprice')?.value === '') {
       price = product.price;
     } else {
-      price = this.updateProductForm.get('pprice')?.value;
+      price = this.updateProductForm.get('pprice')?.value as unknown as number;
     }
 
     if (this.updateProductForm.get('pimage')?.value === '') {
       image = product.image;
     } else {
-      image = 'https://revazon-image-bucket.s3.amazonaws.com/' + this.updateProductForm.get('pimage')?.value;
+      image = 'https://revazon-image-bucket.s3.amazonaws.com/' + this.updateProductForm.get('pimage')?.value!;
     }
     this.productService
       .updateProduct(product.id, name, quantity, description, price, image)
@@ -208,6 +206,14 @@ export class DisplayProductsComponent implements OnInit {
     this.deleteModalVisibility = 'none';
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
+  }
+  setUserRole(data: any) {
+    if (data) {
+      return data.toUpperCase();
+    } else {
+      return "CUSTOMER";
+    }
+
   }
 }
 
