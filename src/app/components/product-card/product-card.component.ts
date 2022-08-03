@@ -1,6 +1,6 @@
 import { DisplayProductsComponent } from './../../pages/display-products/display-products.component';
 import { Product } from './../../models/product';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -149,6 +149,14 @@ export class ProductCardComponent implements OnInit {
     this.disProdComp.productToUpdate.image = product.image;
     this.disProdComp.productToUpdate.description = product.description;
     this.disProdComp.updateModalVisibility = 'block';
+
+    this.disProdComp.updateProductForm = new FormGroup({
+      pname: new FormControl(product.name, [Validators.required, Validators.pattern('^[a-zA-Z0-9]+( [a-zA-Z0-9]+)?$')]),
+      pquantity: new FormControl(product.quantity, [Validators.required, Validators.pattern('^[0-9]{1,6}$')]),
+      pdescription: new FormControl(product.description, [Validators.required, Validators.pattern('^\\S.*\\S$')]),
+      pprice: new FormControl(product.price, [Validators.required, Validators.pattern('[0-9]{1,6}(\.[0-9]{1,2})?')]),
+      pimage: new FormControl(product.image, [Validators.required]),
+    });
   }
 
   /**
