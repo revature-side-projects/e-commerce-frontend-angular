@@ -18,7 +18,9 @@ export class ReviewSubmitComponent implements OnInit {
 
   constructor(public reviewService: ReviewService, public auth: AuthService, private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    //Intentional
+  }
 
   /**
    * Submits a review with product given.

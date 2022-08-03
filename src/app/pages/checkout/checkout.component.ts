@@ -34,7 +34,7 @@ export class CheckoutComponent implements OnInit {
     ]),
     expiry: new FormControl('', [
       Validators.required,
-      Validators.pattern('^((0[1-9])|(1[0-2]))[/.-]*((2[2-9])|(3[0-5]))$'),
+      Validators.pattern('^((0[1-9])|(1[0-2]))[/.-]*((0[0-9])|(1[0-9])|(2[0-9]))$'),
     ]),
     cvv: new FormControl('', [
       Validators.required,
