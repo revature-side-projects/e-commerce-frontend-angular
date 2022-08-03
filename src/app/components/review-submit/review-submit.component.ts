@@ -30,7 +30,6 @@ export class ReviewSubmitComponent implements OnInit {
         () => {
           this.isReviewed = true;
           this.router.navigate([''])
-
         },
         (error) => console.log(error)
       );
