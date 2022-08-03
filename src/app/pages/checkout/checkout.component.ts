@@ -10,21 +10,21 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./checkout.component.css'],
 })
 /**
- * 
+ *
  */
 export class CheckoutComponent implements OnInit {
   products: {
     product: Product;
     quantity: number;
   }[] = [];
-  totalPrice!: number;
+  totalPrice!: string;
   cartProducts: Product[] = [];
   finalProducts: { id: number; quantity: number }[] = [];
 
   checkoutForm = new FormGroup({
     cardName: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-zA-Z]+ [a-zA-Z]+$'),
+      Validators.pattern('^[a-zA-Z]+$'),
     ]),
     cardNumber: new FormControl('', [
       Validators.required,
@@ -34,7 +34,7 @@ export class CheckoutComponent implements OnInit {
     ]),
     expiry: new FormControl('', [
       Validators.required,
-      Validators.pattern('^((0[1-9])|(1[0-2]))[/.-]*((2[2-9])|(3[0-5]))$'),
+      Validators.pattern('^((0[1-9])|(1[0-2]))[/.-]*((0[8-9])|(1[1-9]))$'),
     ]),
     cvv: new FormControl('', [
       Validators.required,
@@ -70,7 +70,7 @@ export class CheckoutComponent implements OnInit {
       this.products.forEach((element) =>
         this.cartProducts.push(element.product)
       );
-      this.totalPrice = cart.totalPrice;
+      this.totalPrice = (Math.round((cart.totalPrice * 100))/100).toString();
     });
   }
 
