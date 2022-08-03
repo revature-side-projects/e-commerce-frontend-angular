@@ -2,7 +2,10 @@
   background-color:rgb(237, 238, 239);
   outline: rgb(138, 136, 136);
 }
-
+.btn-shop{
+  background-color:  #F26925;
+  color:whitesmoke;
+}
 .content {
   background-color:white;
 }
@@ -22,6 +25,14 @@
 
 .purchase-info {
   color: grey;
+}
+
+.form-control.invalid {
+  border-color: #dc3545 !important;
+}
+
+.form-select.invalid {
+  border-color: #dc3545 !important;
 }
 
 img {

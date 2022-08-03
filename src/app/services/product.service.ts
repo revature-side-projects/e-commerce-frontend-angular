@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
-import {AuthService} from "@auth0/auth0-angular";
+import { AuthService } from "@auth0/auth0-angular";
 
 interface Cart {
   cartCount: number;
@@ -37,8 +37,12 @@ export class ProductService {
     return this._cart.next(latestValue);
   }
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
+  /**
+   * Get All Products
+   * @returns {Observable<Product[]>}
+   */
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.baseUrl + this.productUrl, {
       headers: environment.headers,
@@ -55,6 +59,11 @@ export class ProductService {
     );
   }
 
+  /**
+   * Gets single product by Id
+   * @param {number} id
+   * @returns {Observable<Product>}
+   */
   public getSingleProduct(id: number): Observable<Product> {
     return this.http.get<Product>(
       environment.baseUrl + this.productUrl + '/' + id,
@@ -64,6 +73,15 @@ export class ProductService {
     );
   }
 
+  /**
+   * 
+   * @param {string} name 
+   * @param {number} quantity 
+   * @param {string} description 
+   * @param {number} price 
+   * @param {string} image 
+   * @returns {Observable<any>}
+   */
   public createProduct(
     name: string,
     quantity: number,
@@ -87,6 +105,16 @@ export class ProductService {
     );
   }
 
+  /**
+   * 
+   * @param {number} id 
+   * @param {string} name 
+   * @param {number} quantity 
+   * @param {string} description 
+   * @param {number} price 
+   * @param {string} image 
+   * @returns {Observable<any>}
+   */
   public updateProduct(
     id: number,
     name: string,
@@ -100,7 +128,7 @@ export class ProductService {
       name: name,
       quantity: quantity,
       description: description,
-      image: 'https://revazon-image-bucket.s3.amazonaws.com/' + image,
+      image: image,
       price: price,
     };
     return this.http.put<any>(
@@ -112,6 +140,11 @@ export class ProductService {
     );
   }
 
+  /**
+   * 
+   * @param {{number, number}} products 
+   * @returns {Observable<any>}
+   */
   public purchase(
     products: { id: number; quantity: number }[]
   ): Observable<any> {
@@ -125,6 +158,11 @@ export class ProductService {
     );
   }
 
+  /**
+   * 
+   * @param {{number, number}} products 
+   * @returns {Observable<any>}
+   */
   public addPurchase(
     products: { id: number; quantity: number }[]
   ): Observable<any> {
@@ -138,6 +176,12 @@ export class ProductService {
       }
     );
   }
+
+  /**
+   * 
+   * @param {number} id 
+   * @returns {any} 
+   */
   public deleteProduct(id: number) {
     return this.http.delete<any>(
       environment.baseUrl + this.productUrl + '/' + id,

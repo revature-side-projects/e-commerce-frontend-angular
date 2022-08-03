@@ -1,25 +1,35 @@
+import { DisplayProductsComponent } from './../../pages/display-products/display-products.component';
 import { Product } from './../../models/product';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { AppComponent } from 'src/app/app.component';
 import { User } from '../../models/user';
-
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AuthService } from '@auth0/auth0-angular';
-import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css'],
 })
+
+/**
+ * Create a product card for each product.
+ * Also contains functions to add product to cart
+ */
 export class ProductCardComponent implements OnInit {
+  currentUserString: any = sessionStorage.getItem('user');
+  currentUser: User = JSON.parse(this.currentUserString);
+
 
   wantToDelete: boolean = false;
   wantToUpdate: boolean = false;
   cartCount!: number;
+
+  // array of products
   products: {
     product: Product;
     quantity: number;
@@ -28,15 +38,24 @@ export class ProductCardComponent implements OnInit {
   subscription!: Subscription;
   totalPrice: number = 0;
   msg: string = '';
+
+  modalVisibility: string = '';
   role: string = this.authentication.role;
+
+
 
   @Input() productInfo!: Product;
   constructor(
+    public appcomponent: AppComponent,
     private productService: ProductService,
     private router: Router,
+
     public authService: AuthService,
-    private authentication:AuthenticationService
-  ) {}
+    public disProdComp: DisplayProductsComponent,
+    private authentication: AuthenticationService
+
+
+  ) { }
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe((cart) => {
       this.cartCount = cart.cartCount;
@@ -45,6 +64,11 @@ export class ProductCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Adds Product to cart
+   * @param {Product} product
+   * @returns void
+   */
   addToCart(product: Product): void {
     let inCart = false;
     let toBuy = Number(
@@ -65,17 +89,17 @@ export class ProductCardComponent implements OnInit {
             'Can not order more items then currently in stock, please enter a lower order amount.';
           inCart = true;
         }
-        else{
-        element.quantity += toBuy;
-        let cart = {
-          cartCount: this.cartCount + toBuy,
-          products: this.products,
-          totalPrice: this.totalPrice + (toBuy * this.productInfo.price),
-        };
+        else {
+          element.quantity += toBuy;
+          let cart = {
+            cartCount: this.cartCount + toBuy,
+            products: this.products,
+            totalPrice: this.totalPrice + (toBuy * this.productInfo.price),
+          };
 
-        this.productService.setCart(cart);
-        inCart = true;
-        return;
+          this.productService.setCart(cart);
+          inCart = true;
+          return;
         }
       }
     });
@@ -101,6 +125,9 @@ export class ProductCardComponent implements OnInit {
     }
   }
 
+  /**
+   * Sets Product in Session storage. Redirects user to /product-details
+   */
   selectProduct(): void {
     sessionStorage.setItem('selectedProductId', this.productInfo.id.toString());
     this.router.navigate(['/product-details']);
@@ -110,88 +137,55 @@ export class ProductCardComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  wantsToUpdate() {
-    this.wantToUpdate = !this.wantToUpdate;
+  /** 
+   * Updates popup with 
+   * @param {Product} product
+  */
+  updatePopUp(product: Product) {
+    this.disProdComp.productToUpdate.id = product.id;
+    this.disProdComp.productToUpdate.name = product.name;
+    this.disProdComp.productToUpdate.quantity = product.quantity;
+    this.disProdComp.productToUpdate.price = product.price;
+    this.disProdComp.productToUpdate.image = product.image;
+    this.disProdComp.productToUpdate.description = product.description;
+    this.disProdComp.updateModalVisibility = 'block';
+
+    this.disProdComp.updateProductForm = new FormGroup({
+      pname: new FormControl(product.name, [Validators.required, Validators.pattern('^[a-zA-Z0-9]+( [a-zA-Z0-9]+)?$')]),
+      pquantity: new FormControl(product.quantity, [Validators.required, Validators.pattern('^[0-9]{1,6}$')]),
+      pdescription: new FormControl(product.description, [Validators.required, Validators.pattern('^\\S.*\\S$')]),
+      pprice: new FormControl(product.price, [Validators.required, Validators.pattern('[0-9]{1,6}(\.[0-9]{1,2})?')]),
+      pimage: new FormControl(product.image, [Validators.required]),
+    });
   }
 
-  updateProductForm = new FormGroup({
-    pname: new FormControl(''),
-    pquantity: new FormControl(''),
-    pdescription: new FormControl(''),
-    pprice: new FormControl(''),
-    pimage: new FormControl(''),
-  });
-
-  onSubmitUpdate(product: Product) {
-    let name: string;
-    let quantity: number;
-    let description: string;
-    let price: number;
-    let image: string;
-
-    if (this.updateProductForm.get('pname')?.value === '') {
-      name = product.name;
-    } else {
-      // @ts-ignore
-      name = this.updateProductForm.get('pname')?.value;
-    }
-
-    if (this.updateProductForm.get('pquantity')?.value === '') {
-      quantity = product.quantity;
-    } else {
-      // @ts-ignore
-      quantity = this.updateProductForm.get('pquantity')?.value;
-    }
-
-    if (this.updateProductForm.get('pdescription')?.value === '') {
-      description = product.description;
-    } else {
-      // @ts-ignore
-      description = this.updateProductForm.get('pdescription')?.value;
-    }
-
-    if (this.updateProductForm.get('pprice')?.value === '') {
-      price = product.price;
-    } else {
-      // @ts-ignore
-      price = this.updateProductForm.get('pprice')?.value;
-    }
-
-    if (this.updateProductForm.get('pimage')?.value === '') {
-      image = product.image;
-    } else {
-      // @ts-ignore
-      image = this.updateProductForm.get('pimage')?.value;
-    }
-
-    this.productService
-      .updateProduct(product.id, name, quantity, description, price, image)
-      .subscribe(
-        () => {
-          this.wantToUpdate = false;
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['home']);
-        },
-        (err) => console.log(err),
-        () => this.router.navigate(['home'])
-      );
+  /**
+   * Removes Popup
+   * @param product 
+   */
+  deletePopUp(product: Product) {
+    this.disProdComp.productToDelete.id = product.id;
+    this.disProdComp.deleteModalVisibility = 'block';
   }
-
   wantsToDelete() {
     this.wantToDelete = !this.wantToDelete;
   }
 
+  /**
+   * Removes Product and reroutes to /
+   * @param product 
+   */
   onDeleteProduct(product: Product) {
-    // @ts-ignore
     this.productService.deleteProduct(product.id).subscribe(
       () => {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
-        window.location.reload()
+
+        this.router.navigate(['/']);
       },
       (err: any) => console.log(err),
-      () => window.location.reload()
     );
   }
+
 }
+

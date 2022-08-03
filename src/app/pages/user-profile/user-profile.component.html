@@ -1,50 +1,38 @@
 <!-- Intro message for the currently logged in user -->
 <app-navbar></app-navbar>
-<h3 style="width: 100%; text-align: center">Welcome, {{ currentUser.firstName }}!</h3>
+
+<h3 style="margin-left: 1%; margin-top: 2%">Welcome, {{ currentUser.firstName }}!</h3>
+
 
 <div class="container-fluid text-center">
   <div class="row">
     <div class="col-2">
       <div class="list-group">
-        <a
-          (click)="changeContent('info')"
-          name="button"
-          id="info"
-          class="list-group-item list-group-item-action active"
-          >User Information</a
-        >
-        <a
-          (click)="changeContent('purchases')"
-          id="purchases"name="button"
-          class="list-group-item list-group-item-action"
-          >Purchase History</a
-        >
-        <a
-          (click)="changeContent('reviews')"
-          id="reviews"name="button"
-          class="list-group-item list-group-item-action"
-          >Reviews</a
-        >
+
+        <a (click)="changeContent('info')" id="info" class="list-group-item list-group-item-action active">User
+          Information</a>
+        <a (click)="changeContent('purchases')" id="purchases" class="list-group-item list-group-item-action">Purchase
+          History</a>
+        <a (click)="changeContent('reviews')" id="reviews" class="list-group-item list-group-item-action">Reviews</a>
+
       </div>
     </div>
 
-    <!-- <div class="col-10" *ngIf="addresses.length >= 1"> -->
+
     <div class="col-10">
       <div class="content-bg">
         <div *ngIf="contentSelected == 'info'">
           <div class="text-left p-2 title mb-4">User Profile</div>
 
-          <div
-            class="container text-center p-4 content shadow-lg bg-white rounded"
-          >
-            <div class="row justify-content-md-center">
+          <div class="container text-center p-4 content shadow-lg bg-white rounded">
+            <div class="row justify-content-md-center mb-2">
               <div class="col col-lg-2 info-field">First Name</div>
               <div class="col col-lg-2">
                 {{ currentUser.firstName }}
               </div>
             </div>
 
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-md-center mb-2">
               <div class="col col-lg-2 info-field">Last Name</div>
               <div class="col col-lg-2">
                 {{ currentUser.lastName }}
@@ -54,9 +42,9 @@
             <div class="row justify-content-md-center">
               <div class="col col-lg-2 info-field">Mailing Address</div>
               <div class="col col-lg-2">
-                <div *ngIf="addresses.length <= 0">No mailing address</div>
+                <div *ngIf="addresses[0].street === ''">No mailing address</div>
 
-                <div *ngIf="addresses.length >= 1">
+                <div *ngIf="addresses[0].street !== ''">
                   {{ addresses[0].street }} {{ addresses[0].secondary }}
                   {{ addresses[0].city }}, {{ addresses[0].state }}
                   {{ addresses[0].zip }}
@@ -66,121 +54,67 @@
 
             <div class="row justify-content-md-center">
               <div class="col col-lg-2">
-                <button (click)="openPopup()" class="btn btn-primary">
+                <button (click)="openPopup()" class="btn btn-primary mt-4">
                   Update Information
                 </button>
               </div>
             </div>
           </div>
 
-          <div
-            class="modal"
-            tabindex="-1"
-            role="dialog"
-            [ngStyle]="{ display: modalVisibility }"
-          >
+          <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: modalVisibility }">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h4 class="modal-title">Update Your Information below</h4>
-                  <button
-                    (click)="closePopup()"
-                    type="button"
-                    class="btn-close"
-                    aria-label="Close"
-                  ></button>
+                  <button (click)="closePopup()" type="button" class="btn-close" aria-label="Close"></button>
                 </div>
                 <form [formGroup]="updateUserInfoForm">
                   <div class="modal-body">
                     <div class="form-group mt-2">
                       <label for="first-name">First Name</label>
-                      <input
-                        [(ngModel)]="updatedUserPlaceholder.firstName"
-                        name="first-name"
-                        type="text"
-                        class="form-control"
-                        formControlName="firstName"
-                        [ngClass]="{
+
+                      <input [(ngModel)]="updatedUserPlaceholder.firstName" name="first-name" type="text" class="form-control"
+                        formControlName="firstName" [ngClass]="{
                           invalid: updateUserInfoForm.get('firstName')!.invalid
-                        }"
-                        id="first-name"
-                        placeholder="First Name"
-                      />
+                        }" id="first-name" placeholder="First Name" />
                     </div>
 
                     <div class="form-group mt-2">
                       <label for="last-name">Last Name</label>
-                      <input
-                        [(ngModel)]="updatedUserPlaceholder.lastName"
-                        name="last-name"
-                        type="text"
-                        class="form-control"
-                        formControlName="lastName"
-                        [ngClass]="{
+
+                      <input [(ngModel)]="updatedUserPlaceholder.lastName" name="last-name" type="text" class="form-control"
+                        formControlName="lastName" [ngClass]="{
                           invalid: updateUserInfoForm.get('lastName')!.invalid
-                        }"
-                        id="last-name"
-                        placeholder="Last Name"
-                      />
+                        }" id="last-name" placeholder="Last Name" />
                     </div>
 
                     <div class="form-group mt-2">
-                      <label for="inputAddress" class="form-label"
-                        >Address</label
-                      >
-                      <input
-                        [(ngModel)]="updatedAddress.street"
-                        name="address"
-                        type="text"
-                        class="form-control"
-                        formControlName="address"
-                        [ngClass]="{
+                      <label for="inputAddress" class="form-label">Address</label>
+                      <input [(ngModel)]="updatedAddress.street" name="address" type="text" class="form-control"
+                        formControlName="address" [ngClass]="{
                           invalid: updateUserInfoForm.get('address')!.invalid
-                        }"
-                        id="inputAddress"
-                        placeholder="1234 Main St"
-                      />
+                        }" id="inputAddress" placeholder="1234 Main St" />
                     </div>
                     <div class="form-group mt-2">
-                      <label for="inputAddress2" class="form-label"
-                        >Secondary</label
-                      >
-                      <input
-                        [(ngModel)]="updatedAddress.secondary"
-                        name="secondary"
-                        type="text"
-                        class="form-control"
-                        id="inputAddress2"
-                        placeholder="Apartment, studio, or floor"
-                      />
+
+                      <label for="inputAddress2" class="form-label">Secondary</label>
+                      <input [(ngModel)]="updatedAddress.secondary" name="secondary" type="text" class="form-control"
+                        id="inputAddress2" placeholder="Apartment, studio, or floor" />
+
                     </div>
                     <div class="form-group mt-2">
                       <label for="inputCity" class="form-label">City</label>
-                      <input
-                        [(ngModel)]="updatedAddress.city"
-                        name="city"
-                        type="text"
-                        class="form-control"
-                        id="inputCity"
-                        formControlName="city"
-                        [ngClass]="{
+                      <input [(ngModel)]="updatedAddress.city" name="city" type="text" class="form-control"
+                        id="inputCity" formControlName="city" [ngClass]="{
                           invalid: updateUserInfoForm.get('city')!.invalid
-                        }"
-                        placeholder="City"
-                      />
+                        }" placeholder="City" />
                     </div>
                     <div class="form-group mt-2">
                       <label for="inputState" class="form-label">State</label>
-                      <select
-                        [(ngModel)]="updatedAddress.state"
-                        name="state"
-                        id="inputState"
-                        class="form-select"
-                        formControlName="state"
-                        [ngClass]="{
+                      <select [(ngModel)]="updatedAddress.state" name="state" id="inputState" class="form-select"
+                        formControlName="state" [ngClass]="{
                           invalid: updateUserInfoForm.get('state')!.invalid
-                        }"
-                      >
+                        }">
                         <option value="" selected hidden disabled>
                           Choose...
                         </option>
@@ -241,29 +175,17 @@
                     </div>
                     <div class="form-group mt-2">
                       <label for="inputZip" class="form-label">Zip</label>
-                      <input
-                        [(ngModel)]="updatedAddress.zip"
-                        name="zip"
-                        type="text"
-                        class="form-control"
-                        formControlName="zip"
-                        [ngClass]="{
+                      <input [(ngModel)]="updatedAddress.zip" name="zip" type="text" class="form-control"
+                        formControlName="zip" [ngClass]="{
                           invalid: updateUserInfoForm.get('zip')!.invalid
-                        }"
-                        id="inputZip"
-                        placeholder="12345"
-                      />
+                        }" id="inputZip" placeholder="12345" />
                     </div>
                   </div>
                 </form>
                 <div class="modal-footer">
                   <div class="modal-footer">
-                    <button
-                      [disabled]="updateUserInfoForm.invalid"
-                      type="button"
-                      class="btn btn-primary btn-block fa-lg gradient-custom-2"
-                      (click)="updateInfo()"
-                    >
+                    <button [disabled]="updateUserInfoForm.invalid" type="button"
+                      class="btn btn-primary btn-block fa-lg gradient-custom-2" (click)="updateInfo()">
                       Update
                     </button>
                   </div>
@@ -277,11 +199,11 @@
         <div *ngIf="contentSelected == 'purchases'">
           <div class="text-left p-2 title mb-4">Purchase History</div>
 
-          <div
-            class="container text-center p-4 content shadow-lg bg-white rounded"
-          >
+          <div class="container text-center p-4 content shadow-lg bg-white rounded">
             <div *ngIf="purchases.length < 1">
-              No purchases for this account!
+              <h3 class="text-muted mt-2">No purchases for this account!</h3>
+              <h5 class="text-muted mt-2">Make a purchase!</h5>
+              <button class="btn btn-shop mt-4" [routerLink]="['/']">Return to shop</button>
             </div>
 
             <div *ngFor="let purchase of purchases" class="col">
@@ -294,7 +216,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-2">{{ purchase.orderPlaced }}}</div>
+                    <div class="col-2">{{ purchase.orderPlaced }}</div>
                     <div class="col-3">
                       ${{ purchase.product.price.toFixed(2) }}
                     </div>
@@ -307,12 +229,8 @@
                     <img [src]="purchase.product.image" alt="product image" />
                   </div>
                   <div class="col-2">
-                    <a
-                      [routerLink]="['/product-details']"
-                      class="link-primary"
-                      (click)="selectItem(purchase.product.id)"
-                      >{{ purchase.product.name }}</a
-                    >
+                    <a [routerLink]="['/product-details']" class="link-primary"
+                      (click)="selectItem(purchase.product.id)">{{ purchase.product.name }}</a>
                     <p>{{ purchase.product.description }}</p>
                   </div>
                 </div>
@@ -327,23 +245,9 @@
             Review History for {{ currentUser.firstName }}
           </div>
 
-          <div
-            class="container text-center p-4 content shadow-lg bg-white rounded"
-          >
-            <div class="card text-left">
-              <ul>
-                <li *ngFor="let review of reviews">
-                  <div *ngIf="review.stars && review.review">
-                    <h3>{{ review.title }}</h3>
-                    <div>Rated {{ review.stars }}/5</div>
-                    <div>Review Date: {{ review.posted }}</div>
-                    <div>
-                      Review Content:
-                      <p>{{ review.review }}</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+          <div class="container text-center p-4 content shadow-lg bg-white rounded">
+            <div class=" text-left">
+              <app-review *ngFor="let review of reviews" [reviewObj]="review"></app-review>
               <p *ngIf="!reviews.length" class="text-center">
                 No reviews by {{ currentUser.firstName }} yet.
               </p>

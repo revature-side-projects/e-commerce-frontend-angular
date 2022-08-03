@@ -72,3 +72,27 @@
 .row>div[class*='col-'] {
   display: flex;
 }
+
+.modal-title{
+  text-align: center;
+  text-decoration: underline #F26925;
+  font-weight: bold;
+}
+
+.form-control.invalid {
+  border-color: #dc3545 !important;
+}
+
+#delete-options{
+  padding: 1%;
+  text-align: center;
+}
+
+#delete-button{
+  padding: 1%;
+  text-align: center;
+}
+
+#cancel-button{
+  text-align: center;
+}
