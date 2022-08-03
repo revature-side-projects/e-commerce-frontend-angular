@@ -198,40 +198,38 @@
 
         <div *ngIf="contentSelected == 'purchases'">
           <div class="text-left p-2 title mb-4">Purchase History</div>
-
           <div class="container text-center p-4 content shadow-lg bg-white rounded">
             <div *ngIf="purchases.length < 1">
               <h3 class="text-muted mt-2">No purchases for this account!</h3>
               <h5 class="text-muted mt-2">Make a purchase!</h5>
               <button class="btn btn-shop mt-4" [routerLink]="['/']">Return to shop</button>
             </div>
-
-            <div *ngFor="let purchase of purchases" class="col">
-              <div class="card mb-5">
-                <div class="card-header">
-                  <div class="row purchase-info">
-                    <div class="col-2">Order Date</div>
-                    <div class="col-3">Total</div>
-                    <div class="col-7">Order #</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-2">{{ purchase.orderPlaced }}</div>
-                    <div class="col-3">
-                      ${{ purchase.product.price.toFixed(2) }}
+            <div *ngIf="!purchaseLoading">
+              <div *ngFor="let purchase of purchases"  class="col">
+                <div class="card mb-5">
+                  <div class="card-header">
+                    <div class="row purchase-info">
+                      <div class="col-2">Order Date</div>
+                      <div class="col-3">Quantity</div>
+                      <div class="col-7">Order #</div>
                     </div>
-                    <div class="col-7">{{ purchase.id }}</div>
+                    <div class="row">
+                      <div class="col-2">{{ purchase.orderPlaced }}</div>
+                      <div class="col-3">
+                        {{ purchase.quantity }}
+                      </div>
+                      <div class="col-7">{{ purchase.id }}</div>
+                    </div>
                   </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-2">
-                    <img [src]="purchase.product.image" alt="product image" />
-                  </div>
-                  <div class="col-2">
-                    <a [routerLink]="['/product-details']" class="link-primary"
-                      (click)="selectItem(purchase.product.id)">{{ purchase.product.name }}</a>
-                    <p>{{ purchase.product.description }}</p>
+                  <div class="row">
+                    <div class="col-2">
+                      <img [src]="purchase.product.image" alt="product image" />
+                    </div>
+                    <div class="col-2">
+                      <a [routerLink]="['/product-details']" class="link-primary"
+                         (click)="selectItem(purchase.product.id)">{{ purchase.product.name }}</a>
+                      <p>{{ purchase.product.description }}</p>
+                    </div>
                   </div>
                 </div>
               </div>

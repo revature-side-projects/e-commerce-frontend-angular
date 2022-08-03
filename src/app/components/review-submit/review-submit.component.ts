@@ -19,7 +19,7 @@ export class ReviewSubmitComponent implements OnInit {
   constructor(public reviewService: ReviewService, public auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    //Intentional
+    console.log(this.isReviewed)
   }
 
   /**
@@ -32,7 +32,6 @@ export class ReviewSubmitComponent implements OnInit {
         () => {
           this.isReviewed = true;
           this.router.navigate([''])
-
         },
         (error) => console.log(error)
       );

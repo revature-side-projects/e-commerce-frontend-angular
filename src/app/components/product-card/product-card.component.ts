@@ -1,6 +1,6 @@
 import { DisplayProductsComponent } from './../../pages/display-products/display-products.component';
 import { Product } from './../../models/product';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -78,7 +78,7 @@ export class ProductCardComponent implements OnInit {
 
     if (toBuy < 1) {
       this.msg =
-        'Can not add a 0 or negitive number of items to order, please enter a higher order amount.';
+        'Can not add a 0 or negative number of items to order, please enter a higher order amount.';
       return;
     }
 
@@ -137,8 +137,8 @@ export class ProductCardComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  /** 
-   * Updates popup with 
+  /**
+   * Updates popup with
    * @param {Product} product
   */
   updatePopUp(product: Product) {
@@ -149,19 +149,11 @@ export class ProductCardComponent implements OnInit {
     this.disProdComp.productToUpdate.image = product.image;
     this.disProdComp.productToUpdate.description = product.description;
     this.disProdComp.updateModalVisibility = 'block';
-
-    this.disProdComp.updateProductForm = new FormGroup({
-      pname: new FormControl(product.name, [Validators.required, Validators.pattern('^[a-zA-Z0-9]+( [a-zA-Z0-9]+)?$')]),
-      pquantity: new FormControl(product.quantity, [Validators.required, Validators.pattern('^[0-9]{1,6}$')]),
-      pdescription: new FormControl(product.description, [Validators.required, Validators.pattern('^\\S.*\\S$')]),
-      pprice: new FormControl(product.price, [Validators.required, Validators.pattern('[0-9]{1,6}(\.[0-9]{1,2})?')]),
-      pimage: new FormControl(product.image, [Validators.required]),
-    });
   }
 
   /**
    * Removes Popup
-   * @param product 
+   * @param product
    */
   deletePopUp(product: Product) {
     this.disProdComp.productToDelete.id = product.id;
@@ -173,7 +165,7 @@ export class ProductCardComponent implements OnInit {
 
   /**
    * Removes Product and reroutes to /
-   * @param product 
+   * @param product
    */
   onDeleteProduct(product: Product) {
     this.productService.deleteProduct(product.id).subscribe(
