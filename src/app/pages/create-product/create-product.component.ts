@@ -3,7 +3,7 @@ import { UploadService } from 'src/app/services/upload.service';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -38,11 +38,11 @@ export class CreateProductComponent implements OnInit {
   }
 
   createProductForm = new FormGroup({
-    pname: new FormControl(''),
-    pquantity: new FormControl(''),
-    pdescription: new FormControl(''),
-    pprice: new FormControl(''),
-    pimage: new FormControl(''),
+    pname: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+( [a-zA-Z0-9]+)*$')]),
+    pquantity: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{1,6}$')]),
+    pdescription: new FormControl('', [Validators.required]),
+    pprice: new FormControl('', [Validators.required]),
+    pimage: new FormControl('', [Validators.required]),
   });
 
   /**

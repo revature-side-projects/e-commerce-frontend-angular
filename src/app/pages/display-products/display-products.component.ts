@@ -177,7 +177,7 @@ export class DisplayProductsComponent implements OnInit {
     if (this.updateProductForm.get('pimage')?.value === '') {
       image = product.image;
     } else {
-      image = 'https://revazon-image-bucket.s3.amazonaws.com/' + this.updateProductForm.get('pimage')?.value!;
+      image = this.updateProductForm.get('pimage')?.value!;
     }
     this.productService
       .updateProduct(product.id, name, quantity, description, price, image)
