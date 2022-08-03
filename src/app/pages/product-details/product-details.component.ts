@@ -53,11 +53,9 @@ export class ProductDetailsComponent implements OnInit {
       .getProductReviews(this.productId)
       .subscribe((response) => {
         this.reviews = response;
-        let userReviewArray = this.reviews.filter((review: any) => {
-          return review.user.id === this.userId;
-        });
-        this.userReview =
-          userReviewArray.length > 0 ? userReviewArray[0] : null;
+        console.log(this.reviews)
+        // this.userReview =
+        //   this.reviews.length > 0 ? this.reviews[0] : null;
       });
   }
 
