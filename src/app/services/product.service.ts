@@ -93,7 +93,6 @@ export class ProductService {
       name: name,
       quantity: quantity,
       description: description,
-      // image: 'https://revazon-image-bucket.s3.amazonaws.com/' + image,
       image: image,
       price: price,
     };

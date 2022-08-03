@@ -9,6 +9,7 @@ import { UserService } from '../../services/user.service';
 import {Component, OnInit} from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {ProductService} from "../../services/product.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -26,6 +27,8 @@ export class UserProfileComponent implements OnInit {
   addresses: any[] = [];
   purchases: Purchase[] = [];
   reviews: any[] = [];
+
+  purchaseLoading:boolean = true
 
   isNewAddress: boolean = false;
 
@@ -78,6 +81,7 @@ export class UserProfileComponent implements OnInit {
     private purchaseService: PurchaseService,
     private reviewService: ReviewService,
     private addressService: AddressService,
+    private productService: ProductService,
     private router: Router,
     private auth: AuthService
   ) {}
@@ -109,11 +113,13 @@ export class UserProfileComponent implements OnInit {
   getPurchases(userId: number) {
     this.purchaseService.getUserPurchases(userId).subscribe({
       next: (purchases) => {
+        console.log(purchases)
         for (let purchase of Object.values(purchases)) {
           let localDate = new Date(purchase.orderPlaced);
-          purchase.orderPlaced = `${localDate.getMonth().toString()}/${localDate.getDay().toString()}/${localDate.getFullYear().toString()}`;
+          purchase.orderPlaced = `${(localDate.getMonth()+1).toString()}/${localDate.getDay().toString()}/${localDate.getFullYear().toString()}`;
           this.purchases.push(purchase);
         }
+        this.purchaseLoading = false;
       },
     });
   }

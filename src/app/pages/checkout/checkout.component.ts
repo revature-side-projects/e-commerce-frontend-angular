@@ -24,7 +24,7 @@ export class CheckoutComponent implements OnInit {
   checkoutForm = new FormGroup({
     cardName: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-zA-Z]+ [a-zA-Z]+$'),
+      Validators.pattern('^[a-zA-Z]+$'),
     ]),
     cardNumber: new FormControl('', [
       Validators.required,
@@ -34,7 +34,7 @@ export class CheckoutComponent implements OnInit {
     ]),
     expiry: new FormControl('', [
       Validators.required,
-      Validators.pattern('^((0[1-9])|(1[0-2]))[/.-]*((2[2-9])|(3[0-5]))$'),
+      Validators.pattern('^((0[1-9])|(1[0-2]))[/.-]*((0[8-9])|(1[1-9]))$'),
     ]),
     cvv: new FormControl('', [
       Validators.required,
