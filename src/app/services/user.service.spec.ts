@@ -66,6 +66,21 @@ describe('findUserById', ()=>{
 		
 	    })	
  }) 
+ describe('findUserByEmail', ()=>{
+  		it('should return expected user when findUserByUsername(string ) is called', () =>{
+		   const dummyUserWithId = {id: 1, email: 'email', firstName: 'Bob', lastName: 'Roberts', password: 'password', role: 'user', purchases: [], reviews: [], addresses: []};
+			
+		service.findUserByEmail("email").subscribe(user => {
+			expect(user).toEqual(dummyUserWithId);
+		})
+		
+		const request = httpMock.expectOne(`${service.userUrl}/email/email`);
+		expect(request.request.method).toBe('GET');
+		
+		request.flush(dummyUserWithId);
+		
+	    })	
+  })
 describe('findUserByUsername', ()=>{
   		it('should return expected user when findUserByUsername(string ) is called', () =>{
 		   const dummyUser = {email: 'email', firstName: 'Bob', lastName: 'Roberts', password: 'password', role: 'user', purchases: [], reviews: [], addresses: []};

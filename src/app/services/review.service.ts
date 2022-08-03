@@ -1,8 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
+
 import {ReviewComponent} from 'src/app/components/review/review.component';
 import { Observable } from 'rxjs';
+
+import {Review} from "../models/review";
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +23,7 @@ export class ReviewService {
 
   /**
    * Get a list of reviews related to a product with the given product ID
-   * @param {number} productId 
+   * @param {number} productId
    */
   getProductReviews(productId: number): Observable<ReviewComponent[]> {
     return this.http.get<ReviewComponent[]>(`${this.reviewsUrl}/product/${productId}`, {
@@ -28,8 +33,8 @@ export class ReviewService {
 
   /**
    * Get a list of reviews written by the user with the given user ID
-   * @param {number} userId 
-   * @returns 
+   * @param {number} userId
+   * @returns
    */
   getUsersReviews(userId: number): Observable<ReviewComponent[]> {
     return this.http.get<ReviewComponent[]>(`${this.reviewsUrl}/user/${userId}`, {
@@ -39,9 +44,9 @@ export class ReviewService {
 
   /**
    * Get a specific review by its ID
-   * 
-   * @param {number} id 
-   * @returns 
+   *
+   * @param {number} id
+   * @returns
    */
   getReviewById(id: number): Observable<ReviewComponent> {
     return this.http.get<ReviewComponent>(`${this.reviewsUrl}/${id}`, {
@@ -50,17 +55,18 @@ export class ReviewService {
   }
 
   /**
-   * 
-   * @param {number} productId 
-   * @param {number} stars 
-   * @param {string} title 
-   * @param {string} review 
-   * @returns 
+   *
+   * @param {number} productId
+   * @param {number} stars
+   * @param {string} title
+   * @param {string} review
+   * @returns
    */
   postReview(productId: number, stars: number, title: string, review: string): Observable<ReviewComponent> {
     if (stars > 5) {
       stars = 5;
     }
+
     const userReview = {
       userId: sessionStorage.getItem('userId'),
       productId: productId,
@@ -69,13 +75,14 @@ export class ReviewService {
       review: review,
     };
     return this.http.post<ReviewComponent>(`${this.reviewsUrl}`, userReview, {
+
       headers: environment.headers,
     });
   }
 
   /**
-   * 
-   * @param {number} id 
+   *
+   * @param {number} id
    */
   deleteReviewById(id: number, userId: number): Observable<ReviewComponent> {
     //const userId = sessionStorage.getItem('userId');
