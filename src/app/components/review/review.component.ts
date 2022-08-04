@@ -15,8 +15,8 @@ export class ReviewComponent implements OnInit {
   review: string = '';
   posted: string = '';
   updated: string = '';
-  userString: any = sessionStorage.getItem('user')
-  userJSON:any = JSON.parse(this.userString)
+  // userString: any = sessionStorage.getItem('user') // This is the logged in user, not the review's author
+  // userJSON:any = JSON.parse(this.userString)
   productId:any = sessionStorage.getItem("selectedProductId")
   product: any = {
     id: 0,
@@ -31,7 +31,7 @@ export class ReviewComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.userJSON)
+    // console.log(this.userJSON)
     // this.product = this.productService.getSingleProduct(this.productId).subscribe({
     //   next: (product)=>{
     //     console.log(product)
