@@ -13,7 +13,7 @@ describe('Purchase', () => {
 		
 		const dummyUser = {email: 'email', firstName: 'Bob', lastName: 'Roberts', password: 'password', role: 'user', purchases: [], reviews: [], addresses: []};
 		
-		const purchase = new Purchase(1, "order1", product, dummyUser);
+		const purchase = new Purchase(1, "now", product, dummyUser, 1);
 		
 		expect(purchase).toBeTruthy();
 	})

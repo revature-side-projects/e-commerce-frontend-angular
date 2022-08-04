@@ -9,6 +9,7 @@ import {of} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AuthService } from '@auth0/auth0-angular';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {Address} from 'src/app/models/address';
 
 xdescribe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -73,7 +74,9 @@ xdescribe('UserProfileComponent', () => {
 
   beforeEach(async () => {
 	//ignore ngOnInit to tes the other functions
-	UserProfileComponent.prototype.ngOnInit = () => {};
+	UserProfileComponent.prototype.ngOnInit = () => {
+		
+	};
 	
 	//needed to handle the null injector errors 
 	const userServiceSpy = jasmine.createSpyObj<UserService>(['findUserById']);
@@ -111,6 +114,8 @@ xdescribe('UserProfileComponent', () => {
   });
 
   it('should create', () => {
+	const address = new Address("add1", "add2", "city", "state", "12345", []);
+	component.addresses =  [address];
     expect(component).toBeTruthy();
   });
   

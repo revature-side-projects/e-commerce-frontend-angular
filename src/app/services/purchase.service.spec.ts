@@ -29,25 +29,29 @@ describe('PurchaseService', () => {
 		const dummyUser = {
 			email: 'email', firstName: 'Bob', lastName: 'Roberts', password: 'password', role: 'user', purchases: [], reviews: [], addresses: [],
 		}
+		
 		const dummyPurchases = [
 			{ 
 			id: 1,
   			orderPlaced: "now",
             product: {id: 1, name:"revsauce", quantity: 1, price: 2.50, description: "best ever", image: "someImg"},
-            ownerUser: dummyUser
+            ownerUser: dummyUser,
+            quantity: 1    
 			},
 
 			{
 			id: 2,
   			orderPlaced: "now",
             product: {id: 1, name:"revsauce", quantity: 1, price: 2.50, description: "best ever", image: "someImg"},
-            ownerUser: dummyUser
+            ownerUser: dummyUser,
+            quantity:2
 			},
 			{ 
 			id: 3,
   			orderPlaced: "now",
             product: {id: 1, name:"revsauce", quantity: 1, price: 2.50, description: "best ever", image: "someImg"},
-            ownerUser: dummyUser
+            ownerUser: dummyUser,
+            quantity: 1
 			}
 		];
 	it('should return all expected purchases', ()=>{
