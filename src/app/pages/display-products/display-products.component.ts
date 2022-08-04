@@ -137,9 +137,9 @@ export class DisplayProductsComponent implements OnInit {
 
   updateProductForm = new FormGroup({
     pname: new FormControl(''),
-    pquantity: new FormControl(''),
+    pquantity: new FormControl(null),
     pdescription: new FormControl(''),
-    pprice: new FormControl(''),
+    pprice: new FormControl(null),
     pimage: new FormControl(''),
   });
 
